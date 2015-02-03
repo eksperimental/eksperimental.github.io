@@ -78,7 +78,7 @@ p1 <|> p2 = either(p1, p2)
 [1, :a, 'hello'] ++ [2, 3]
 [:head | [?t, ?a, ?i, ?l]]
 
-#{:one, 2.0, "three"}
+{:one, 2.0, "three"}
 
 [...: "this", <<>>: "is", %{}: "a keyword", %: "list", {}: "too"]
 ["this is an atom too": 1, "so is this": 2]

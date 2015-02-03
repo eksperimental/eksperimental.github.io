@@ -1,0 +1,2640 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Highlight.All</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+    <link rel="stylesheet" href="css/elixir.css" type="text/css" media="screen" charset="utf-8" />
+    <script type="text/javascript" charset="utf-8">
+      relpath = '';
+      if (relpath != '') relpath += '/';
+    </script>
+
+    <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/highlight.pack.js"></script>
+    <script type="text/javascript" charset="utf-8">
+      hljs.initHighlightingOnLoad();
+      // languages supported: 'bash', 'coffeescript', 'css', 'diff', 'elixir', 'erlang', 'erlang-repl', 'http', 'javascript', 'json', 'markdown', 'sql', 'xml'
+      
+      /* languages supported and their aliases
+        bash, sh, zsh,
+        coffeescript, coffee, cson, iced,
+        css,
+        diff, patch,
+        elixir, iex,
+        erlang, erl,
+        erlang-repl,
+        http,
+        javascript, js,
+        json,
+        markdown, md, mkdown, mkd,
+        sql,
+        xml, html, xhtml, rss, atom, xsl, plist,
+      */
+      hljs.configure({languages: []}); //disable autodetect
+    </script>
+  </head>
+
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+
+    <section id="content">
+      <div class="breadcrumbs">Highlight v0.0.1 &rarr; <a href="overview.html">Overview</a> &rarr; <a href="Highlight.html">Highlight</a> &rarr; <a href="Highlight.All.html">All</a></div>
+      <h1>
+        Highlight.All
+        
+      </h1>
+
+      <ul class="summary_links">
+        
+          <li><a href="#summary">Summary</a></li>
+        
+        
+        
+          <li><a href="#functions_details">Functions</a></li>
+        
+        
+        
+      </ul>
+
+      
+        <section id="moduledoc" class="docstring">
+          <p>Load all the test files for different highlighting, validation and language feature showcases.</p>
+
+        </section>
+      
+
+      
+
+      
+        <h2 id="summary">Summary<span class="detail_header_links"><a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a></span></h2>
+        <table class="summary">
+          <tr>
+  <td class="summary_signature"><a href="#bash/0">bash()</a></td>
+  
+    <td class="summary_synopsis"><p>Bash</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#coffeescript/0">coffeescript()</a></td>
+  
+    <td class="summary_synopsis"><p>CoffeeScript</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#css/0">css()</a></td>
+  
+    <td class="summary_synopsis"><p>CSS</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#diff/0">diff()</a></td>
+  
+    <td class="summary_synopsis"><p>Diff</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#elixir/0">elixir()</a></td>
+  
+    <td class="summary_synopsis"><p>Elixir</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#erlang/0">erlang()</a></td>
+  
+    <td class="summary_synopsis"><p>Erlang</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#erlang_repl/0">erlang_repl()</a></td>
+  
+    <td class="summary_synopsis"><p>Erlang-REPL</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#html/0">html()</a></td>
+  
+    <td class="summary_synopsis"><p>HTML/XML</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#http/0">http()</a></td>
+  
+    <td class="summary_synopsis"><p>HTTP</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#iex/0">iex()</a></td>
+  
+    <td class="summary_synopsis"><p>IEx</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#javascript/0">javascript()</a></td>
+  
+    <td class="summary_synopsis"><p>Javascript</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#json/0">json()</a></td>
+  
+    <td class="summary_synopsis"><p>JSON</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#markdown/0">markdown()</a></td>
+  
+    <td class="summary_synopsis"><p>Markdown</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#no_highlighting/0">no_highlighting()</a></td>
+  
+    <td class="summary_synopsis"><p>No Highlighting</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#sql/0">sql()</a></td>
+  
+    <td class="summary_synopsis"><p>SQL</p>
+</td>
+  
+</tr>
+
+        </table>
+      
+
+      
+
+      
+        <section id="functions_details" class="details_list">
+          <h2>Functions</h2>
+          <section class="detail">
+  <div class="detail_header" id="bash/0">
+    <span class="signature"><strong>bash()</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#bash/0" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Bash </p>
+<h3>Bash</h3>
+<pre><code class="bash">#!/bin/bash
+
+###### BEGIN CONFIG
+ACCEPTED_HOSTS=&quot;/root/.hag_accepted.conf&quot;
+BE_VERBOSE=false
+###### END CONFIG
+
+if [ &quot;$UID&quot; -ne 0 ]
+then
+  echo &quot;Superuser rights is required&quot;
+  echo &#39;Printing the # sign&#39;
+  exit 2
+fi
+
+if test $# -eq 0
+then
+elif test [ $1 == &#39;start&#39; ]
+else
+fi
+
+genApacheConf(){
+  if [[ &quot;$2&quot; = &quot;www&quot; ]]
+  then
+    full_domain=$1
+  else
+    full_domain=$2.$1
+  fi
+  host_root=&quot;${APACHE_HOME_DIR}$1/$2/$(title)&quot;
+  echo -e &quot;# Host $1/$2 :&quot;
+}</code></pre>
+<pre><code class="bash">#!/bin/bash
+
+printf &quot;%d %s\n&quot; 10 &quot;foo&quot;
+printf &quot;%d %s\n&quot; $((10#1)) &quot;bar&quot;
+
+let &quot;m = 10#${1:1:2}&quot;
+echo $m
+
+m=$((10#${1:4:3} + 10#${1:1:3}))
+echo $m
+
+m=$((10#${1:4:3}))
+echo $m
+
+m=$((10#$1))
+echo $m
+
+m=$((10#1))
+echo $m
+
+m=$((10))
+echo $m</code></pre>
+<pre><code class="sh">user@host:~/path$ ls -a
+.  ..  a  b  c
+user@host:~/path$ diff -u a b
+--- a   2008-07-26 17:10:07.000000000 -0700
++++ b   2008-07-26 17:10:10.000000000 -0700
+@@ -1,3 +1,3 @@
+ a
+-b
++x
+ c
+user@host:~/path$ echo \
+&gt; a
+a
+user@host:~/path$ su
+root@host:~#
+sh-3.1$ # on hardy
+sh$ # on etch
+(virtualenv-name)user@host:~$ ls -a</code></pre>
+<pre><code class="bash">[user@linuxbox imx-bootlets-src-10.05.02]$ make CROSS_COMPILE=arm-none-eabi-  clean
+rm -rf *.sb
+rm -f sd_mmc_bootstream.raw
+rm -f linux_prep/board/*.o
+...
+Files:
+rm -f power_prep.o eabi.o
+Build output:
+make[1]: Leaving directory `/home/...&#39;
+[user@linuxbox imx-bootlets-src-10.05.02]$ make CROSS_COMPILE=arm-none-eabi-
+make[1]: Entering directory `/home/...&#39;
+...
+#@echo &quot;generating U-Boot boot stream image&quot;
+#elftosb2 -z -c ./uboot_prebuilt.db -o imx23_uboot.sb
+echo &quot;generating kernel bootstream file sd_mmc_bootstream.raw&quot;
+generating kernel bootstream file sd_mmc_bootstream.raw
+#Please use cfimager to burn xxx_linux.sb. The below way will no
+#work at imx28 platform.
+&gt; test
+$ test
+rm -f sd_mmc_bootstream.raw
+[user@linuxbox imx-bootlets-src-10.05.02]$
+pi@raspberrypi ~ $ sudo sh -c &quot;echo 17 &gt; /sys/class/gpio/export&quot;
+pi@raspberrypi ~ $ sudo sh -c &quot;echo out &gt; /sys/class/gpio/gpio17/direction&quot;
+pi@raspberrypi ~ $ sudo sh -c &quot;echo 1 &gt; /sys/class/gpio/gpio17/value&quot;
+pi@raspberrypi ~ $ sudo sh -c &quot;echo 0 &gt; /sys/class/gpio/gpio17/value&quot;
+pi@raspberrypi ~ $
+[user@linuxbox ~]$ # copy other stuff to the SD card
+root@imx233-olinuxino-micro:~# lsmod
+  Not tainted
+[user@linuxbox ~]$ tail -n 2 /mnt/rpi/etc/inittab
+#Spawn a getty on Raspberry Pi serial line
+T0:23:respawn:/sbin/getty -L ttyAMA0 115200 vt100
+pi@raspberrypi:~/Adafruit-WebIDE$ mkdir tmp
+pi@raspberrypi:~/Adafruit-WebIDE$ npm config set tmp tmp
+pi@raspberrypi:~/Adafruit-WebIDE$ npm install
+pi@raspberrypi ~/Adafruit-WebIDE $ ifconfig eth0
+eth0      Link encap:Ethernet  HWaddr b5:33:ff:33:ee:aq
+          inet addr:10.42.0.60  Bcast:10.42.0.255  Mask:255.255.255.0
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:21867 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:8684 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:27338495 (26.0 MiB)  TX bytes:1268356 (1.2 MiB)</code></pre>
+
+  </section>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="coffeescript/0">
+    <span class="signature"><strong>coffeescript()</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#coffeescript/0" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>CoffeeScript</p>
+<h3>CoffeeScript</h3>
+<pre><code class="coffeescript">grade = (student, period=(if b? then 7 else 6), messages={&quot;A&quot;: &quot;Excellent&quot;}) -&gt;
+  if student.excellentWork
+    &quot;A+&quot;
+  else if student.okayStuff
+    if student.triedHard then &quot;B&quot; else &quot;B-&quot;
+  else
+    &quot;C&quot;
+
+square = (x) -&gt; x * x
+
+two = -&gt; 2
+
+math =
+  root:   Math.sqrt
+  square: square
+  cube:   (x) -&gt; x * square x
+
+race = (winner, runners...) -&gt;
+  print winner, runners
+
+class Animal extends Being
+  constructor: (@name) -&gt;
+
+  move: (meters) -&gt;
+    alert @name + &quot; moved #{meters}m.&quot;
+
+hi = `function() {
+  return [document.title, &quot;Hello JavaScript&quot;].join(&quot;: &quot;);
+}`
+
+heredoc = &quot;&quot;&quot;
+CoffeeScript subst test #{ 010 + 0xf / 0b10 + &quot;nested string #{ /\n/ }&quot;}
+&quot;&quot;&quot;
+
+###
+CoffeeScript Compiler v1.2.0
+Released under the MIT License
+###
+
+OPERATOR = /// ^ (
+?: [-=]&gt;             # function
+) ///</code></pre>
+<pre><code class="coffeescript">class GiftModel
+    constructor: (gifts) -&gt;
+        @gifts = ko.observableArray gifts
+
+        @addGift = =&gt;
+            @gifts.push
+                name: &quot;&quot;
+                price: &quot;&quot;
+
+        @removeGift = (gift) =&gt;
+            @gifts.remove gift
+
+        @save = (form) =&gt;
+            alert &quot;Could now transmit to server: #{ko.utils.stringifyJson @gifts}&quot;
+
+$ -&gt;</code></pre>
+<pre><code class="coffeescript"># Underscore.coffee
+# (c) 2010 Jeremy Ashkenas, DocumentCloud Inc.
+# Underscore is freely distributable under the terms of the MIT license.
+# Portions of Underscore are inspired by or borrowed from Prototype.js,
+# Oliver Steele&#39;s Functional, and John Resig&#39;s Micro-Templating.
+# For all details and documentation:
+# http://documentcloud.github.com/underscore/
+
+
+# ------------------------- Baseline setup ---------------------------------
+
+# Establish the root object, &quot;window&quot; in the browser, or &quot;global&quot; on the server.
+root: this
+
+
+# Save the previous value of the &quot;_&quot; variable.
+previousUnderscore: root._
+
+
+# If Underscore is called as a function, it returns a wrapped object that
+# can be used OO-style. This wrapper holds altered versions of all the
+# underscore functions. Wrapped objects may be chained.
+wrapper: (obj) -&gt;
+  this._wrapped: obj
+  this
+
+
+# Establish the object that gets thrown to break out of a loop iteration.
+breaker: if typeof(StopIteration) is &#39;undefined&#39; then &#39;__break__&#39; else StopIteration
+
+
+# Create a safe reference to the Underscore object forreference below.
+_: root._: (obj) -&gt; new wrapper(obj)
+
+
+# Export the Underscore object for CommonJS.
+if typeof(exports) != &#39;undefined&#39; then exports._: _
+
+
+# Create quick reference variables for speed access to core prototypes.
+slice:                Array::slice
+unshift:              Array::unshift
+toString:             Object::toString
+hasOwnProperty:       Object::hasOwnProperty
+propertyIsEnumerable: Object::propertyIsEnumerable
+
+
+# Current version.
+_.VERSION: &#39;0.5.7&#39;
+
+
+# ------------------------ Collection Functions: ---------------------------
+
+# The cornerstone, an each implementation.
+# Handles objects implementing forEach, arrays, and raw objects.
+_.each: (obj, iterator, context) -&gt;
+  index: 0
+  try
+    return obj.forEach(iterator, context) if obj.forEach
+    if _.isArray(obj) or _.isArguments(obj)
+      return iterator.call(context, obj[i], i, obj) for i in [0...obj.length]
+    iterator.call(context, val, key, obj) for key, val of obj
+  catch e
+    throw e if e isnt breaker
+  obj
+
+
+# Return the results of applying the iterator to each element. Use JavaScript
+# 1.6&#39;s version of map, if possible.
+_.map: (obj, iterator, context) -&gt;
+  return obj.map(iterator, context) if (obj and _.isFunction(obj.map))
+  results: []
+  _.each obj, (value, index, list) -&gt;
+    results.push(iterator.call(context, value, index, list))
+  results
+
+
+# Reduce builds up a single result from a list of values. Also known as
+# inject, or foldl. Uses JavaScript 1.8&#39;s version of reduce, if possible.
+_.reduce: (obj, memo, iterator, context) -&gt;
+  return obj.reduce(_.bind(iterator, context), memo) if (obj and _.isFunction(obj.reduce))
+  _.each obj, (value, index, list) -&gt;
+    memo: iterator.call(context, memo, value, index, list)
+  memo
+
+
+# The right-associative version of reduce, also known as foldr. Uses
+# JavaScript 1.8&#39;s version of reduceRight, if available.
+_.reduceRight: (obj, memo, iterator, context) -&gt;
+  return obj.reduceRight(_.bind(iterator, context), memo) if (obj and _.isFunction(obj.reduceRight))
+  _.each _.clone(_.toArray(obj)).reverse(), (value, index) -&gt;
+    memo: iterator.call(context, memo, value, index, obj)
+  memo
+
+
+# Return the first value which passes a truth test.
+_.detect: (obj, iterator, context) -&gt;
+  result: null
+  _.each obj, (value, index, list) -&gt;
+    if iterator.call(context, value, index, list)
+      result: value
+      _.breakLoop()
+  result
+
+
+# Return all the elements that pass a truth test. Use JavaScript 1.6&#39;s
+# filter(), if it exists.
+_.select: (obj, iterator, context) -&gt;
+  if obj and _.isFunction(obj.filter) then return obj.filter(iterator, context)
+  results: []
+  _.each obj, (value, index, list) -&gt;
+    results.push(value) if iterator.call(context, value, index, list)
+  results
+
+
+# Return all the elements for which a truth test fails.
+_.reject: (obj, iterator, context) -&gt;
+  results: []
+  _.each obj, (value, index, list) -&gt;
+    results.push(value) if not iterator.call(context, value, index, list)
+  results
+
+
+# Determine whether all of the elements match a truth test. Delegate to
+# JavaScript 1.6&#39;s every(), if it is present.
+_.all: (obj, iterator, context) -&gt;
+  iterator ||= _.identity
+  return obj.every(iterator, context) if obj and _.isFunction(obj.every)
+  result: true
+  _.each obj, (value, index, list) -&gt;
+    _.breakLoop() unless (result: result and iterator.call(context, value, index, list))
+  result
+
+
+# Determine if at least one element in the object matches a truth test. Use
+# JavaScript 1.6&#39;s some(), if it exists.
+_.any: (obj, iterator, context) -&gt;
+  iterator ||= _.identity
+  return obj.some(iterator, context) if obj and _.isFunction(obj.some)
+  result: false
+  _.each obj, (value, index, list) -&gt;
+    _.breakLoop() if (result: iterator.call(context, value, index, list))
+  result
+
+
+# Determine if a given value is included in the array or object,
+# based on &#39;===&#39;.
+_.include: (obj, target) -&gt;
+  return _.indexOf(obj, target) isnt -1 if _.isArray(obj)
+  for key, val of obj
+    return true if val is target
+  false
+
+
+# Invoke a method with arguments on every item in a collection.
+_.invoke: (obj, method) -&gt;
+  args: _.rest(arguments, 2)
+  (if method then val[method] else val).apply(val, args) for val in obj
+
+
+# Convenience version of a common use case of map: fetching a property.
+_.pluck: (obj, key) -&gt;
+  _.map(obj, ((val) -&gt; val[key]))
+
+
+# Return the maximum item or (item-based computation).
+_.max: (obj, iterator, context) -&gt;
+  return Math.max.apply(Math, obj) if not iterator and _.isArray(obj)
+  result: {computed: -Infinity}
+  _.each obj, (value, index, list) -&gt;
+    computed: if iterator then iterator.call(context, value, index, list) else value
+    computed &gt;= result.computed and (result: {value: value, computed: computed})
+  result.value
+
+
+# Return the minimum element (or element-based computation).
+_.min: (obj, iterator, context) -&gt;
+  return Math.min.apply(Math, obj) if not iterator and _.isArray(obj)
+  result: {computed: Infinity}
+  _.each obj, (value, index, list) -&gt;
+    computed: if iterator then iterator.call(context, value, index, list) else value
+    computed &lt; result.computed and (result: {value: value, computed: computed})
+  result.value
+
+
+# Sort the object&#39;s values by a criteria produced by an iterator.
+_.sortBy: (obj, iterator, context) -&gt;
+  _.pluck(((_.map obj, (value, index, list) -&gt;
+    {value: value, criteria: iterator.call(context, value, index, list)}
+  ).sort((left, right) -&gt;
+    a: left.criteria; b: right.criteria
+    if a &lt; b then -1 else if a &gt; b then 1 else 0
+  )), &#39;value&#39;)
+
+
+# Use a comparator function to figure out at what index an object should
+# be inserted so as to maintain order. Uses binary search.
+_.sortedIndex: (array, obj, iterator) -&gt;
+  iterator ||= _.identity
+  low: 0; high: array.length
+  while low &lt; high
+    mid: (low + high) &gt;&gt; 1
+    if iterator(array[mid]) &lt; iterator(obj) then low: mid + 1 else high: mid
+  low
+
+
+# Convert anything iterable into a real, live array.
+_.toArray: (iterable) -&gt;
+  return []                   if (!iterable)
+  return iterable.toArray()   if (iterable.toArray)
+  return iterable             if (_.isArray(iterable))
+  return slice.call(iterable) if (_.isArguments(iterable))
+  _.values(iterable)
+
+
+# Return the number of elements in an object.
+_.size: (obj) -&gt; _.toArray(obj).length
+
+
+# -------------------------- Array Functions: ------------------------------
+
+# Get the first element of an array. Passing &quot;n&quot; will return the first N
+# values in the array. Aliased as &quot;head&quot;. The &quot;guard&quot; check allows it to work
+# with _.map.
+_.first: (array, n, guard) -&gt;
+  if n and not guard then slice.call(array, 0, n) else array[0]
+
+
+# Returns everything but the first entry of the array. Aliased as &quot;tail&quot;.
+# Especially useful on the arguments object. Passing an &quot;index&quot; will return
+# the rest of the values in the array from that index onward. The &quot;guard&quot;
+# check allows it to work with _.map.
+_.rest: (array, index, guard) -&gt;
+  slice.call(array, if _.isUndefined(index) or guard then 1 else index)
+
+
+# Get the last element of an array.
+_.last: (array) -&gt; array[array.length - 1]
+
+
+# Trim out all falsy values from an array.
+_.compact: (array) -&gt; array[i] for i in [0...array.length] when array[i]
+
+
+# Return a completely flattened version of an array.
+_.flatten: (array) -&gt;
+  _.reduce array, [], (memo, value) -&gt;
+    return memo.concat(_.flatten(value)) if _.isArray(value)
+    memo.push(value)
+    memo
+
+
+# Return a version of the array that does not contain the specified value(s).
+_.without: (array) -&gt;
+  values: _.rest(arguments)
+  val for val in _.toArray(array) when not _.include(values, val)
+
+
+# Produce a duplicate-free version of the array. If the array has already
+# been sorted, you have the option of using a faster algorithm.
+_.uniq: (array, isSorted) -&gt;
+  memo: []
+  for el, i in _.toArray(array)
+    memo.push(el) if i is 0 || (if isSorted is true then _.last(memo) isnt el else not _.include(memo, el))
+  memo
+
+
+# Produce an array that contains every item shared between all the
+# passed-in arrays.
+_.intersect: (array) -&gt;
+  rest: _.rest(arguments)
+  _.select _.uniq(array), (item) -&gt;
+    _.all rest, (other) -&gt;
+      _.indexOf(other, item) &gt;= 0
+
+
+# Zip together multiple lists into a single array -- elements that share
+# an index go together.
+_.zip: -&gt;
+  length:     _.max(_.pluck(arguments, &#39;length&#39;))
+  results:    new Array(length)
+  for i in [0...length]
+    results[i]: _.pluck(arguments, String(i))
+  results
+
+
+# If the browser doesn&#39;t supply us with indexOf (I&#39;m looking at you, MSIE),
+# we need this function. Return the position of the first occurence of an
+# item in an array, or -1 if the item is not included in the array.
+_.indexOf: (array, item) -&gt;
+  return array.indexOf(item) if array.indexOf
+  i: 0; l: array.length
+  while l - i
+    if array[i] is item then return i else i++
+  -1
+
+
+# Provide JavaScript 1.6&#39;s lastIndexOf, delegating to the native function,
+# if possible.
+_.lastIndexOf: (array, item) -&gt;
+  return array.lastIndexOf(item) if array.lastIndexOf
+  i: array.length
+  while i
+    if array[i] is item then return i else i--
+  -1
+
+
+# Generate an integer Array containing an arithmetic progression. A port of
+# the native Python range() function. See:
+# http://docs.python.org/library/functions.html#range
+_.range: (start, stop, step) -&gt;
+  a:        arguments
+  solo:     a.length &lt;= 1
+  i: start: if solo then 0 else a[0];
+  stop:     if solo then a[0] else a[1];
+  step:     a[2] or 1
+  len:      Math.ceil((stop - start) / step)
+  return [] if len &lt;= 0
+  range:    new Array(len)
+  idx:      0
+  while true
+    return range if (if step &gt; 0 then i - stop else stop - i) &gt;= 0
+    range[idx]: i
+    idx++
+    i+= step
+
+
+# ----------------------- Function Functions: -----------------------------
+
+# Create a function bound to a given object (assigning &#39;this&#39;, and arguments,
+# optionally). Binding with arguments is also known as &#39;curry&#39;.
+_.bind: (func, obj) -&gt;
+  args: _.rest(arguments, 2)
+  -&gt; func.apply(obj or root, args.concat(arguments))
+
+
+# Bind all of an object&#39;s methods to that object. Useful for ensuring that
+# all callbacks defined on an object belong to it.
+_.bindAll: (obj) -&gt;
+  funcs: if arguments.length &gt; 1 then _.rest(arguments) else _.functions(obj)
+  _.each(funcs, (f) -&gt; obj[f]: _.bind(obj[f], obj))
+  obj
+
+
+# Delays a function for the given number of milliseconds, and then calls
+# it with the arguments supplied.
+_.delay: (func, wait) -&gt;
+  args: _.rest(arguments, 2)
+  setTimeout((-&gt; func.apply(func, args)), wait)
+
+
+# Defers a function, scheduling it to run after the current call stack has
+# cleared.
+_.defer: (func) -&gt;
+  _.delay.apply(_, [func, 1].concat(_.rest(arguments)))
+
+
+# Returns the first function passed as an argument to the second,
+# allowing you to adjust arguments, run code before and after, and
+# conditionally execute the original function.
+_.wrap: (func, wrapper) -&gt;
+  -&gt; wrapper.apply(wrapper, [func].concat(arguments))
+
+
+# Returns a function that is the composition of a list of functions, each
+# consuming the return value of the function that follows.
+_.compose: -&gt;
+  funcs: arguments
+  -&gt;
+    args: arguments
+    for i in [(funcs.length - 1)..0]
+      args: [funcs[i].apply(this, args)]
+    args[0]
+
+
+# ------------------------- Object Functions: ----------------------------
+
+# Retrieve the names of an object&#39;s properties.
+_.keys: (obj) -&gt;
+  return _.range(0, obj.length) if _.isArray(obj)
+  key for key, val of obj
+
+
+# Retrieve the values of an object&#39;s properties.
+_.values: (obj) -&gt;
+  _.map(obj, _.identity)
+
+
+# Return a sorted list of the function names available in Underscore.
+_.functions: (obj) -&gt;
+  _.select(_.keys(obj), (key) -&gt; _.isFunction(obj[key])).sort()
+
+
+# Extend a given object with all of the properties in a source object.
+_.extend: (destination, source) -&gt;
+  for key, val of source
+    destination[key]: val
+  destination
+
+
+# Create a (shallow-cloned) duplicate of an object.
+_.clone: (obj) -&gt;
+  return obj.slice(0) if _.isArray(obj)
+  _.extend({}, obj)
+
+
+# Invokes interceptor with the obj, and then returns obj.
+# The primary purpose of this method is to &quot;tap into&quot; a method chain, in order to perform operations on intermediate results within the chain.
+_.tap: (obj, interceptor) -&gt;
+  interceptor(obj)
+  obj
+
+
+# Perform a deep comparison to check if two objects are equal.
+_.isEqual: (a, b) -&gt;
+  # Check object identity.
+  return true if a is b
+  # Different types?
+  atype: typeof(a); btype: typeof(b)
+  return false if atype isnt btype
+  # Basic equality test (watch out for coercions).
+  return true if `a == b`
+  # One is falsy and the other truthy.
+  return false if (!a and b) or (a and !b)
+  # One of them implements an isEqual()?
+  return a.isEqual(b) if a.isEqual
+  # Check dates&#39; integer values.
+  return a.getTime() is b.getTime() if _.isDate(a) and _.isDate(b)
+  # Both are NaN?
+  return true if _.isNaN(a) and _.isNaN(b)
+  # Compare regular expressions.
+  if _.isRegExp(a) and _.isRegExp(b)
+    return a.source     is b.source and
+           a.global     is b.global and
+           a.ignoreCase is b.ignoreCase and
+           a.multiline  is b.multiline
+  # If a is not an object by this point, we can&#39;t handle it.
+  return false if atype isnt &#39;object&#39;
+  # Check for different array lengths before comparing contents.
+  return false if a.length and (a.length isnt b.length)
+  # Nothing else worked, deep compare the contents.
+  aKeys: _.keys(a); bKeys: _.keys(b)
+  # Different object sizes?
+  return false if aKeys.length isnt bKeys.length
+  # Recursive comparison of contents.
+  # for (var key in a) if (!_.isEqual(a[key], b[key])) return false;
+  return true
+
+
+# Is a given array or object empty?
+_.isEmpty:      (obj) -&gt; _.keys(obj).length is 0
+
+
+# Is a given value a DOM element?
+_.isElement:    (obj) -&gt; obj and obj.nodeType is 1
+
+
+# Is a given value an array?
+_.isArray:      (obj) -&gt; !!(obj and obj.concat and obj.unshift)
+
+
+# Is a given variable an arguments object?
+_.isArguments:  (obj) -&gt; obj and _.isNumber(obj.length) and not obj.concat and
+                         not obj.substr and not obj.apply and not propertyIsEnumerable.call(obj, &#39;length&#39;)
+
+
+# Is the given value a function?
+_.isFunction:   (obj) -&gt; !!(obj and obj.constructor and obj.call and obj.apply)
+
+
+# Is the given value a string?
+_.isString:     (obj) -&gt; !!(obj is &#39;&#39; or (obj and obj.charCodeAt and obj.substr))
+
+
+# Is a given value a number?
+_.isNumber:     (obj) -&gt; (obj is +obj) or toString.call(obj) is &#39;[object Number]&#39;
+
+
+# Is a given value a Date?
+_.isDate:       (obj) -&gt; !!(obj and obj.getTimezoneOffset and obj.setUTCFullYear)
+
+
+# Is the given value a regular expression?
+_.isRegExp:     (obj) -&gt; !!(obj and obj.exec and (obj.ignoreCase or obj.ignoreCase is false))
+
+
+# Is the given value NaN -- this one is interesting. NaN != NaN, and
+# isNaN(undefined) == true, so we make sure it&#39;s a number first.
+_.isNaN:        (obj) -&gt; _.isNumber(obj) and window.isNaN(obj)
+
+
+# Is a given value equal to null?
+_.isNull:       (obj) -&gt; obj is null
+
+
+# Is a given variable undefined?
+_.isUndefined:  (obj) -&gt; typeof obj is &#39;undefined&#39;
+
+
+# -------------------------- Utility Functions: --------------------------
+
+# Run Underscore.js in noConflict mode, returning the &#39;_&#39; variable to its
+# previous owner. Returns a reference to the Underscore object.
+_.noConflict: -&gt;
+  root._: previousUnderscore
+  this
+
+
+# Keep the identity function around for default iterators.
+_.identity: (value) -&gt; value
+
+
+# Break out of the middle of an iteration.
+_.breakLoop: -&gt; throw breaker
+
+
+# Generate a unique integer id (unique within the entire client session).
+# Useful for temporary DOM ids.
+idCounter: 0
+_.uniqueId: (prefix) -&gt;
+  (prefix or &#39;&#39;) + idCounter++
+
+
+# By default, Underscore uses ERB-style template delimiters, change the
+# following template settings to use alternative delimiters.
+_.templateSettings: {
+  start:        &#39;&lt;%&#39;
+  end:          &#39;%&gt;&#39;
+  interpolate:  /&lt;%=(.+?)%&gt;/g
+}
+
+
+# JavaScript templating a-la ERB, pilfered from John Resig&#39;s
+# &quot;Secrets of the JavaScript Ninja&quot;, page 83.
+# Single-quotea fix from Rick Strahl&#39;s version.
+_.template: (str, data) -&gt;
+  c: _.templateSettings
+  fn: new Function &#39;obj&#39;,
+    &#39;var p=[],print=function(){p.push.apply(p,arguments);};&#39; +
+    &#39;with(obj){p.push(\&#39;&#39; +
+    str.replace(/[\r\t\n]/g, &quot; &quot;)
+       .replace(new RegExp(&quot;&#39;(?=[^&quot;+c.end[0]+&quot;]*&quot;+c.end+&quot;)&quot;,&quot;g&quot;),&quot;\t&quot;)
+       .split(&quot;&#39;&quot;).join(&quot;\\&#39;&quot;)
+       .split(&quot;\t&quot;).join(&quot;&#39;&quot;)
+       .replace(c.interpolate, &quot;&#39;,$1,&#39;&quot;)
+       .split(c.start).join(&quot;&#39;);&quot;)
+       .split(c.end).join(&quot;p.push(&#39;&quot;) +
+       &quot;&#39;);}return p.join(&#39;&#39;);&quot;
+  if data then fn(data) else fn
+
+
+# ------------------------------- Aliases ----------------------------------
+
+_.forEach: _.each
+_.foldl:   _.inject:      _.reduce
+_.foldr:   _.reduceRight
+_.filter:  _.select
+_.every:   _.all
+_.some:    _.any
+_.head:    _.first
+_.tail:    _.rest
+_.methods: _.functions
+
+
+#   /*------------------------ Setup the OOP Wrapper: --------------------------*/
+
+# Helper function to continue chaining intermediate results.
+result: (obj, chain) -&gt;
+  if chain then _(obj).chain() else obj
+
+
+# Add all of the Underscore functions to the wrapper object.
+_.each _.functions(_), (name) -&gt;
+  method: _[name]
+  wrapper.prototype[name]: -&gt;
+    unshift.call(arguments, this._wrapped)
+    result(method.apply(_, arguments), this._chain)
+
+
+# Add all mutator Array functions to the wrapper.
+_.each [&#39;pop&#39;, &#39;push&#39;, &#39;reverse&#39;, &#39;shift&#39;, &#39;sort&#39;, &#39;splice&#39;, &#39;unshift&#39;], (name) -&gt;
+  method: Array.prototype[name]
+  wrapper.prototype[name]: -&gt;
+    method.apply(this._wrapped, arguments)
+    result(this._wrapped, this._chain)
+
+
+# Add all accessor Array functions to the wrapper.
+_.each [&#39;concat&#39;, &#39;join&#39;, &#39;slice&#39;], (name) -&gt;
+  method: Array.prototype[name]
+  wrapper.prototype[name]: -&gt;
+    result(method.apply(this._wrapped, arguments), this._chain)
+
+
+# Start chaining a wrapped Underscore object.
+wrapper::chain: -&gt;
+  this._chain: true
+  this
+
+
+# Extracts the result from a wrapped and chained object.
+wrapper::value: -&gt; this._wrapped</code></pre>
+<pre><code class="coffeescript"># function arrows
+
+methodA:-&gt; &#39;A&#39;
+methodB:=&gt; &#39;B&#39;
+methodC:()=&gt; &#39;C&#39;
+methodD:()-&gt; &#39;D&#39;
+methodE:(a,b)-&gt; &#39;E&#39;
+methodF:(c,d)-&gt; &#39;F&#39;
+-&gt; &#39;G&#39;
+=&gt; &#39;H&#39;
+
+(-&gt; &#39;I&#39;)
+(=&gt; &#39;J&#39;)
+
+# strings
+
+&quot;#{wow}&quot;
+&quot;w#{wow}w&quot;
+&quot;#wow&quot;
+&quot;wow#&quot;
+&quot;w#ow&quot;
+
+&#39;#{wow}&#39;
+&#39;w#{wow}w&#39;
+&#39;#wow&#39;
+&#39;wow#&#39;
+&#39;w#ow&#39;</code></pre>
+
+  </section>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="css/0">
+    <span class="signature"><strong>css()</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#css/0" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>CSS</p>
+<h3>CSS</h3>
+<pre><code class="css">avatar-change:hover{background-color:#eee}::-webkit-input-placeholder{color:#a8a8a8}.topbar{font-size:13px}.topbar .topbar-icon,.topbar .date-group-toggle,.topbar .icon-help&gt;.triangle{background-color:transparent;background-repeat:no-repeat;background-image:url(&#39;../img/share-sprite-new.png?v=15a298c15269&#39;);background-image:url(&#39;../img/share-sprite-new.svg?&#39;)
+
+body {font-family:Arial, Helvetica, sans-serif;}
+
+a {text-decoration:none;}
+.center {text-align:center;}
+
+header, footer, h1, h2, h3 {font-family:QuicksandBook, Arial, Helvetica, sans-serif; font-weight:normal;}
+#standfirst, .list-heading {font-family:Arial, Helvetica, sans-serif; font-weight:normal;}
+code, pre {font-family:&quot;Courier New&quot;, Courier, monospace;}
+code {font-weight:bold;}
+
+html, body {font-size:100%;}
+h1 {font-size:240%; text-transform:uppercase;}
+h2 {font-size:110%;}
+.extras h2 {font-size:180%;}
+h4 {font-size:100%; font-weight:normal;}
+p, ul {font-size:80%; line-height:1.4em;}
+footer a, #wiley-logo, .tool .chapter-ref, .newsletter, pre, .extra-content td {font-size:75%;}</code></pre>
+<pre><code class="css">body {
+    font-size: 12pt;
+    background: #fff url(temp.png) top left no-repeat;
+}
+
+* html body {
+    font-size: 14pt;
+}
+
+#nav .new {
+    display: block;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    border-radius: 5px;
+}
+
+ul#nav li.new {
+    font-weight: bold;
+}
+
+:link {
+    color: #f00;
+}
+
+:link:hover {
+    color: #0f0;
+}
+
+@media screen {
+  body {
+    background: #ccc;
+  }
+}
+
+@namespace &quot;http://www.w3.org/1999/xhtml&quot;;
+
+@import url(&quot;mystyle.css&quot;);
+
+@charset &quot;ISO-8859-1&quot;;
+
+@font-face { font-family: &quot;Example Font&quot;; src: url(&quot;http://www.example.com/fonts/example&quot;); }
+
+@media screen { body { font-size: 16px } } @media print { body { font-size: 12pt } }
+
+
+@page { body { margin: 1in 1.5in; } }
+
+@page linke-seite:left { body { margin:20mm; margin-right:25mm; } }
+
+@-moz-document url-prefix(http://pygments.org) {  a {font-style: normal !important;} }</code></pre>
+
+  </section>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="diff/0">
+    <span class="signature"><strong>diff()</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#diff/0" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Diff</p>
+<h3>Diff</h3>
+<pre><code class="diff">Index: languages/ini.js
+===================================================================
+--- languages/ini.js    (revision 199)
++++ languages/ini.js    (revision 200)
+@@ -1,8 +1,7 @@
+ hljs.LANGUAGES.ini =
+ {
+   case_insensitive: true,
+-  defaultMode:
+-  {
++  defaultMode: {
+     contains: [&#39;comment&#39;, &#39;title&#39;, &#39;setting&#39;],
+     illegal: &#39;[^\\s]&#39;
+   },
+
+*** /path/to/original timestamp
+--- /path/to/new      timestamp
+***************
+*** 1,3 ****
+--- 1,9 ----
++ This is an important
++ notice! It should
++ therefore be located at
++ the beginning of this
++ document!
+
+! compress the size of the
+! changes.
+
+  It is important to spell</code></pre>
+<pre><code class="diff">*** lao Sat Jan 26 23:30:39 1991
+--- tzu Sat Jan 26 23:30:50 1991
+***************
+*** 1,7 ****
+- The Way that can be told of is not the eternal Way;
+- The name that can be named is not the eternal name.
+  The Nameless is the origin of Heaven and Earth;
+! The Named is the mother of all things.
+  Therefore let there always be non-being,
+    so we may see their subtlety,
+  And let there always be being,
+--- 1,6 ----
+
+11a
+They both may be called deep and profound.
+Deeper and more profound,
+The door of all subtleties!
+.
+4c
+The named is the mother of all things.
+
+.
+1,2d
+
+@@ -1 +1,15 @@
+-!function(e){
++/*!
++ * highlight.js v8.4
++ * https://highlightjs.org/ 
+
+$ git status
+# On branch master
+# Changes to be committed:
+#   (use &quot;git reset HEAD ...&quot; to unstage)
+#
+#       modified:   README
+#
+
+diff --git a/README b/README
+index bccdfbd..b0ed415 100644
+--- a/README
++++ b/README
+@@ -1 +1,2 @@
+ This is the README file.
+ +One more line.</code></pre>
+
+  </section>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="elixir/0">
+    <span class="signature"><strong>elixir()</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#elixir/0" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Elixir</p>
+<h3>Elixir</h3>
+<pre><code class="elixir"># Numbers
+0b0101011
+1234 ; 0x1A ; 0xbeef ; 0763 ; 0o123
+3.14 ; 5.0e21 ; 0.5e-12
+100_000_000
+
+# these are not valid numbers
+0b012 ; 0xboar ; 0o888
+0B01 ; 0XAF ; 0O123
+
+# Characters
+?a ; ?1 ; ?\n ; ?\s ; ?\c ; ? ; ?,
+?\x{12} ; ?\x{abcd}
+?\x34 ; ?\xF
+
+# these show that only the first digit is part of the character
+?\123 ; ?\12 ; ?\7
+
+# Atoms
+:this ; :that
+:&#39;complex atom&#39;
+:&quot;with&#39; \&quot;\&quot; &#39;quotes&quot;
+:&quot; multi
+ line &#39; \s \123 \xff
+atom&quot;
+:... ; :&lt;&lt;&gt;&gt; ; :%{} ; :% ; :{}
+:++; :--; :*; :~~~; :::
+:% ; :. ; :&lt;-
+
+# Strings
+&quot;Hello world&quot;
+&quot;Interspersed \x{ff} codes \7 \8 \65 \016 and \t\s\\s\z\+ \\ escapes&quot;
+&quot;Quotes &#39; inside \&quot; \123 the \&quot;\&quot; \xF \\xF string \\\&quot; end&quot;
+&quot;Multiline
+   string&quot;
+
+# Char lists
+&#39;this is a list&#39;
+&#39;escapes \&#39; \t \\\&#39;&#39;
+&#39;Multiline
+    char
+  list
+&#39;
+
+# Binaries
+&lt;&lt;1, 2, 3&gt;&gt;
+&lt;&lt;&quot;hello&quot;::binary, c :: utf8, x::[4, unit(2)]&gt;&gt; = &quot;hello™1&quot;
+
+# Sigils
+~r/this + i\s &quot;a&quot; regex/
+~R&#39;this + i\s &quot;a&quot; regex too&#39;
+~w(hello #{ [&quot;has&quot; &lt;&gt; &quot;123&quot;, &#39;\c\d&#39;, &quot;\123 interpol&quot; | []] } world)s
+~W(hello #{no &quot;123&quot; \c\d \123 interpol} world)s
+
+~s{Escapes terminators \{ and \}, but no {balancing} # outside of sigil here }
+
+~S&quot;No escapes \s\t\n and no #{interpolation}&quot;
+
+:&quot;atoms work #{&quot;to&quot; &lt;&gt; &quot;o&quot;}&quot;
+
+# Operators
+x = 1 + 2.0 * 3
+y = true and false; z = false or true
+... = 144
+... == !x &amp;&amp; y || z
+&quot;hello&quot; |&gt; String.upcase |&gt; String.downcase()
+{^z, a} = {true, x}
+
+# Free operators (added in 1.0.0)
+p  ~&gt;&gt; f  = bind(p, f)
+p1 ~&gt;  p2 = pair_right(p1, p2)
+p1 &lt;~  p2 = pair_left(p1, p2)
+p1 &lt;~&gt; p2 = pair_both(p1, p2)
+p  |~&gt; f  = map(p, f)
+p1 &lt;|&gt; p2 = either(p1, p2)
+
+# Lists, tuples, maps, keywords
+[1, :a, &#39;hello&#39;] ++ [2, 3]
+[:head | [?t, ?a, ?i, ?l]]
+
+#{:one, 2.0, &quot;three&quot;}
+
+[...: &quot;this&quot;, &lt;&lt;&gt;&gt;: &quot;is&quot;, %{}: &quot;a keyword&quot;, %: &quot;list&quot;, {}: &quot;too&quot;]
+[&quot;this is an atom too&quot;: 1, &quot;so is this&quot;: 2]
+[option: &quot;value&quot;, key: :word]
+[++: &quot;operator&quot;, ~~~: :&amp;&amp;&amp;]
+
+map = %{shortcut: &quot;syntax&quot;}
+%{map | &quot;update&quot; =&gt; &quot;me&quot;}
+%{ 12 =&gt; 13, :weird =&gt; [&#39;thing&#39;] }
+
+# Comprehensions
+for x &lt;- 1..10, x &lt; 5, do: {x, x}
+pixels = &quot;12345678&quot;
+for &lt;&lt; &lt;&lt;r::4, g::4, b::4, a::size(4)&gt;&gt; &lt;- pixels &gt;&gt; do
+  [r, {g, %{&quot;b&quot; =&gt; a}}]
+end
+
+# String interpolation
+&quot;String #{inspect &quot;interpolation&quot;} is quite #{1+4+7} difficult&quot;
+
+# Identifiers
+abc_123 = 1
+_018OP = 2
+A__0 == 3
+
+# Modules
+defmodule Long.Module.Name do
+  @moduledoc &quot;Simple module docstring&quot;
+
+  @doc &quot;&quot;&quot;
+  Multiline docstring
+  &quot;with quotes&quot;
+  and #{ inspect %{&quot;interpolation&quot; =&gt; &quot;in&quot; &lt;&gt; &quot;action&quot;} }
+  now with #{ {:a, &#39;tuple&#39;} }
+  and #{ inspect {
+      :tuple,
+      %{ with: &quot;nested #{ inspect %{ :interpolation =&gt; %{} } }&quot; }
+  } }
+  &quot;&quot;&quot;
+  defstruct [:a, :name, :height]
+
+  @doc ~S&#39;&#39;&#39;
+  No #{interpolation} of any kind.
+  \000 \x{ff}
+
+  \n #{\x{ff}}
+  &#39;&#39;&#39;
+  def func(a, b \\ []), do: :ok
+
+  @doc false
+  def __before_compile__(_) do
+    :ok
+  end
+end
+
+# Structs
+defmodule Second.Module do
+  s = %Long.Module.Name{name: &quot;Silly&quot;}
+  %Long.Module.Name{s | height: {192, :cm}}
+  &quot;.. #{%Long.Module.Name{s | height: {192, :cm}}} ..&quot;
+end
+
+# Types, pseudo-vars, attributes
+defmodule M do
+  @custom_attr :some_constant
+
+  @before_compile Long.Module.Name
+
+  @typedoc &quot;This is a type&quot;
+  @type typ :: integer
+
+  @typedoc &quot;&quot;&quot;
+  Another type
+  &quot;&quot;&quot;
+  @opaque typtyp :: 1..10
+
+  @spec func(typ, typtyp) :: :ok | :fail
+  def func(a, b) do
+    a || b || :ok || :fail
+    Path.expand(&quot;..&quot;, __DIR__)
+    IO.inspect __ENV__
+    __NOTAPSEUDOVAR__ = 11
+    __MODULE__.func(b, a)
+  end
+
+  defmacro m() do
+    __CALLER__
+  end
+end
+
+# Functions
+anon = fn x, y, z -&gt;
+  fn(a, b, c) -&gt;
+    &amp;(x + y - z * a / &amp;1 + b + div(&amp;2, c))
+  end
+end
+
+&amp;Set.put(&amp;1, &amp;2) ; &amp; Set.put(&amp;1, &amp;2) ; &amp;( Set.put(&amp;1, &amp;1) )
+
+# Function calls
+anon.(1, 2, 3); self; hd([1,2,3])
+Kernel.spawn(fn -&gt; :ok end)
+IO.ANSI.black
+
+# Control flow
+if :this do
+  :that
+else
+  :otherwise
+end
+
+pid = self
+receive do
+  {:EXIT, _} -&gt; :done
+  {^pid, :_} -&gt; nil
+  after 100 -&gt; :no_luck
+end
+
+case __ENV__.line do
+  x when is_integer(x) -&gt; x
+  x when x in 1..12 -&gt; -x
+end
+
+cond do
+  false -&gt; &quot;too bad&quot;
+  4 &gt; 5 -&gt; &quot;oops&quot;
+  true -&gt; nil
+end
+
+# Lexical scope modifiers
+import Kernel, except: [spawn: 1, +: 2, /: 2, Unless: 2]
+alias Long.Module.Name, as: N0men123_and4
+use Bitwise
+
+4 &amp;&amp;&amp; 5
+2 &lt;&lt;&lt; 3
+
+# Protocols
+defprotocol Useless do
+  def func1(this)
+  def func2(that)
+end
+
+defimpl Useless, for: Atom do
+end
+
+# Exceptions
+defmodule NotAnError do
+  defexception [:message]
+end
+
+raise NotAnError, message: &quot;This is not an error&quot;</code></pre>
+<h3>Elixir</h3>
+<pre><code class="elixir"># Single line comments start with a number symbol.
+
+# There&#39;s no multi-line comment,
+# but you can stack multiple comments.
+
+# To use the elixir shell use the `iex` command.
+# Compile your modules with the `elixirc` command.
+
+# Both should be in your path if you installed elixir correctly.
+
+## ---------------------------
+## -- Basic types
+## ---------------------------
+
+# There are numbers
+3    # integer
+0x1F # integer
+3.0  # float
+
+# Atoms, that are literals, a constant with name. They start with `:`.
+:hello # atom
+
+# Tuples that are stored contiguously in memory.
+{1,2,3} # tuple
+
+# We can access a tuple element with the `elem` function:
+elem({1, 2, 3}, 0) #=&gt; 1
+
+# Lists that are implemented as linked lists.
+[1,2,3] # list
+
+# We can access the head and tail of a list as follows:
+[head | tail] = [1,2,3]
+head #=&gt; 1
+tail #=&gt; [2,3]
+
+# In elixir, just like in Erlang, the `=` denotes pattern matching and
+# not an assignment.
+#
+# This means that the left-hand side (pattern) is matched against a
+# right-hand side.
+#
+# This is how the above example of accessing the head and tail of a list works.
+
+# A pattern match will error when the sides don&#39;t match, in this example
+# the tuples have different sizes.
+# {a, b, c} = {1, 2} #=&gt; ** (MatchError) no match of right hand side value: {1,2}
+
+# There are also binaries
+&lt;&lt;1,2,3&gt;&gt; # binary
+
+# Strings and char lists
+&quot;hello&quot; # string
+&#39;hello&#39; # char list
+
+# Multi-line strings
+&quot;&quot;&quot;
+I&#39;m a multi-line
+string.
+&quot;&quot;&quot;
+#=&gt; &quot;I&#39;m a multi-line\nstring.\n&quot;
+
+# Strings are all encoded in UTF-8:
+&quot;héllò&quot; #=&gt; &quot;héllò&quot;
+
+# Strings are really just binaries, and char lists are just lists.
+&lt;&lt;?a, ?b, ?c&gt;&gt; #=&gt; &quot;abc&quot;
+[?a, ?b, ?c]   #=&gt; &#39;abc&#39;
+
+# `?a` in elixir returns the ASCII integer for the letter `a`
+?a #=&gt; 97
+
+# To concatenate lists use `++`, for binaries use `&lt;&gt;`
+[1,2,3] ++ [4,5]     #=&gt; [1,2,3,4,5]
+&#39;hello &#39; ++ &#39;world&#39;  #=&gt; &#39;hello world&#39;
+
+&lt;&lt;1,2,3&gt;&gt; &lt;&gt; &lt;&lt;4,5&gt;&gt; #=&gt; &lt;&lt;1,2,3,4,5&gt;&gt;
+&quot;hello &quot; &lt;&gt; &quot;world&quot;  #=&gt; &quot;hello world&quot;
+
+# Ranges are represented as `start..end` (both inclusive)
+1..10 #=&gt; 1..10
+lower..upper = 1..10 # Can use pattern matching on ranges as well
+[lower, upper] #=&gt; [1, 10]
+
+## ---------------------------
+## -- Operators
+## ---------------------------
+
+# Some math
+1 + 1  #=&gt; 2
+10 - 5 #=&gt; 5
+5 * 2  #=&gt; 10
+10 / 2 #=&gt; 5.0
+
+# In elixir the operator `/` always returns a float.
+
+# To do integer division use `div`
+div(10, 2) #=&gt; 5
+
+# To get the division remainder use `rem`
+rem(10, 3) #=&gt; 1
+
+# There are also boolean operators: `or`, `and` and `not`.
+# These operators expect a boolean as their first argument.
+true and true #=&gt; true
+false or true #=&gt; true
+# 1 and true    #=&gt; ** (ArgumentError) argument error
+
+# Elixir also provides `||`, `&amp;&amp;` and `!` which accept arguments of any type.
+# All values except `false` and `nil` will evaluate to true.
+1 || true  #=&gt; 1
+false &amp;&amp; 1 #=&gt; false
+nil &amp;&amp; 20  #=&gt; nil
+!true #=&gt; false
+
+# For comparisons we have: `==`, `!=`, `===`, `!==`, `&lt;=`, `&gt;=`, `&lt;` and `&gt;`
+1 == 1 #=&gt; true
+1 != 1 #=&gt; false
+1 &lt; 2  #=&gt; true
+
+# `===` and `!==` are more strict when comparing integers and floats:
+1 == 1.0  #=&gt; true
+1 === 1.0 #=&gt; false
+
+# We can also compare two different data types:
+1 &lt; :hello #=&gt; true
+
+# The overall sorting order is defined below:
+# number &lt; atom &lt; reference &lt; functions &lt; port &lt; pid &lt; tuple &lt; list &lt; bit string
+
+# To quote Joe Armstrong on this: &quot;The actual order is not important,
+# but that a total ordering is well defined is important.&quot;
+
+## ---------------------------
+## -- Control Flow
+## ---------------------------
+
+# `if` expression
+if false do
+  &quot;This will never be seen&quot;
+else
+  &quot;This will&quot;
+end
+
+# There&#39;s also `unless`
+unless true do
+  &quot;This will never be seen&quot;
+else
+  &quot;This will&quot;
+end
+
+# Remember pattern matching? Many control-flow structures in elixir rely on it.
+
+# `case` allows us to compare a value against many patterns:
+case {:one, :two} do
+  {:four, :five} -&gt;
+    &quot;This won&#39;t match&quot;
+  {:one, x} -&gt;
+    &quot;This will match and bind `x` to `:two`&quot;
+  _ -&gt;
+    &quot;This will match any value&quot;
+end
+
+# It&#39;s common to bind the value to `_` if we don&#39;t need it.
+# For example, if only the head of a list matters to us:
+[head | _] = [1,2,3]
+head #=&gt; 1
+
+# For better readability we can do the following:
+[head | _tail] = [:a, :b, :c]
+head #=&gt; :a
+
+# `cond` lets us check for many conditions at the same time.
+# Use `cond` instead of nesting many `if` expressions.
+cond do
+  1 + 1 == 3 -&gt;
+    &quot;I will never be seen&quot;
+  2 * 5 == 12 -&gt;
+    &quot;Me neither&quot;
+  1 + 2 == 3 -&gt;
+    &quot;But I will&quot;
+end
+
+# It is common to see the last condition equal to `true`, which will always match.
+cond do
+  1 + 1 == 3 -&gt;
+    &quot;I will never be seen&quot;
+  2 * 5 == 12 -&gt;
+    &quot;Me neither&quot;
+  true -&gt;
+    &quot;But I will (this is essentially an else)&quot;
+end
+
+# `try/catch` is used to catch values that are thrown, it also supports an
+# `after` clause that is invoked whether or not a value is caught.
+try do
+  throw(:hello)
+catch
+  message -&gt; &quot;Got #{message}.&quot;
+after
+  IO.puts(&quot;I&#39;m the after clause.&quot;)
+end
+#=&gt; I&#39;m the after clause
+# &quot;Got :hello&quot;
+
+## ---------------------------
+## -- Modules and Functions
+## ---------------------------
+
+# Anonymous functions (notice the dot)
+square = fn(x) -&gt; x * x end
+square.(5) #=&gt; 25
+
+# They also accept many clauses and guards.
+# Guards let you fine tune pattern matching,
+# they are indicated by the `when` keyword:
+f = fn
+  x, y when x &gt; 0 -&gt; x + y
+  x, y -&gt; x * y
+end
+
+f.(1, 3)  #=&gt; 4
+f.(-1, 3) #=&gt; -3
+
+# Elixir also provides many built-in functions.
+# These are available in the current scope.
+is_number(10)    #=&gt; true
+is_list(&quot;hello&quot;) #=&gt; false
+elem({1,2,3}, 0) #=&gt; 1
+
+# You can group several functions into a module. Inside a module use `def`
+# to define your functions.
+defmodule Math do
+  def sum(a, b) do
+    a + b
+  end
+
+  def square(x) do
+    x * x
+  end
+end
+
+Math.sum(1, 2)  #=&gt; 3
+Math.square(3) #=&gt; 9
+
+# To compile our simple Math module save it as `math.ex` and use `elixirc`
+# in your terminal: elixirc math.ex
+
+# Inside a module we can define functions with `def` and private functions with `defp`.
+# A function defined with `def` is available to be invoked from other modules,
+# a private function can only be invoked locally.
+defmodule PrivateMath do
+  def sum(a, b) do
+    do_sum(a, b)
+  end
+
+  defp do_sum(a, b) do
+    a + b
+  end
+end
+
+PrivateMath.sum(1, 2)    #=&gt; 3
+# PrivateMath.do_sum(1, 2) #=&gt; ** (UndefinedFunctionError)
+
+# Function declarations also support guards and multiple clauses:
+defmodule Geometry do
+  def area({:rectangle, w, h}) do
+    w * h
+  end
+
+  def area({:circle, r}) when is_number(r) do
+    3.14 * r * r
+  end
+end
+
+Geometry.area({:rectangle, 2, 3}) #=&gt; 6
+Geometry.area({:circle, 3})       #=&gt; 28.25999999999999801048
+# Geometry.area({:circle, &quot;not_a_number&quot;})
+#=&gt; ** (FunctionClauseError) no function clause matching in Geometry.area/1
+
+# Due to immutability, recursion is a big part of elixir
+defmodule Recursion do
+  def sum_list([head | tail], acc) do
+    sum_list(tail, acc + head)
+  end
+
+  def sum_list([], acc) do
+    acc
+  end
+end
+
+Recursion.sum_list([1,2,3], 0) #=&gt; 6
+
+# Elixir modules support attributes, there are built-in attributes and you
+# may also add custom ones.
+defmodule MyMod do
+  @moduledoc &quot;&quot;&quot;
+  This is a built-in attribute on a example module.
+  &quot;&quot;&quot;
+
+  @my_data 100 # This is a custom attribute.
+  IO.inspect(@my_data) #=&gt; 100
+end
+
+## ---------------------------
+## -- Structs and Exceptions
+## ---------------------------
+
+# Structs are extensions on top of maps that bring default values,
+# compile-time guarantees and polymorphism into Elixir.
+defmodule Person do
+  defstruct name: nil, age: 0, height: 0
+end
+
+joe_info = %Person{ name: &quot;Joe&quot;, age: 30, height: 180 }
+#=&gt; %Person{age: 30, height: 180, name: &quot;Joe&quot;}
+
+# Access the value of name
+joe_info.name #=&gt; &quot;Joe&quot;
+
+# Update the value of age
+older_joe_info = %{ joe_info | age: 31 }
+#=&gt; %Person{age: 31, height: 180, name: &quot;Joe&quot;}
+
+# The `try` block with the `rescue` keyword is used to handle exceptions
+try do
+  raise &quot;some error&quot;
+rescue
+  RuntimeError -&gt; &quot;rescued a runtime error&quot;
+  _error -&gt; &quot;this will rescue any error&quot;
+end
+
+# All exceptions have a message
+try do
+  raise &quot;some error&quot;
+rescue
+  x in [RuntimeError] -&gt;
+    x.message
+end
+
+## ---------------------------
+## -- Concurrency
+## ---------------------------
+
+# Elixir relies on the actor model for concurrency. All we need to write
+# concurrent programs in elixir are three primitives: spawning processes,
+# sending messages and receiving messages.
+
+# To start a new process we use the `spawn` function, which takes a function
+# as argument.
+f = fn -&gt; 2 * 2 end #=&gt; #Function&lt;erl_eval.20.80484245&gt;
+spawn(f) #=&gt; #PID&lt;0.40.0&gt;
+
+# `spawn` returns a pid (process identifier), you can use this pid to send
+# messages to the process. To do message passing we use the `send` operator.
+# For all of this to be useful we need to be able to receive messages. This is
+# achieved with the `receive` mechanism:
+defmodule Geometry do
+  def area_loop do
+    receive do
+      {:rectangle, w, h} -&gt;
+        IO.puts(&quot;Area = #{w * h}&quot;)
+        area_loop()
+      {:circle, r} -&gt;
+        IO.puts(&quot;Area = #{3.14 * r * r}&quot;)
+        area_loop()
+    end
+  end
+end
+
+# Compile the module and create a process that evaluates `area_loop` in the shell
+pid = spawn(fn -&gt; Geometry.area_loop() end) #=&gt; #PID&lt;0.40.0&gt;
+
+# Send a message to `pid` that will match a pattern in the receive statement
+send pid, {:rectangle, 2, 3}
+#=&gt; Area = 6
+#   {:rectangle,2,3}
+
+send pid, {:circle, 2}
+#=&gt; Area = 12.56000000000000049738
+#   {:circle,2}
+
+# The shell is also a process, you can use `self` to get the current pid
+self() #=&gt; #PID&lt;0.27.0&gt;</code></pre>
+
+  </section>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="erlang/0">
+    <span class="signature"><strong>erlang()</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#erlang/0" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Erlang</p>
+<h3>Erlang</h3>
+<pre><code class="erlang">-module(ssh_cli).
+
+  -behaviour(ssh_channel).
+
+  -include(&quot;ssh.hrl&quot;).
+  %% backwards compatibility
+  -export([listen/1, listen/2, listen/3, listen/4, stop/1]).
+
+  if L =/= [] -&gt;      % If L is not empty
+      sum(L) / count(L);
+  true -&gt;
+      error
+  end.
+
+  %% state
+  -record(state, {
+      cm,
+      channel
+     }).
+
+  -spec foo(integer()) -&gt; integer().
+  foo(X) -&gt; 1 + X.
+
+  test(Foo)-&gt;Foo.
+
+  init([Shell, Exec]) -&gt;
+      {ok, #state{shell = Shell, exec = Exec}};
+  init([Shell]) -&gt;
+      false = not true,
+      io:format(&quot;Hello, \&quot;~p!~n&quot;, [atom_to_list(&#39;World&#39;)]),
+      {ok, #state{shell = Shell}}.
+
+  concat([Single]) -&gt; Single;
+  concat(RList) -&gt;
+      EpsilonFree = lists:filter(
+          fun (Element) -&gt;
+              case Element of
+                  epsilon -&gt; false;
+                  _ -&gt; true
+              end
+          end,
+          RList),
+      case EpsilonFree of
+          [Single] -&gt; Single;
+          Other -&gt; {concat, Other}
+      end.
+
+  union_dot_union({union, _}=U1, {union, _}=U2) -&gt;
+      union(lists:flatten(
+          lists:map(
+              fun (X1) -&gt;
+                  lists:map(
+                      fun (X2) -&gt;
+                          concat([X1, X2])
+                      end,
+                      union_to_list(U2)
+                  )
+              end,
+              union_to_list(U1)
+          ))).</code></pre>
+<pre><code class="erl">-module(test).
+-export([listen/1,
+         handle_client/1,
+         maintain_clients/1,
+         start/1,
+         stop/0,
+         controller/1]).
+
+-author(&quot;jerith&quot;).
+
+-define(TCP_OPTIONS,[list, {packet, 0}, {active, false}, {reuseaddr, true}]).
+
+-record(player, {name=none, socket, mode}).
+
+%% To allow incoming connections, we need to listen on a TCP port.
+%% This is also the entry point for our server as a whole, so it
+%% starts the client_manager process and gives it a name so the rest
+%% of the code can get to it easily.
+
+listen(Port) -&gt;
+    {ok, LSocket} = gen_tcp:listen(Port, ?TCP_OPTIONS),
+    register(client_manager, spawn(?MODULE, maintain_clients, [[]])),
+    do_accept(LSocket).
+
+%% Accepting a connection gives us a connection socket with the
+%% newly-connected client on the other end.  Since we want to accept
+%% more than one client, we spawn a new process for each and then wait
+%% for another connection on our listening socket.
+
+do_accept(LSocket) -&gt;
+    case gen_tcp:accept(LSocket) of
+        {ok, Socket} -&gt;
+            spawn(?MODULE, handle_client, [Socket]),
+            client_manager ! {connect, Socket};
+        {error, Reason} -&gt;
+            io:format(&quot;Socket accept error: ~s~n&quot;, [Reason])
+    end,
+    do_accept(LSocket).
+
+%% All the client-socket process needs to do is wait for data and
+%% forward it to the client_manager process which decides what to do
+%% with it.  If the client disconnects, we let client_manager know and
+%% then quietly go away.
+
+handle_client(Socket) -&gt;
+    case gen_tcp:recv(Socket, 0) of
+        {ok, Data} -&gt;
+            client_manager ! {data, Socket, Data},
+            handle_client(Socket);
+        {error, closed} -&gt;
+            client_manager ! {disconnect, Socket}
+    end.
+
+%% This is the main loop of the client_manager process.  It maintains
+%% the list of &quot;players&quot; and calls the handler for client input.
+
+maintain_clients(Players) -&gt;
+    io:format(&quot;Players:~n&quot;, []),
+    lists:foreach(fun(P) -&gt; io:format(&quot;&gt;&gt;&gt; ~w~n&quot;, [P]) end, Players),
+    receive
+        {connect, Socket} -&gt;
+            Player = #player{socket=Socket, mode=connect},
+            send_prompt(Player),
+            io:format(&quot;client connected: ~w~n&quot;, [Player]),
+            NewPlayers =  [Player | Players];
+        {disconnect, Socket} -&gt;
+            Player = find_player(Socket, Players),
+            io:format(&quot;client disconnected: ~w~n&quot;, [Player]),
+            NewPlayers = lists:delete(Player, Players);
+        {data, Socket, Data} -&gt;
+            Player = find_player(Socket, Players),
+            NewPlayers = parse_data(Player, Players, Data),
+            NewPlayer = find_player(Socket, NewPlayers),
+            send_prompt(NewPlayer)
+    end,
+    maintain_clients(NewPlayers).
+
+%% find_player is a utility function to get a player record associated
+%% with a particular socket out of the player list.
+
+find_player(Socket, Players) -&gt;
+    {value, Player} = lists:keysearch(Socket, #player.socket, Players),
+    Player.
+
+%% delete_player returns the player list without the given player.  It
+%% deletes the player from the list based on the socket rather than
+%% the whole record because the list might hold a different version.
+
+delete_player(Player, Players) -&gt;
+    lists:keydelete(Player#player.socket, #player.socket, Players).
+
+%% Sends an appropriate prompt to the player.  Currently the only
+%% prompt we send is the initial &quot;Name: &quot; when the player connects.
+
+send_prompt(Player) -&gt;
+    case Player#player.mode of
+        connect -&gt;
+            gen_tcp:send(Player#player.socket, &quot;Name: &quot;);
+        active -&gt;
+            ok
+    end.
+
+%% Sends the given data to all players in active mode.
+
+send_to_active(Prefix, Players, Data) -&gt;
+    ActivePlayers = lists:filter(fun(P) -&gt; P#player.mode == active end,
+                                 Players),
+    lists:foreach(fun(P) -&gt; gen_tcp:send(P#player.socket, Prefix ++ Data) end,
+                  ActivePlayers),
+    ok.
+
+%% We don&#39;t really do much parsing, but that will probably change as
+%% more features are added.  Currently this handles naming the player
+%% when he first connects and treats everything else as a message to
+%% send.
+
+parse_data(Player, Players, Data) -&gt;
+    case Player#player.mode of
+        active -&gt;
+            send_to_active(Player#player.name ++ &quot;: &quot;,
+              delete_player(Player, Players), Data),
+            Players;
+        connect -&gt;
+            UPlayer = Player#player{name=bogostrip(Data), mode=active},
+            [UPlayer | delete_player(Player, Players)]
+    end.
+
+%% Utility methods to clean up the name before we apply it.  Called
+%% bogostrip rather than strip because it returns the first continuous
+%% block of non-matching characters rather stripping matching
+%% characters off the front and back.
+
+bogostrip(String) -&gt;
+    bogostrip(String, &quot;\r\n\t &quot;).
+
+bogostrip(String, Chars) -&gt;
+    LStripped = string:substr(String, string:span(String, Chars)+1),
+    string:substr(LStripped, 1, string:cspan(LStripped, Chars)).
+
+%% Here we have some extra code to test other bits of pygments&#39; Erlang
+%% lexer.
+
+get_timestamp() -&gt;
+    {{Year,Month,Day},{Hour,Min,Sec}} = erlang:universaltime(),
+    lists:flatten(io_lib:format(
+                    &quot;~4.10.0B-~2.10.0B-~2.10.0BT~2.10.0B:~2.10.0B:~2.10.0BZ&quot;,
+                    [Year, Month, Day, Hour, Min, Sec])).
+
+a_binary() -&gt;
+    &lt;&lt; 100:16/integer, 16#7f &gt;&gt;.
+
+a_list_comprehension() -&gt;
+    [X*2 || X &lt;- [1,2,3]].
+
+map(Fun, [H|T]) -&gt;
+    [Fun(H) | map(Fun, T)];
+
+map(Fun, []) -&gt;
+    [].
+
+%% pmap, just because it&#39;s cool.
+
+pmap(F, L) -&gt;
+    Parent = self(),
+    [receive {Pid, Result} -&gt;
+             Result
+     end || Pid &lt;- [spawn(fun() -&gt;
+                                  Parent ! {self(), F(X)} 
+                          end) || X &lt;- L]].</code></pre>
+
+  </section>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="erlang_repl/0">
+    <span class="signature"><strong>erlang_repl()</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#erlang_repl/0" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Erlang-REPL</p>
+<h3>Erlang REPL</h3>
+<pre><code class="erlang-repl">Eshell V6.3  (abort with ^G)
+1&gt; A=2;
+1&gt; .
+* 2: syntax error before: &#39;.&#39;
+1&gt; A = 2.
+2
+2&gt; A = 3.
+** exception error: no match of right hand side value 3
+3&gt;</code></pre>
+<pre><code class="erlang-repl">1&gt; io:format(&quot;Hello\n&quot;).
+Hello
+ok
+2&gt; fun(X) -&gt; X + 1 end.
+#Fun&lt;erl_eval.6.13229925&gt;
+3&gt; 123 + 234.
+357
+4&gt; X = Y.
+* 1: variable &#39;Y&#39; is unbound
+5&gt;</code></pre>
+<pre><code class="erlang-repl">1&gt; Str = &quot;abcd&quot;.
+&quot;abcd&quot;
+2&gt; L = test:length(Str).
+4
+3&gt; Descriptor = {L, list_to_atom(Str)}.
+{4,abcd}
+4&gt; L.
+4
+5&gt; b().
+Descriptor = {4,abcd}
+L = 4
+Str = &quot;abcd&quot;
+ok
+6&gt; f(L).
+ok
+7&gt; b().
+Descriptor = {4,abcd}
+Str = &quot;abcd&quot;
+ok
+8&gt; {L, _} = Descriptor.
+{4,abcd}
+9&gt; L.
+4
+10&gt; 2#101.
+5
+11&gt; 1.85e+3.
+1850</code></pre>
+
+  </section>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="html/0">
+    <span class="signature"><strong>html()</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#html/0" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>HTML/XML</p>
+<h3>HTML</h3>
+<pre><code class="html">&lt;pre&gt;&lt;code class=&quot;elixir hljs&quot;&gt;&lt;span class=&quot;hljs-comment&quot;&gt;# Compute in the agent/server&lt;/span&gt;
+&lt;span class=&quot;hljs-function&quot;&gt;&lt;span class=&quot;hljs-keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;hljs-title&quot;&gt;get_something&lt;/span&gt;(agent) &lt;/span&gt;&lt;span class=&quot;hljs-keyword&quot;&gt;do&lt;/span&gt;
+&lt;span class=&quot;hljs-constant&quot;&gt;Agent.&lt;/span&gt;get(agent, &lt;span class=&quot;hljs-keyword&quot;&gt;fn&lt;/span&gt; state -&gt; do_something_expensive(state) &lt;span class=&quot;hljs-keyword&quot;&gt;end&lt;/span&gt;)
+&lt;span class=&quot;hljs-keyword&quot;&gt;end&lt;/span&gt;
+
+&lt;span class=&quot;hljs-comment&quot;&gt;# Compute in the agent/client&lt;/span&gt;
+&lt;span class=&quot;hljs-function&quot;&gt;&lt;span class=&quot;hljs-keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;hljs-title&quot;&gt;get_something&lt;/span&gt;(agent) &lt;/span&gt;&lt;span class=&quot;hljs-keyword&quot;&gt;do&lt;/span&gt;
+&lt;span class=&quot;hljs-constant&quot;&gt;Agent.&lt;/span&gt;get(agent, &amp;(&amp;&lt;span class=&quot;hljs-number&quot;&gt;1&lt;/span&gt;)) |&gt; do_something_expensive()
+&lt;span class=&quot;hljs-keyword&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;</code></pre>
+<h3>XML</h3>
+<pre><code class="xml">&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;xsl:stylesheet version=&quot;1.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;&gt;
+&lt;xsl:template match=&quot;/&quot;&gt;
+  &lt;html&gt;
+  &lt;body&gt;
+  &lt;table border=&quot;2&quot; bgcolor=&quot;yellow&quot;&gt;
+  &lt;tr&gt;
+  &lt;th&gt;Title&lt;/th&gt;
+  &lt;th&gt;Artist&lt;/th&gt;
+  &lt;th&gt;Dynamic Content&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;xsl:for-each select=&quot;CATALOG/CD&quot;&gt;
+  &lt;tr&gt;
+  &lt;td&gt;&lt;xsl:value-of select=&quot;TITLE&quot;/&gt;&lt;/td&gt;
+  &lt;td&gt;&lt;xsl:value-of select=&quot;ARTIST&quot;/&gt;&lt;/td&gt;
+  &lt;td&gt;&lt;xsl:value-of select=&quot;ORACLE&quot;/&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;/xsl:for-each&gt;
+  &lt;/table&gt;
+  &lt;/body&gt;
+  &lt;/html&gt;
+&lt;/xsl:template&gt;
+&lt;/xsl:stylesheet&gt;
+
+&lt;!DOCTYPE TVSCHEDULE [ 
+&lt;!ELEMENT TVSCHEDULE (CHANNEL+)&gt;
+&lt;!ELEMENT CHANNEL (BANNER, DAY+)&gt;
+&lt;!ELEMENT BANNER (#PCDATA)&gt;
+&lt;!ELEMENT DAY ((DATE, HOLIDAY) | (DATE, PROGRAMSLOT+))+&gt;
+&lt;!ELEMENT HOLIDAY (#PCDATA)&gt;
+&lt;!ELEMENT DATE (#PCDATA)&gt;
+&lt;!ELEMENT PROGRAMSLOT (TIME, TITLE, DESCRIPTION?)&gt;
+&lt;!ELEMENT TIME (#PCDATA)&gt;
+&lt;!ELEMENT TITLE (#PCDATA)&gt; 
+&lt;!ELEMENT DESCRIPTION (#PCDATA)&gt;
+
+&lt;!ATTLIST TVSCHEDULE  NAME CDATA #REQUIRED&gt;
+&lt;!ATTLIST CHANNEL CHAN CDATA #REQUIRED&gt;
+&lt;!ATTLIST PROGRAMSLOT VTR CDATA #IMPLIED&gt;
+&lt;!ATTLIST TITLE RATING CDATA #IMPLIED&gt;
+&lt;!ATTLIST TITLE LANGUAGE CDATA #IMPLIED&gt;
+]&gt;</code></pre>
+
+  </section>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="http/0">
+    <span class="signature"><strong>http()</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#http/0" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>HTTP</p>
+<h3>HTTP</h3>
+<pre><code class="http">GET /tutorials/other/top-20-mysql-best-practices/ HTTP/1.1
+HTTP/1.x 200 OK
+Transfer-Encoding: chunked
+Date: Sat, 28 Nov 2009 04:36:25 GMT
+Server: LiteSpeed
+Connection: close
+X-Powered-By: W3 Total Cache/0.8
+Pragma: public
+Expires: Sat, 28 Nov 2009 05:36:25 GMT
+Etag: &quot;pub1259380237;gz&quot;
+Cache-Control: max-age=3600, public
+Content-Type: text/html; charset=UTF-8
+Last-Modified: Sat, 28 Nov 2009 03:50:37 GMT
+X-Pingback: http://net.tutsplus.com/xmlrpc.php
+Content-Encoding: gzip
+Vary: Accept-Encoding, Cookie, User-Agent
+Host: net.tutsplus.com
+User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.1.5) Gecko/20091102 Firefox/3.5.5 (.NET CLR 3.5.30729)
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-us,en;q=0.5
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+Keep-Alive: 300
+Connection: keep-alive
+Cookie: PHPSESSID=r2t5uvjq435r4q7ib3vtdjq120
+Pragma: no-cache
+Cache-Control: no-cache
+Content-Type: application/json; charset=utf-8
+Content-Length: 19
+
+{&quot;status&quot;: &quot;ok&quot;, &quot;extended&quot;: true}
+ 
+&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Strict//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd&quot;&gt;
+&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
+&lt;head&gt;
+&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot; /&gt;
+&lt;title&gt;Top 20+ MySQL Best Practices - Nettuts+&lt;/title&gt;
+&lt;!-- ... rest of the html ... --&gt;</code></pre>
+<pre><code class="http">POST /demo/submit/ HTTP/1.1
+Host: pygments.org
+Connection: keep-alivk
+Cache-Control: max-age=0
+Origin: http://pygments.org
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_2)
+    AppleWebKit/535.7 (KHTML, like Gecko) Chrome/16.0.912.63 Safari/535.7
+Content-Type: application/x-www-form-urlencoded
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Referer: http://pygments.org/
+Accept-Encoding: gzip,deflate,sdch
+Accept-Language: en-US,en;q=0.8
+Accept-Charset: windows-949,utf-8;q=0.7,*;q=0.3
+
+name=test&amp;lang=text&amp;code=asdf&amp;user=</code></pre>
+<pre><code class="http">HTTP/1.1 200 OK
+Date: Tue, 13 Dec 2011 00:11:44 GMT
+Status: 200 OK
+X-Transaction: 50b85fff78dab4a3
+X-RateLimit-Limit: 150
+ETag: &quot;b31143be48ebfe7512b65fe64fe092f3&quot;
+X-Frame-Options: SAMEORIGIN
+Last-Modified: Tue, 13 Dec 2011 00:11:44 GMT
+X-RateLimit-Remaining: 145
+X-Runtime: 0.01190
+X-Transaction-Mask: a6183ffa5f8ca943ff1b53b5644ef1145f6f285d
+Content-Type: application/json; charset=utf-8
+Content-Length: 2389
+Pragma: no-cache
+X-RateLimit-Class: api
+X-Revision: DEV
+Expires: Tue, 31 Mar 1981 05:00:00 GMT
+Cache-Control: no-cache, no-store, must-revalidate, pre-check=0, post-check=0
+X-MID: a55f21733bc52bb11d1fc58f9b51b4974fbb8f83
+X-RateLimit-Reset: 1323738416
+Set-Cookie: k=10.34.234.116.1323735104238974; path=/;
+    expires=Tue, 20-Dec-11 00:11:44 GMT; domain=.twitter.com
+Set-Cookie: guest_id=v1%3A13237351042425496; domain=.twitter.com; path=/;
+    expires=Thu, 12-Dec-2013 12:11:44 GMT
+Set-Cookie: _twitter_sess=BAh7CDoPY3JlYXRlZF9hdGwrCPS6wjQ0AToHaWQiJTFiMTlhY2E1ZjczYThk%250ANDUwMWQxNjMwZGU2YTQ1ODBhIgpmbGFzaElDOidBY3Rpb25Db250cm9sbGVy%250AOjpGbGFzaDo6Rmxhc2hIYXNoewAGOgpAdXNlZHsA--6b502f30a083e8a41a64f10930e142ea362b1561; domain=.twitter.com; path=/; HttpOnly
+Vary: Accept-Encoding
+Server: tfe
+
+[{&quot;contributors_enabled&quot;:false,&quot;profile_background_tile&quot;:true,&quot;followers_count&quot;:644,&quot;protected&quot;:false,&quot;profile_image_url&quot;:&quot;http:\/\/a0.twimg.com\/profile_images\/69064242\/gb_normal.jpg&quot;,&quot;screen_name&quot;:&quot;birkenfeld&quot;,&quot;default_profile_image&quot;:false,&quot;following&quot;:null,&quot;friends_count&quot;:88,&quot;profile_sidebar_fill_color&quot;:&quot;7AC3EE&quot;,&quot;url&quot;:&quot;http:\/\/pythonic.pocoo.org\/&quot;,&quot;name&quot;:&quot;Georg Brandl&quot;,&quot;default_profile&quot;:false,&quot;is_translator&quot;:false,&quot;utc_offset&quot;:3600,&quot;profile_sidebar_border_color&quot;:&quot;65B0DA&quot;,&quot;description&quot;:&quot;&quot;,&quot;profile_background_image_url_https&quot;:&quot;https:\/\/si0.twimg.com\/images\/themes\/theme10\/bg.gif&quot;,&quot;favourites_count&quot;:0,&quot;profile_use_background_image&quot;:true,&quot;created_at&quot;:&quot;Tue Dec 30 22:25:11 +0000 2008&quot;,&quot;status&quot;:{&quot;retweet_count&quot;:10,&quot;favorited&quot;:false,&quot;geo&quot;:null,&quot;possibly_sensitive&quot;:false,&quot;coordinates&quot;:null,&quot;in_reply_to_screen_name&quot;:null,&quot;in_reply_to_status_id_str&quot;:null,&quot;retweeted&quot;:false,&quot;in_reply_to_status_id&quot;:null,&quot;in_reply_to_user_id_str&quot;:null,&quot;created_at&quot;:&quot;Sat Jul 09 13:42:35 +0000 2011&quot;,&quot;truncated&quot;:false,&quot;id_str&quot;:&quot;89690914515206144&quot;,&quot;contributors&quot;:null,&quot;place&quot;:null,&quot;source&quot;:&quot;web&quot;,&quot;in_reply_to_user_id&quot;:null,&quot;id&quot;:89690914515206144,&quot;retweeted_status&quot;:{&quot;retweet_count&quot;:10,&quot;favorited&quot;:false,&quot;geo&quot;:null,&quot;possibly_sensitive&quot;:false,&quot;coordinates&quot;:null,&quot;in_reply_to_screen_name&quot;:null,&quot;in_reply_to_status_id_str&quot;:null,&quot;retweeted&quot;:false,&quot;in_reply_to_status_id&quot;:null,&quot;in_reply_to_user_id_str&quot;:null,&quot;created_at&quot;:&quot;Sat Jul 09 13:07:04 +0000 2011&quot;,&quot;truncated&quot;:false,&quot;id_str&quot;:&quot;89681976755372032&quot;,&quot;contributors&quot;:null,&quot;place&quot;:null,&quot;source&quot;:&quot;web&quot;,&quot;in_reply_to_user_id&quot;:null,&quot;id&quot;:89681976755372032,&quot;text&quot;:&quot;Excellent Python posts from @mitsuhiko - http:\/\/t.co\/k1wt6e4 and @ncoghlan_dev - http:\/\/t.co\/eTxacgZ (links fixed)&quot;},&quot;text&quot;:&quot;RT @jessenoller: Excellent Python posts from @mitsuhiko - http:\/\/t.co\/k1wt6e4 and @ncoghlan_dev - http:\/\/t.co\/eTxacgZ (links fixed)&quot;},&quot;follow_request_sent&quot;:null,&quot;statuses_count&quot;:553,&quot;geo_enabled&quot;:false,&quot;notifications&quot;:null,&quot;profile_text_color&quot;:&quot;3D1957&quot;,&quot;id_str&quot;:&quot;18490730&quot;,&quot;lang&quot;:&quot;en&quot;,&quot;profile_background_image_url&quot;:&quot;http:\/\/a1.twimg.com\/images\/themes\/theme10\/bg.gif&quot;,&quot;profile_image_url_https&quot;:&quot;https:\/\/si0.twimg.com\/profile_images\/69064242\/gb_normal.jpg&quot;,&quot;show_all_inline_media&quot;:true,&quot;listed_count&quot;:65,&quot;profile_link_color&quot;:&quot;FF0000&quot;,&quot;verified&quot;:false,&quot;id&quot;:18490730,&quot;time_zone&quot;:&quot;Berlin&quot;,&quot;profile_background_color&quot;:&quot;642D8B&quot;,&quot;location&quot;:&quot;Bavaria, Germany&quot;}]</code></pre>
+
+  </section>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="iex/0">
+    <span class="signature"><strong>iex()</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#iex/0" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>IEx </p>
+<h3>IEx (by default, with no language definition )</h3>
+<pre><code class="iex elixir">iex&gt; Base.decode16(&quot;666F6F626172&quot;)
+{:ok, &quot;foobar&quot;}
+
+iex&gt; Base.decode16(&quot;666f6f626172&quot;, case: :lower)
+{:ok, &quot;foobar&quot;}
+
+iex&gt; Base.decode16(&quot;666f6F626172&quot;, case: :mixed)
+{:ok, &quot;foobar&quot;}</code></pre>
+<h3>IEx</h3>
+<pre><code class="iex">iex&gt; :&quot; multi
+...&gt;  line &#39; \s \123 \x20
+...&gt; atom&quot;
+:&quot; multi\n line &#39;   S  \natom&quot;
+
+iex(1)&gt; &lt;&lt;&quot;hello&quot;::binary, c :: utf8, x::[4, unit(2)]&gt;&gt; = &quot;hello™1&quot;
+&quot;hello™1&quot;
+
+iex(2)&gt; c
+8482
+
+iex&gt; 1 + :atom
+** (ArithmeticError) bad argument in arithmetic expression
+    :erlang.+(1, :atom)
+
+iex(3)&gt; 1 +
+...(3)&gt; 2 +
+...(3)&gt; 3
+6
+
+iex&gt; IO.puts &quot;Hello world&quot;
+Hello world
+:ok</code></pre>
+
+  </section>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="javascript/0">
+    <span class="signature"><strong>javascript()</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#javascript/0" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Javascript</p>
+<h3>JavaScript</h3>
+<pre><code class="javascript">function $initHighlight(block, flags) {
+  try {
+    if (block.className.search(/\bno\-highlight\b/) != -1)
+      return processBlock(block.function, true, 0x0F) + &#39; class=&quot;&quot;&#39;;
+  } catch (e) {
+    /* handle exception */
+    var e4x =
+        &lt;div&gt;Example
+            &lt;p&gt;1234&lt;/p&gt;&lt;/div&gt;;
+  }
+  for (var i = 0 / 2; i &lt; classes.length; i++) { // &quot;0 / 2&quot; should not be parsed as regexp
+    if (checkCondition(classes[i]) === undefined)
+      return /\d+[\s/]/g;
+  }
+  console.log(Array.every(classes, Boolean));
+}</code></pre>
+<pre><code class="js">// This is js
+  function fixOutsideWorldLinks() {
+$(&#39;a&#39;).each(function() {
+  if (window.location.host != this.host) this.target = &#39;_parent&#39;;
+});
+}
+
+$(fixOutsideWorldLinks);</code></pre>
+
+  </section>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="json/0">
+    <span class="signature"><strong>json()</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#json/0" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>JSON</p>
+<h3>JSON</h3>
+<pre><code class="json">[
+    {
+      &quot;title&quot;: &quot;apples&quot;,
+      &quot;count&quot;: [12000, 20000],
+      &quot;description&quot;: {&quot;text&quot;: &quot;...&quot;, &quot;sensitive&quot;: false}
+    },
+    {
+      &quot;title&quot;: &quot;oranges&quot;,
+      &quot;count&quot;: [17500, null],
+      &quot;description&quot;: {&quot;text&quot;: &quot;...&quot;, &quot;sensitive&quot;: false}
+    }
+  ]</code></pre>
+<pre><code class="json">{
+  &quot;glossary&quot;: {
+      &quot;title&quot;: &quot;example glossary&quot;,
+  &quot;GlossDiv&quot;: {
+          &quot;title&quot;: &quot;S&quot;,
+    &quot;GlossList&quot;: {
+              &quot;GlossEntry&quot;: {
+                  &quot;ID&quot;: &quot;SGML&quot;,
+        &quot;SortAs&quot;: &quot;SGML&quot;,
+        &quot;GlossTerm&quot;: &quot;Standard Generalized Markup Language&quot;,
+        &quot;Acronym&quot;: &quot;SGML&quot;,
+        &quot;Abbrev&quot;: &quot;ISO 8879:1986&quot;,
+        &quot;GlossDef&quot;: {
+                      &quot;para&quot;: &quot;A meta-markup language, used to create markup languages such as DocBook.&quot;,
+          &quot;GlossSeeAlso&quot;: [&quot;GML&quot;, &quot;XML&quot;]
+                  },
+        &quot;GlossSee&quot;: &quot;markup&quot;
+              }
+          }
+      }
+  }
+}</code></pre>
+
+  </section>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="markdown/0">
+    <span class="signature"><strong>markdown()</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#markdown/0" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Markdown</p>
+<h3>Markdown</h3>
+<pre><code class="markdown"># hello world
+
+you can write text [with links](http://example.com) inline or [link references][1].
+
+* one _thing_ has *em*phasis
+* two __things__ are **bold**
+
+[1]: http://example.com
+
+---
+
+hello world
+===========
+
+&lt;this_is inline=&quot;xml&quot;&gt;&lt;/this_is&gt;
+
+&gt; markdown is so cool
+
+    so are code segments
+
+1. one thing (yeah!)
+2. two thing `i can write code`, and `more` wipee!</code></pre>
+
+  </section>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="no_highlighting/0">
+    <span class="signature"><strong>no_highlighting()</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#no_highlighting/0" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>No Highlighting</p>
+<h3>Language Not Defined</h3>
+<pre><code class="elixir">[
+    {
+      &quot;title&quot;: &quot;apples&quot;,
+      &quot;count&quot;: [12000, 20000],
+      &quot;description&quot;: {&quot;text&quot;: &quot;...&quot;, &quot;sensitive&quot;: false}
+    },
+    {
+      &quot;title&quot;: &quot;oranges&quot;,
+      &quot;count&quot;: [17500, null],
+      &quot;description&quot;: {&quot;text&quot;: &quot;...&quot;, &quot;sensitive&quot;: false}
+    }
+  ]</code></pre>
+<h3>Language Not Supported</h3>
+<pre><code class="nosupportedlanguage">[
+    {
+      &quot;title&quot;: &quot;apples&quot;,
+      &quot;count&quot;: [12000, 20000],
+      &quot;description&quot;: {&quot;text&quot;: &quot;...&quot;, &quot;sensitive&quot;: false}
+    },
+    {
+      &quot;title&quot;: &quot;oranges&quot;,
+      &quot;count&quot;: [17500, null],
+      &quot;description&quot;: {&quot;text&quot;: &quot;...&quot;, &quot;sensitive&quot;: false}
+    }
+  ]</code></pre>
+<h3>No Highlight (explicitely called)</h3>
+<pre><code class="nohighlight">#This should not be higligthed at all
+defmodule Check do
+  @doc &quot;Checks if the task has already executed&quot;
+  def executed?(task, project) do
+    item = {task, project}
+    Agent.get(__MODULE__, fn set -&gt;
+      item in set
+    end)
+  end
+end</code></pre>
+
+  </section>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="sql/0">
+    <span class="signature"><strong>sql()</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#sql/0" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>SQL</p>
+<h3>SQL</h3>
+<pre><code class="sql">BEGIN;
+  CREATE TABLE &quot;topic&quot; (
+      -- This is the greatest table of all time
+      &quot;id&quot; serial NOT NULL PRIMARY KEY,
+      &quot;forum_id&quot; integer NOT NULL,
+      &quot;subject&quot; varchar(255) NOT NULL -- Because nobody likes an empty subject
+  );
+  ALTER TABLE &quot;topic&quot; ADD CONSTRAINT forum_id FOREIGN KEY (&quot;forum_id&quot;) REFERENCES &quot;forum&quot; (&quot;id&quot;);
+
+  -- Initials
+  insert into &quot;topic&quot; (&quot;forum_id&quot;, &quot;subject&quot;) values (2, &#39;D&#39;&#39;artagnian&#39;);
+
+  select /* comment */ count(*) from cicero_forum;
+
+  -- this line lacks ; at the end to allow people to be sloppy and omit it in one-liners
+  /*
+  but who cares?
+  */
+  COMMIT</code></pre>
+<pre><code class="sql">CREATE OR REPLACE FUNCTION something() RETURNS int4 AS
+$x$
+BEGIN
+    RETURN 42;
+END
+$x$
+LANGUAGE &#39;plpgsql&#39;;
+
+CREATE FUNCTION pymax (a integer, b integer)
+  RETURNS integer
+AS $$
+  if a &gt; b:
+    return a
+  return b
+$$ language plpythonu;
+
+CREATE FUNCTION nested_lexers (a integer, b integer)
+$function$
+BEGIN
+    SELECT ($1 ~ $q$[\t\r\n\v\\]$q$);
+END;
+$function$
+LANGUAGE sql;
+
+CREATE OR REPLACE FUNCTION measurement_insert_trigger()
+RETURNS TRIGGER AS $$
+BEGIN
+    &lt;&lt;test&gt;&gt;
+    INSERT INTO measurement_y2008m01 VALUES (NEW.*);
+    RETURN NULL;
+END;
+$$
+LANGUAGE plpgsql;
+
+-- As returned by pg_dump
+CREATE FUNCTION test_function() RETURNS integer
+    LANGUAGE plpgsql STABLE STRICT
+    AS $$
+begin
+    return 42;
+end
+$$;
+
+-- Unicode names and strings
+SELECT U&amp;&#39;\0441\043B\043E\043D&#39;
+FROM U&amp;&quot;\0441\043B\043E\043D&quot;;</code></pre>
+
+  </section>
+  
+</section>
+
+        </section>
+      
+
+      
+
+      
+    </section>
+  </body>
+</html>

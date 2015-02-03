@@ -1,0 +1,9 @@
+<pre><code class="elixir hljs"><span class="hljs-comment"># Compute in the agent/server</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_something</span>(agent) </span><span class="hljs-keyword">do</span>
+<span class="hljs-constant">Agent.</span>get(agent, <span class="hljs-keyword">fn</span> state -&gt; do_something_expensive(state) <span class="hljs-keyword">end</span>)
+<span class="hljs-keyword">end</span>
+
+<span class="hljs-comment"># Compute in the agent/client</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_something</span>(agent) </span><span class="hljs-keyword">do</span>
+<span class="hljs-constant">Agent.</span>get(agent, &amp;(&amp;<span class="hljs-number">1</span>)) |&gt; do_something_expensive()
+<span class="hljs-keyword">end</span></code></pre>

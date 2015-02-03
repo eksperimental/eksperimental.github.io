@@ -1,0 +1,9 @@
+defmodule Check do
+  @doc "Checks if the task has already executed"
+  def executed?(task, project) do
+    item = {task, project}
+    Agent.get(__MODULE__, fn set ->
+      item in set
+    end)
+  end
+end

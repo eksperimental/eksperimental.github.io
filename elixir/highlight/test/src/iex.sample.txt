@@ -1,0 +1,8 @@
+iex> Base.decode16("666F6F626172")
+{:ok, "foobar"}
+
+iex> Base.decode16("666f6f626172", case: :lower)
+{:ok, "foobar"}
+
+iex> Base.decode16("666f6F626172", case: :mixed)
+{:ok, "foobar"}

@@ -1,0 +1,9 @@
+Eshell V6.3  (abort with ^G)
+1> A=2;
+1> .
+* 2: syntax error before: '.'
+1> A = 2.
+2
+2> A = 3.
+** exception error: no match of right hand side value 3
+3> 

@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:template match="/">
+  <html>
+  <body>
+  <table border="2" bgcolor="yellow">
+  <tr>
+  <th>Title</th>
+  <th>Artist</th>
+  <th>Dynamic Content</th>
+  </tr>
+  <xsl:for-each select="CATALOG/CD">
+  <tr>
+  <td><xsl:value-of select="TITLE"/></td>
+  <td><xsl:value-of select="ARTIST"/></td>
+  <td><xsl:value-of select="ORACLE"/></td>
+  </tr>
+  </xsl:for-each>
+  </table>
+  </body>
+  </html>
+</xsl:template>
+</xsl:stylesheet>
+
+<!DOCTYPE TVSCHEDULE [ 
+<!ELEMENT TVSCHEDULE (CHANNEL+)>
+<!ELEMENT CHANNEL (BANNER, DAY+)>
+<!ELEMENT BANNER (#PCDATA)>
+<!ELEMENT DAY ((DATE, HOLIDAY) | (DATE, PROGRAMSLOT+))+>
+<!ELEMENT HOLIDAY (#PCDATA)>
+<!ELEMENT DATE (#PCDATA)>
+<!ELEMENT PROGRAMSLOT (TIME, TITLE, DESCRIPTION?)>
+<!ELEMENT TIME (#PCDATA)>
+<!ELEMENT TITLE (#PCDATA)> 
+<!ELEMENT DESCRIPTION (#PCDATA)>
+
+<!ATTLIST TVSCHEDULE  NAME CDATA #REQUIRED>
+<!ATTLIST CHANNEL CHAN CDATA #REQUIRED>
+<!ATTLIST PROGRAMSLOT VTR CDATA #IMPLIED>
+<!ATTLIST TITLE RATING CDATA #IMPLIED>
+<!ATTLIST TITLE LANGUAGE CDATA #IMPLIED>
+]>

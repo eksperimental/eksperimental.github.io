@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Mix.Config</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+    <link rel="stylesheet" href="css/elixir.css" type="text/css" media="screen" charset="utf-8" />
+    <script type="text/javascript" charset="utf-8">
+      relpath = '';
+      if (relpath != '') relpath += '/';
+    </script>
+
+    <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/highlight.pack.js"></script>
+    <script type="text/javascript" charset="utf-8">
+      hljs.initHighlightingOnLoad();
+      hljs.configure({languages: []}); //disable autodetect
+    </script>
+  </head>
+
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+
+    <section id="content">
+      <div class="breadcrumbs">Mix v1.1.0-dev &rarr; <a href="overview.html">Overview</a> &rarr; <a href="Mix.html">Mix</a> &rarr; <a href="Mix.Config.html">Config</a></div>
+      <h1>
+        Mix.Config
+        
+      </h1>
+
+      <ul class="summary_links">
+        
+          <li><a href="#summary">Summary</a></li>
+        
+        
+        
+          <li><a href="#functions_details">Functions</a></li>
+        
+        
+          <li><a href="#macros_details">Macros</a></li>
+        
+        
+      </ul>
+
+      
+        <section id="moduledoc" class="docstring">
+          <p>Module for defining, reading and merging app configurations.</p>
+<p>Most commonly, this module is used to define your own configuration:</p>
+<pre><code class="elixir">use Mix.Config
+
+config :plug,
+  key1: &quot;value1&quot;,
+  key2: &quot;value2&quot;
+
+import_config &quot;#{Mix.env}.exs&quot;</code></pre>
+<p>All <code class="inline">config/*</code> macros, including <a href="#import_config/1"><code class="inline">import_config/1</code></a>, are used
+to help define such configuration files.</p>
+<p>Furthermore, this module provides functions like <a href="#read!/1"><code class="inline">read!/1</code></a>,
+<a href="#merge/2"><code class="inline">merge/2</code></a> and friends which help manipulate configurations
+in general.</p>
+
+        </section>
+      
+
+      
+        <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix/config.ex#L1" class="view_source">Source</a>
+      
+
+      
+        <h2 id="summary">Summary<span class="detail_header_links"><a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a></span></h2>
+        <table class="summary">
+          <tr>
+  <td class="summary_signature"><a href="#config/2">config(app, opts)</a></td>
+  
+    <td class="summary_synopsis"><p>Configures the given application</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#config/3">config(app, key, opts)</a></td>
+  
+    <td class="summary_synopsis"><p>Configures the given key for the given application</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#import_config/1">import_config(file)</a></td>
+  
+    <td class="summary_synopsis"><p>Imports configuration from the given file</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#merge/2">merge(config1, config2)</a></td>
+  
+    <td class="summary_synopsis"><p>Merges two configurations</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#persist/1">persist(config)</a></td>
+  
+    <td class="summary_synopsis"><p>Persists the given configuration by modifying
+the configured applications environment</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#read!/1">read!(file)</a></td>
+  
+    <td class="summary_synopsis"><p>Reads and validates a configuration file</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#read_wildcard!/2">read_wildcard!(config, path)</a></td>
+  
+    <td class="summary_synopsis"><p>Reads many configuration files given by wildcard into a single config</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#validate!/1">validate!(config)</a></td>
+  
+    <td class="summary_synopsis"><p>Validates a configuration</p>
+</td>
+  
+</tr>
+
+        </table>
+      
+
+      
+
+      
+        <section id="functions_details" class="details_list">
+          <h2>Functions</h2>
+          <section class="detail">
+  <div class="detail_header" id="merge/2">
+    <span class="signature"><strong>merge(config1, config2)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#merge/2" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Merges two configurations.</p>
+<p>The configuration of each application is merged together
+with the values in the second one having higher preference
+than the first in case of conflicts.</p>
+<h2>Examples</h2>
+<pre><code class="iex elixir">iex&gt; Mix.Config.merge([app: [k: :v1]], [app: [k: :v2]])
+[app: [k: :v2]]
+
+iex&gt; Mix.Config.merge([app1: []], [app2: []])
+[app1: [], app2: []]</code></pre>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix/config.ex#L205" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="persist/1">
+    <span class="signature"><strong>persist(config)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#persist/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Persists the given configuration by modifying
+the configured applications environment.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix/config.ex#L160" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="read!/1">
+    <span class="signature"><strong>read!(file)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#read!/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Reads and validates a configuration file.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix/config.ex#L129" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="read_wildcard!/2">
+    <span class="signature"><strong>read_wildcard!(config, path)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#read_wildcard!/2" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Reads many configuration files given by wildcard into a single config.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix/config.ex#L148" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="validate!/1">
+    <span class="signature"><strong>validate!(config)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#validate!/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Validates a configuration.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix/config.ex#L170" class="view_source">Source</a>
+  
+</section>
+
+        </section>
+      
+
+      
+        <section id="macros_details" class="details_list">
+          <h2>Macros</h2>
+          <section class="detail">
+  <div class="detail_header" id="config/2">
+    <span class="signature"><strong>config(app, opts)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(macro)</span>
+      <a href="#config/2" class="detail_link" title="Link to this macro">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Configures the given application.</p>
+<p>Keyword lists are always deep merged.</p>
+<h2>Examples</h2>
+<p>The given <code class="inline">opts</code> are merged into the existing configuration
+for the given <code class="inline">app</code>. Conflicting keys are overridden by the
+ones specified in <code class="inline">opts</code>. For example, the declaration below:</p>
+<pre><code class="elixir">config :lager,
+  log_level: :warn,
+  mode: :truncate
+
+config :lager,
+  log_level: :info,
+  threshold: 1024</code></pre>
+<p>Will have a final configuration of:</p>
+<pre><code class="elixir">[log_level: :info, mode: :truncate, threshold: 1024]</code></pre>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix/config.ex#L64" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="config/3">
+    <span class="signature"><strong>config(app, key, opts)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(macro)</span>
+      <a href="#config/3" class="detail_link" title="Link to this macro">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Configures the given key for the given application.</p>
+<p>Keyword lists are always deep merged.</p>
+<h2>Examples</h2>
+<p>The given <code class="inline">opts</code> are merged into the existing values for <code class="inline">key</code>
+in the given <code class="inline">app</code>. Conflicting keys are overridden by the
+ones specified in <code class="inline">opts</code>. For example, the declaration below:</p>
+<pre><code class="elixir">config :ecto, Repo,
+  log_level: :warn
+
+config :ecto, Repo,
+  log_level: :info,
+  pool_size: 10</code></pre>
+<p>Will have a final value for <code class="inline">Repo</code> of:</p>
+<pre><code class="elixir">[log_level: :info, pool_size: 10]</code></pre>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix/config.ex#L94" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="import_config/1">
+    <span class="signature"><strong>import_config(file)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(macro)</span>
+      <a href="#import_config/1" class="detail_link" title="Link to this macro">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Imports configuration from the given file.</p>
+<p>The path is expected to be relative to the directory the
+current configuration file is on.</p>
+<h2>Examples</h2>
+<p>This is often used to emulate configuration across environments:</p>
+<pre><code class="elixir">import_config &quot;#{Mix.env}.exs&quot;</code></pre>
+<p>Or to import files from children in umbrella projects:</p>
+<pre><code class="elixir">import_config &quot;../apps/*/config/config.exs&quot;</code></pre>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix/config.ex#L119" class="view_source">Source</a>
+  
+</section>
+
+        </section>
+      
+
+      
+    </section>
+  </body>
+</html>

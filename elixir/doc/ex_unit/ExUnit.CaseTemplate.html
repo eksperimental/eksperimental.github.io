@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ExUnit.CaseTemplate</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+    <link rel="stylesheet" href="css/elixir.css" type="text/css" media="screen" charset="utf-8" />
+    <script type="text/javascript" charset="utf-8">
+      relpath = '';
+      if (relpath != '') relpath += '/';
+    </script>
+
+    <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/highlight.pack.js"></script>
+    <script type="text/javascript" charset="utf-8">
+      hljs.initHighlightingOnLoad();
+      hljs.configure({languages: []}); //disable autodetect
+    </script>
+  </head>
+
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+
+    <section id="content">
+      <div class="breadcrumbs">ExUnit v1.1.0-dev &rarr; <a href="overview.html">Overview</a> &rarr; <a href="ExUnit.html">ExUnit</a> &rarr; <a href="ExUnit.CaseTemplate.html">CaseTemplate</a></div>
+      <h1>
+        ExUnit.CaseTemplate
+        
+      </h1>
+
+      <ul class="summary_links">
+        
+          <li><a href="#summary">Summary</a></li>
+        
+        
+        
+        
+          <li><a href="#macros_details">Macros</a></li>
+        
+        
+      </ul>
+
+      
+        <section id="moduledoc" class="docstring">
+          <p>This module allows a developer to define a test case
+template to be used throughout their tests. This is useful
+when there are a set of functions that should be shared
+between tests or a set of setup callbacks.</p>
+<p>By using this module, the callbacks and assertions
+available for regular test cases will also be available.</p>
+<h2>Example</h2>
+<pre><code class="elixir">defmodule MyCase do
+  use ExUnit.CaseTemplate
+
+  setup do
+    IO.puts &quot;This will run before each test that uses this case&quot;
+  end
+end
+
+defmodule MyTest do
+  use MyCase, async: true
+
+  test &quot;truth&quot; do
+    assert true
+  end
+end</code></pre>
+
+        </section>
+      
+
+      
+        <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/ex_unit/lib/ex_unit/case_template.ex#L1" class="view_source">Source</a>
+      
+
+      
+        <h2 id="summary">Summary<span class="detail_header_links"><a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a></span></h2>
+        <table class="summary">
+          <tr>
+  <td class="summary_signature"><a href="#using/2">using(var \\ {:_, [], ExUnit.CaseTemplate}, list2)</a></td>
+  
+    <td class="summary_synopsis"><p>Allows a developer to customize the using block
+when the case template is used</p>
+</td>
+  
+</tr>
+
+        </table>
+      
+
+      
+
+      
+
+      
+        <section id="macros_details" class="details_list">
+          <h2>Macros</h2>
+          <section class="detail">
+  <div class="detail_header" id="using/2">
+    <span class="signature"><strong>using(var \\ {:_, [], ExUnit.CaseTemplate}, list2)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(macro)</span>
+      <a href="#using/2" class="detail_link" title="Link to this macro">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Allows a developer to customize the using block
+when the case template is used.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/ex_unit/lib/ex_unit/case_template.ex#L66" class="view_source">Source</a>
+  
+</section>
+
+        </section>
+      
+
+      
+    </section>
+  </body>
+</html>

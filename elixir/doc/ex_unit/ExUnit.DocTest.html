@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ExUnit.DocTest</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+    <link rel="stylesheet" href="css/elixir.css" type="text/css" media="screen" charset="utf-8" />
+    <script type="text/javascript" charset="utf-8">
+      relpath = '';
+      if (relpath != '') relpath += '/';
+    </script>
+
+    <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/highlight.pack.js"></script>
+    <script type="text/javascript" charset="utf-8">
+      hljs.initHighlightingOnLoad();
+      hljs.configure({languages: []}); //disable autodetect
+    </script>
+  </head>
+
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+
+    <section id="content">
+      <div class="breadcrumbs">ExUnit v1.1.0-dev &rarr; <a href="overview.html">Overview</a> &rarr; <a href="ExUnit.html">ExUnit</a> &rarr; <a href="ExUnit.DocTest.html">DocTest</a></div>
+      <h1>
+        ExUnit.DocTest
+        
+      </h1>
+
+      <ul class="summary_links">
+        
+          <li><a href="#summary">Summary</a></li>
+        
+        
+        
+        
+          <li><a href="#macros_details">Macros</a></li>
+        
+        
+      </ul>
+
+      
+        <section id="moduledoc" class="docstring">
+          <p>ExUnit.DocTest implements functionality similar to <a href="http://docs.python.org/2/library/doctest.html">Python’s
+doctest</a>.</p>
+<p>In a nutshell, it allows us to generate tests from the code
+examples existing in a module/function/macro’s documentation.
+In order to do that, one needs to invoke the <code class="inline">doctest/1</code> macro
+from their test case and write their examples according
+to some guidelines.</p>
+<p>The syntax for examples is as follows. Every new test starts
+on a new line, with an <code class="inline">iex&gt;</code> prefix. Multiline expressions
+can be employed if the following lines start with either
+<code class="inline">...&gt;</code> (recommended) or <code class="inline">iex&gt;</code> prefix.</p>
+<p>The expected result should start at the next line after <code class="inline">iex&gt;</code>
+or <code class="inline">...&gt;</code> line(s) and is terminated either by a newline, new
+<code class="inline">iex&gt;</code> prefix or end of the string literal.</p>
+<h2>Examples</h2>
+<p>Currently, the only way to run doctests is to include them into
+an ExUnit case with a <code class="inline">doctest</code> macro:</p>
+<pre><code class="elixir">defmodule MyModule.Test do
+  use ExUnit.Case, async: true
+  doctest MyModule
+end</code></pre>
+<p>The <code class="inline">doctest</code> macro is going to loop through all functions and
+macros defined in <code class="inline">MyModule</code>, parsing their documentation in
+search of code examples.</p>
+<p>A very basic example is:</p>
+<pre><code class="iex elixir">iex&gt; 1+1
+2</code></pre>
+<p>Expressions on multiple lines are also supported:</p>
+<pre><code class="iex elixir">iex&gt; Enum.map [1, 2, 3], fn(x) -&gt;
+...&gt;   x * 2
+...&gt; end
+[2,4,6]</code></pre>
+<p>Multiple results can be checked within the same test:</p>
+<pre><code class="iex elixir">iex&gt; a = 1
+1
+iex&gt; a + 1
+2</code></pre>
+<p>If you want to keep any two tests separate,
+add an empty line between them:</p>
+<pre><code class="iex elixir">iex&gt; a = 1
+1
+
+iex&gt; a + 1  # will fail with a &quot;function a/0 undefined&quot; error
+2</code></pre>
+<p>Similarly to iex you can use numbers in your “prompts”:</p>
+<pre><code class="elixir">iex(1)&gt; [1+2,
+...(1)&gt;  3]
+[3,3]</code></pre>
+<p>This is useful in two use cases:</p>
+<ul>
+<li>being able to refer to specific numbered scenarios
+</li>
+<li>copy-pasting examples from an actual iex session
+</li>
+</ul>
+<p>We also allow you to select or skip some functions when calling
+<code class="inline">doctest</code>. See the documentation for more info.</p>
+<h2>Opaque types</h2>
+<p>Some types internal structure are kept hidden and instead show a
+user-friendly structure when inspecting the value. The idiom in
+Elixir is to print those data types as <code class="inline">#Name&lt;...&gt;</code>. Doctest will
+test these values by doing a string compare.</p>
+<pre><code class="iex elixir">iex&gt; Enum.into([a: 10, b: 20], HashDict.new)
+#HashDict&lt;[b: 20, a: 10]&gt;</code></pre>
+<p>The above example will be tested with the following match:
+<code class="inline">&quot;#HashDict&lt;[b: 20, a: 10]&gt;&quot; = inspect(Enum.into([a: 10, b: 20], HashDict.new))</code>.</p>
+<h2>Exceptions</h2>
+<p>You can also showcase expressions raising an exception, for example:</p>
+<pre><code class="elixir">iex(1)&gt; String.to_atom((fn() -&gt; 1 end).())
+** (ArgumentError) argument error</code></pre>
+<p>What DocTest will be looking for is a line starting with <code class="inline">** (</code> and it
+will parse it accordingly to extract the exception name and message.
+At this moment, the exception parser would make the parser treat the next
+line as a start of a completely new expression (if it is prefixed with <code class="inline">iex&gt;</code>)
+or a no-op line with documentation. Thus, multiline messages are not
+supported.</p>
+<h2>When not to use doctest</h2>
+<p>In general, doctests are not recommended when your code examples contain
+side effects. For example, if a doctest prints to standard output, doctest
+will not try to capture the output.</p>
+<p>Similarly, doctests do not run in any kind of sandbox. So any module
+defined in a code example is going to linger throughout the whole test
+suite run.</p>
+
+        </section>
+      
+
+      
+        <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/ex_unit/lib/ex_unit/doc_test.ex#L1" class="view_source">Source</a>
+      
+
+      
+        <h2 id="summary">Summary<span class="detail_header_links"><a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a></span></h2>
+        <table class="summary">
+          <tr>
+  <td class="summary_signature"><a href="#doctest/2">doctest(mod, opts \\ [])</a></td>
+  
+    <td class="summary_synopsis"><p>This macro is used to generate ExUnit test cases for doctests</p>
+</td>
+  
+</tr>
+
+        </table>
+      
+
+      
+
+      
+
+      
+        <section id="macros_details" class="details_list">
+          <h2>Macros</h2>
+          <section class="detail">
+  <div class="detail_header" id="doctest/2">
+    <span class="signature"><strong>doctest(mod, opts \\ [])</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(macro)</span>
+      <a href="#doctest/2" class="detail_link" title="Link to this macro">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>This macro is used to generate ExUnit test cases for doctests.</p>
+<p>Calling <code class="inline">doctest(Module)</code> will generate tests for all doctests found
+in the module <code class="inline">Module</code></p>
+<p>Options can also be supplied:</p>
+<ul>
+<li><p><code class="inline">:except</code> — generate tests for all functions except those listed
+(list of <code class="inline">{function, arity}</code> tuples).</p>
+</li>
+<li><p><code class="inline">:only</code> — generate tests only for functions listed
+(list of <code class="inline">{function, arity}</code> tuples).</p>
+</li>
+<li><code class="inline">:import</code> — when true, one can test a function defined in the module
+without referring to the module name. However, this is not feasible when
+there is a clash with a module like Kernel. In these cases, <code class="inline">import</code>
+should be set to <code class="inline">false</code> and a full <code class="inline">M.f</code> construct should be used.
+</li>
+</ul>
+<h2>Examples</h2>
+<pre><code class="elixir">doctest MyModule, except: [trick_fun: 1]</code></pre>
+<p>This macro is auto-imported with every <a href="ExUnit.Case.html"><code class="inline">ExUnit.Case</code></a>.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/ex_unit/lib/ex_unit/doc_test.ex#L144" class="view_source">Source</a>
+  
+</section>
+
+        </section>
+      
+
+      
+    </section>
+  </body>
+</html>

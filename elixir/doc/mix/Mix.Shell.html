@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Mix.Shell</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+    <link rel="stylesheet" href="css/elixir.css" type="text/css" media="screen" charset="utf-8" />
+    <script type="text/javascript" charset="utf-8">
+      relpath = '';
+      if (relpath != '') relpath += '/';
+    </script>
+
+    <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/highlight.pack.js"></script>
+    <script type="text/javascript" charset="utf-8">
+      hljs.initHighlightingOnLoad();
+      hljs.configure({languages: []}); //disable autodetect
+    </script>
+  </head>
+
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+
+    <section id="content">
+      <div class="breadcrumbs">Mix v1.1.0-dev &rarr; <a href="overview.html">Overview</a> &rarr; <a href="Mix.html">Mix</a> &rarr; <a href="Mix.Shell.html">Shell</a></div>
+      <h1>
+        Mix.Shell
+        
+          <small>behaviour</small>
+        
+      </h1>
+
+      <ul class="summary_links">
+        
+          <li><a href="#summary">Summary</a></li>
+        
+        
+        
+          <li><a href="#functions_details">Functions</a></li>
+        
+        
+        
+          <li><a href="#callbacks_details">Callbacks</a></li>
+        
+      </ul>
+
+      
+        <section id="moduledoc" class="docstring">
+          <p>Defines Mix.Shell contract.</p>
+
+        </section>
+      
+
+      
+        <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix/shell.ex#L1" class="view_source">Source</a>
+      
+
+      
+        <h2 id="summary">Summary<span class="detail_header_links"><a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a></span></h2>
+        <table class="summary">
+          <tr>
+  <td class="summary_signature"><a href="#cmd/2">cmd(command, callback)</a></td>
+  
+    <td class="summary_synopsis"><p>An implementation of the command callback that
+is shared across different shells</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#printable_app_name/0">printable_app_name()</a></td>
+  
+    <td class="summary_synopsis"><p>Returns the printable app name</p>
+</td>
+  
+</tr>
+
+        </table>
+      
+
+      
+
+      
+        <section id="functions_details" class="details_list">
+          <h2>Functions</h2>
+          <section class="detail">
+  <div class="detail_header" id="cmd/2">
+    <span class="signature"><strong>cmd(command, callback)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#cmd/2" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>An implementation of the command callback that
+is shared across different shells.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix/shell.ex#L69" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="printable_app_name/0">
+    <span class="signature"><strong>printable_app_name()</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#printable_app_name/0" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Returns the printable app name.</p>
+<p>This function returns the current application name
+but only if the application name should be printed.</p>
+<p>Calling this function automatically toggles its value
+to false until the current project is re-entered. The
+goal is to exactly avoid printing the application name
+multiple times.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix/shell.ex#L61" class="view_source">Source</a>
+  
+</section>
+
+        </section>
+      
+
+      
+
+      
+        <section id="callbacks_details" class="details_list">
+          <h2>Callbacks</h2>
+          <section class="detail">
+  <div class="detail_header" id="c:cmd/1">
+    <span class="signature"><strong>cmd/1</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(callback)</span>
+      <a href="#c:cmd/1" class="detail_link" title="Link to this callback">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>cmd(command :: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>) :: integer</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Executes the given command and returns its exit status.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix/shell.ex#L31" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="c:cmd/2">
+    <span class="signature"><strong>cmd/2</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(callback)</span>
+      <a href="#c:cmd/2" class="detail_link" title="Link to this callback">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>cmd(command :: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>, options :: <a href="http://elixir-lang.org/docs/stable/elixir/Keyword.html#t:t/0">Keyword.t</a>) :: integer</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Executes the given command and returns its exit status.</p>
+<h2>Options</h2>
+<ul>
+<li><code class="inline">:print_app</code> - when false, does not print the app name
+when the command outputs something.
+</li>
+</ul>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix/shell.ex#L42" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="c:error/1">
+    <span class="signature"><strong>error/1</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(callback)</span>
+      <a href="#c:error/1" class="detail_link" title="Link to this callback">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>error(message :: <a href="http://elixir-lang.org/docs/stable/elixir/IO.ANSI.html#t:ansidata/0">IO.ANSI.ansidata</a>) :: any</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Warns about the given error message.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix/shell.ex#L16" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="c:info/1">
+    <span class="signature"><strong>info/1</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(callback)</span>
+      <a href="#c:info/1" class="detail_link" title="Link to this callback">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>info(message :: <a href="http://elixir-lang.org/docs/stable/elixir/IO.ANSI.html#t:ansidata/0">IO.ANSI.ansidata</a>) :: any</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Informs the given message.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix/shell.ex#L11" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="c:print_app/0">
+    <span class="signature"><strong>print_app/0</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(callback)</span>
+      <a href="#c:print_app/0" class="detail_link" title="Link to this callback">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>print_app :: any</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Prints the current application to shell if
+it was not printed yet.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix/shell.ex#L48" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="c:prompt/1">
+    <span class="signature"><strong>prompt/1</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(callback)</span>
+      <a href="#c:prompt/1" class="detail_link" title="Link to this callback">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>prompt(message :: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>) :: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a></li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Prompts the user for input.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix/shell.ex#L21" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="c:yes?/1">
+    <span class="signature"><strong>yes?/1</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(callback)</span>
+      <a href="#c:yes?/1" class="detail_link" title="Link to this callback">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>yes?(message :: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>) :: boolean</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Asks the user for confirmation.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix/shell.ex#L26" class="view_source">Source</a>
+  
+</section>
+
+        </section>
+      
+    </section>
+  </body>
+</html>

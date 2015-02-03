@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Mix.Generator</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+    <link rel="stylesheet" href="css/elixir.css" type="text/css" media="screen" charset="utf-8" />
+    <script type="text/javascript" charset="utf-8">
+      relpath = '';
+      if (relpath != '') relpath += '/';
+    </script>
+
+    <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/highlight.pack.js"></script>
+    <script type="text/javascript" charset="utf-8">
+      hljs.initHighlightingOnLoad();
+      hljs.configure({languages: []}); //disable autodetect
+    </script>
+  </head>
+
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+
+    <section id="content">
+      <div class="breadcrumbs">Mix v1.1.0-dev &rarr; <a href="overview.html">Overview</a> &rarr; <a href="Mix.html">Mix</a> &rarr; <a href="Mix.Generator.html">Generator</a></div>
+      <h1>
+        Mix.Generator
+        
+      </h1>
+
+      <ul class="summary_links">
+        
+          <li><a href="#summary">Summary</a></li>
+        
+        
+        
+          <li><a href="#functions_details">Functions</a></li>
+        
+        
+          <li><a href="#macros_details">Macros</a></li>
+        
+        
+      </ul>
+
+      
+        <section id="moduledoc" class="docstring">
+          <p>Conveniences for working with paths and generating content.</p>
+<p>All of those functions are verbose, in the sense they log
+the action to be performed via <code class="inline">Mix.shell</code>.</p>
+
+        </section>
+      
+
+      
+        <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix/generator.ex#L1" class="view_source">Source</a>
+      
+
+      
+        <h2 id="summary">Summary<span class="detail_header_links"><a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a></span></h2>
+        <table class="summary">
+          <tr>
+  <td class="summary_signature"><a href="#create_directory/1">create_directory(path)</a></td>
+  
+    <td class="summary_synopsis"><p>Creates a directory if one does not exist yet</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#create_file/3">create_file(path, contents, opts \\ [])</a></td>
+  
+    <td class="summary_synopsis"><p>Creates a file with the given contents.
+If the file already exists, asks for user confirmation</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#embed_template/2">embed_template(name, contents)</a></td>
+  
+    <td class="summary_synopsis"><p>Embed a template given by <code class="inline">contents</code> into the current module</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#embed_text/2">embed_text(name, contents)</a></td>
+  
+    <td class="summary_synopsis"><p>Embeds a text given by <code class="inline">contents</code> into the current module</p>
+</td>
+  
+</tr>
+
+        </table>
+      
+
+      
+
+      
+        <section id="functions_details" class="details_list">
+          <h2>Functions</h2>
+          <section class="detail">
+  <div class="detail_header" id="create_directory/1">
+    <span class="signature"><strong>create_directory(path)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#create_directory/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Creates a directory if one does not exist yet.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix/generator.ex#L29" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="create_file/3">
+    <span class="signature"><strong>create_file(path, contents, opts \\ [])</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#create_file/3" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Creates a file with the given contents.
+If the file already exists, asks for user confirmation.</p>
+<h2>Options</h2>
+<ul>
+<li><code class="inline">:force</code> - forces installation without a shell prompt.
+</li>
+</ul>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix/generator.ex#L17" class="view_source">Source</a>
+  
+</section>
+
+        </section>
+      
+
+      
+        <section id="macros_details" class="details_list">
+          <h2>Macros</h2>
+          <section class="detail">
+  <div class="detail_header" id="embed_template/2">
+    <span class="signature"><strong>embed_template(name, contents)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(macro)</span>
+      <a href="#embed_template/2" class="detail_link" title="Link to this macro">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Embed a template given by <code class="inline">contents</code> into the current module.</p>
+<p>It will define a private function with the <code class="inline">name</code> followed by
+<code class="inline">_template</code> that expects assigns as arguments.</p>
+<p>This function must be invoked passing a keyword list.
+Each key in the keyword list can be accessed in the
+template using the <code class="inline">@</code> macro.</p>
+<p>For more information, check <code class="inline">EEx.SmartEngine</code>.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix/generator.ex#L53" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="embed_text/2">
+    <span class="signature"><strong>embed_text(name, contents)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(macro)</span>
+      <a href="#embed_text/2" class="detail_link" title="Link to this macro">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Embeds a text given by <code class="inline">contents</code> into the current module.</p>
+<p>It will define a private function with the <code class="inline">name</code> followed by
+<code class="inline">_text</code> that expects no argument.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix/generator.ex#L78" class="view_source">Source</a>
+  
+</section>
+
+        </section>
+      
+
+      
+    </section>
+  </body>
+</html>

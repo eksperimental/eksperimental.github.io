@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Mix.Tasks.Escript.Build</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+    <link rel="stylesheet" href="css/elixir.css" type="text/css" media="screen" charset="utf-8" />
+    <script type="text/javascript" charset="utf-8">
+      relpath = '';
+      if (relpath != '') relpath += '/';
+    </script>
+
+    <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/highlight.pack.js"></script>
+    <script type="text/javascript" charset="utf-8">
+      hljs.initHighlightingOnLoad();
+      hljs.configure({languages: []}); //disable autodetect
+    </script>
+  </head>
+
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+
+    <section id="content">
+      <div class="breadcrumbs">Mix v1.1.0-dev &rarr; <a href="overview.html">Overview</a> &rarr; <a href="Mix.html">Mix</a> &rarr; Tasks &rarr; Escript &rarr; <a href="Mix.Tasks.Escript.Build.html">Build</a></div>
+      <h1>
+        Mix.Tasks.Escript.Build
+        
+      </h1>
+
+      <ul class="summary_links">
+        
+          <li><a href="#summary">Summary</a></li>
+        
+        
+        
+          <li><a href="#functions_details">Functions</a></li>
+        
+        
+        
+      </ul>
+
+      
+        <section id="moduledoc" class="docstring">
+          <p>Builds an escript for the project.</p>
+<p>An escript is an executable that can be invoked from the
+command line.  An escript can run on any machine that has
+Erlang installed and by default does not require Elixir to
+be installed, as Elixir is embedded as part of the escript.</p>
+<p>This task guarantees the project and its dependencies are
+compiled and packages them inside an escript.</p>
+<h2>Command line options</h2>
+<ul>
+<li><code class="inline">--force</code>      - forces compilation regardless of modification times
+</li>
+<li><code class="inline">--no-compile</code> - skips compilation to .beam files
+</li>
+</ul>
+<h2>Configuration</h2>
+<p>The following option must be specified in your <code class="inline">mix.exs</code> under <code class="inline">:escript</code>
+key:</p>
+<ul>
+<li><code class="inline">:main_module</code> - the module to be invoked once the escript starts.
+The module must contain a function named <code class="inline">main/1</code> that will receive the
+command line arguments as binaries.
+</li>
+</ul>
+<p>The remaining options can be specified to further customize the escript:</p>
+<ul>
+<li><p><code class="inline">:name</code> - the name of the generated escript.
+Defaults to app name.</p>
+</li>
+<li><p><code class="inline">:path</code> - the path to write the escript to.
+Defaults to app name.</p>
+</li>
+<li><p><code class="inline">:app</code> - the app to start with the escript.
+Defaults to app name. Set it to <code class="inline">nil</code> if no application should
+be started.</p>
+</li>
+<li><p><code class="inline">:embed_elixir</code> - if <code class="inline">true</code> embed elixir and its children apps
+(<code class="inline">ex_unit</code>, <code class="inline">mix</code>, etc.) mentioned in the <code class="inline">:applications</code> list inside the
+<code class="inline">application</code> function in <code class="inline">mix.exs</code>.</p>
+<p>Defaults to <code class="inline">true</code> for Elixir projects, <code class="inline">false</code> for Erlang projects.</p>
+<p>Note: if you set this to <code class="inline">false</code> for an Elixir project, you will have to add paths to Elixir’s
+<code class="inline">ebin</code> directories to <code class="inline">ERL_LIBS</code> environment variable when running the resulting escript, in
+order for the code loader to be able to find <code class="inline">:elixir</code> application and its children
+applications (if they are used).</p>
+</li>
+<li><p><code class="inline">:consolidate_protocols</code> - if <code class="inline">true</code>, all protocols will be consolidated
+before being embedded into the escript.</p>
+<p>Defaults to <code class="inline">true</code> for Elixir projects.</p>
+</li>
+<li><p><code class="inline">:shebang</code> - shebang interpreter directive used to execute the escript.
+Defaults to <code class="inline">&quot;#! /usr/bin/env escript\n&quot;</code>.</p>
+</li>
+<li><p><code class="inline">:comment</code> - comment line to follow shebang directive in the escript.
+Defaults to <code class="inline">&quot;&quot;</code>.</p>
+</li>
+<li><code class="inline">:emu_args</code> - emulator arguments to embed in the escript file.
+Defaults to <code class="inline">&quot;&quot;</code>.
+</li>
+</ul>
+<p>There is one project-level option that affects how the escript is generated:</p>
+<ul>
+<li><code class="inline">language: :elixir | :erlang</code> - set it to <code class="inline">:erlang</code> for Erlang projects
+managed by mix. Doing so will ensure Elixir is not embedded by default.
+Your app will still be started as part of escript loading, with the
+config used during build.
+</li>
+</ul>
+<h2>Example</h2>
+<pre><code class="elixir">defmodule MyApp.Mixfile do
+  def project do
+    [app: :myapp,
+     version: &quot;0.0.1&quot;,
+     escript: escript]
+  end
+
+  def escript do
+    [main_module: MyApp.CLI]
+  end
+end</code></pre>
+
+        </section>
+      
+
+      
+        <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix/tasks/escript.build.ex#L1" class="view_source">Source</a>
+      
+
+      
+        <h2 id="summary">Summary<span class="detail_header_links"><a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a></span></h2>
+        <table class="summary">
+          <tr>
+  <td class="summary_signature"><a href="#run/1">run(args)</a></td>
+  
+    <td class="summary_synopsis"><p>Callback implementation of <a href="Mix.Task.html#run/1"><code class="inline">Mix.Task.run/1</code></a></p>
+</td>
+  
+</tr>
+
+        </table>
+      
+
+      
+
+      
+        <section id="functions_details" class="details_list">
+          <h2>Functions</h2>
+          <section class="detail">
+  <div class="detail_header" id="run/1">
+    <span class="signature"><strong>run(args)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#run/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>run(<a href="http://elixir-lang.org/docs/stable/elixir/OptionParser.html#t:argv/0">OptionParser.argv</a>) :: :ok | :noop</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Callback implementation of <a href="Mix.Task.html#run/1"><code class="inline">Mix.Task.run/1</code></a>.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix/tasks/escript.build.ex#L93" class="view_source">Source</a>
+  
+</section>
+
+        </section>
+      
+
+      
+
+      
+    </section>
+  </body>
+</html>

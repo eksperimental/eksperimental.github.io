@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Mix.Shell.Process</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+    <link rel="stylesheet" href="css/elixir.css" type="text/css" media="screen" charset="utf-8" />
+    <script type="text/javascript" charset="utf-8">
+      relpath = '';
+      if (relpath != '') relpath += '/';
+    </script>
+
+    <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/highlight.pack.js"></script>
+    <script type="text/javascript" charset="utf-8">
+      hljs.initHighlightingOnLoad();
+      hljs.configure({languages: []}); //disable autodetect
+    </script>
+  </head>
+
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+
+    <section id="content">
+      <div class="breadcrumbs">Mix v1.1.0-dev &rarr; <a href="overview.html">Overview</a> &rarr; <a href="Mix.html">Mix</a> &rarr; <a href="Mix.Shell.html">Shell</a> &rarr; <a href="Mix.Shell.Process.html">Process</a></div>
+      <h1>
+        Mix.Shell.Process
+        
+      </h1>
+
+      <ul class="summary_links">
+        
+          <li><a href="#summary">Summary</a></li>
+        
+        
+        
+          <li><a href="#functions_details">Functions</a></li>
+        
+        
+        
+      </ul>
+
+      
+        <section id="moduledoc" class="docstring">
+          <p>This is a Mix shell that uses the current process mailbox
+for communication instead of IO.</p>
+<p>When a developer calls <code class="inline">info(&quot;hello&quot;)</code>, the following
+message will be sent to the current process:</p>
+<pre><code class="elixir">{:mix_shell, :info, [&quot;hello&quot;]}</code></pre>
+<p>This is mainly useful in tests, allowing us to assert
+if given messages were received or not. Since we need
+to guarantee a clean slate between tests, there
+is also a <a href="#flush/1"><code class="inline">flush/1</code></a> function responsible for flushing all
+<code class="inline">:mix_shell</code> related messages from the process inbox.</p>
+
+        </section>
+      
+
+      
+        <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix/shell/process.ex#L1" class="view_source">Source</a>
+      
+
+      
+        <h2 id="summary">Summary<span class="detail_header_links"><a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a></span></h2>
+        <table class="summary">
+          <tr>
+  <td class="summary_signature"><a href="#cmd/2">cmd(command, opts \\ [])</a></td>
+  
+    <td class="summary_synopsis"><p>Executes the given command and forwards its messages to
+the current process</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#error/1">error(message)</a></td>
+  
+    <td class="summary_synopsis"><p>Forwards the message to the current process</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#flush/1">flush(callback \\ fn x -&gt; x end)</a></td>
+  
+    <td class="summary_synopsis"><p>Flush all <code class="inline">:mix_shell</code> and <code class="inline">:mix_shell_input</code> messages from the current process.
+If a callback is given, it is invoked for each received message</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#info/1">info(message)</a></td>
+  
+    <td class="summary_synopsis"><p>Forwards the message to the current process</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#print_app/0">print_app()</a></td>
+  
+    <td class="summary_synopsis"><p>Prints the currently running application if it
+was not printed yet</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#prompt/1">prompt(message)</a></td>
+  
+    <td class="summary_synopsis"><p>Forwards the message to the current process.
+It also checks the inbox for an input message matching:</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#yes?/1">yes?(message)</a></td>
+  
+    <td class="summary_synopsis"><p>Forwards the message to the current process.
+It also checks the inbox for an input message matching:</p>
+</td>
+  
+</tr>
+
+        </table>
+      
+
+      
+
+      
+        <section id="functions_details" class="details_list">
+          <h2>Functions</h2>
+          <section class="detail">
+  <div class="detail_header" id="cmd/2">
+    <span class="signature"><strong>cmd(command, opts \\ [])</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#cmd/2" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Executes the given command and forwards its messages to
+the current process.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix/shell/process.ex#L56" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="error/1">
+    <span class="signature"><strong>error(message)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#error/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Forwards the message to the current process.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix/shell/process.ex#L75" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="flush/1">
+    <span class="signature"><strong>flush(callback \\ fn x -&gt; x end)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#flush/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Flush all <code class="inline">:mix_shell</code> and <code class="inline">:mix_shell_input</code> messages from the current process.
+If a callback is given, it is invoked for each received message.</p>
+<h2>Examples</h2>
+<pre><code class="elixir">flush &amp;IO.inspect(&amp;1)</code></pre>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix/shell/process.ex#L29" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="info/1">
+    <span class="signature"><strong>info(message)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#info/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Forwards the message to the current process.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix/shell/process.ex#L67" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="print_app/0">
+    <span class="signature"><strong>print_app()</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#print_app/0" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Prints the currently running application if it
+was not printed yet.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix/shell/process.ex#L46" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="prompt/1">
+    <span class="signature"><strong>prompt(message)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#prompt/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Forwards the message to the current process.
+It also checks the inbox for an input message matching:</p>
+<pre><code class="elixir">{:mix_shell_input, :prompt, value}</code></pre>
+<p>If one does not exist, it will abort since there was no shell
+process inputs given. Value must be a string.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix/shell/process.ex#L93" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="yes?/1">
+    <span class="signature"><strong>yes?(message)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#yes?/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Forwards the message to the current process.
+It also checks the inbox for an input message matching:</p>
+<pre><code class="elixir">{:mix_shell_input, :yes?, value}</code></pre>
+<p>If one does not exist, it will abort since there was no shell
+process inputs given. Value must be <code class="inline">true</code> or <code class="inline">false</code>.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix/shell/process.ex#L113" class="view_source">Source</a>
+  
+</section>
+
+        </section>
+      
+
+      
+
+      
+    </section>
+  </body>
+</html>

@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Mix.Task</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+    <link rel="stylesheet" href="css/elixir.css" type="text/css" media="screen" charset="utf-8" />
+    <script type="text/javascript" charset="utf-8">
+      relpath = '';
+      if (relpath != '') relpath += '/';
+    </script>
+
+    <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/highlight.pack.js"></script>
+    <script type="text/javascript" charset="utf-8">
+      hljs.initHighlightingOnLoad();
+      hljs.configure({languages: []}); //disable autodetect
+    </script>
+  </head>
+
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+
+    <section id="content">
+      <div class="breadcrumbs">Mix v1.1.0-dev &rarr; <a href="overview.html">Overview</a> &rarr; <a href="Mix.html">Mix</a> &rarr; <a href="Mix.Task.html">Task</a></div>
+      <h1>
+        Mix.Task
+        
+          <small>behaviour</small>
+        
+      </h1>
+
+      <ul class="summary_links">
+        
+          <li><a href="#summary">Summary</a></li>
+        
+        
+          <li><a href="#types_details">Types</a></li>
+        
+        
+          <li><a href="#functions_details">Functions</a></li>
+        
+        
+        
+          <li><a href="#callbacks_details">Callbacks</a></li>
+        
+      </ul>
+
+      
+        <section id="moduledoc" class="docstring">
+          <p>A simple module that provides conveniences for creating,
+loading and manipulating tasks.</p>
+<p>A Mix task can be defined by simply using <a href="Mix.Task.html"><code class="inline">Mix.Task</code></a>
+in a module starting with <code class="inline">Mix.Tasks.</code> and defining
+the <a href="#run/1"><code class="inline">run/1</code></a> function:</p>
+<pre><code class="elixir">defmodule Mix.Tasks.Hello do
+  use Mix.Task
+
+  def run(_) do
+    Mix.shell.info &quot;hello&quot;
+  end
+end</code></pre>
+<p>The <a href="#run/1"><code class="inline">run/1</code></a> function will receive all arguments passed
+to the command line.</p>
+<h2>Attributes</h2>
+<p>There are a couple attributes available in Mix tasks to
+configure them in Mix:</p>
+<ul>
+<li><p><code class="inline">@shortdoc</code>  - makes the task public with a short description that appears</p>
+<pre><code class="elixir">on `mix help`</code></pre>
+</li>
+<li><code class="inline">@recursive</code> - run the task recursively in umbrella projects
+</li>
+</ul>
+
+        </section>
+      
+
+      
+        <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix/task.ex#L1" class="view_source">Source</a>
+      
+
+      
+        <h2 id="summary">Summary<span class="detail_header_links"><a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a></span></h2>
+        <table class="summary">
+          <tr>
+  <td class="summary_signature"><a href="#alias?/1">alias?(task)</a></td>
+  
+    <td class="summary_synopsis"><p>Checks if exists an alias with the given task name</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#all_modules/0">all_modules()</a></td>
+  
+    <td class="summary_synopsis"><p>Returns all loaded task modules</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#clear/0">clear()</a></td>
+  
+    <td class="summary_synopsis"><p>Clears all invoked tasks, allowing them to be reinvoked</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#get!/1">get!(task)</a></td>
+  
+    <td class="summary_synopsis"><p>Receives a task name and retrieves the task module</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#get/1">get(task)</a></td>
+  
+    <td class="summary_synopsis"><p>Receives a task name and returns the task module if found</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#load_all/0">load_all()</a></td>
+  
+    <td class="summary_synopsis"><p>Loads all tasks in all code paths</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#load_tasks/1">load_tasks(dirs)</a></td>
+  
+    <td class="summary_synopsis"><p>Loads all tasks in the given <code class="inline">paths</code></p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#moduledoc/1">moduledoc(module)</a></td>
+  
+    <td class="summary_synopsis"><p>Gets the moduledoc for the given task <code class="inline">module</code></p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#recursive/1">recursive(module)</a></td>
+  
+    <td class="summary_synopsis"><p>Checks if the task should be run recursively for all sub-apps in
+umbrella projects</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#reenable/1">reenable(task)</a></td>
+  
+    <td class="summary_synopsis"><p>Reenables a given task so it can be executed again down the stack</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#run/2">run(task, args \\ [])</a></td>
+  
+    <td class="summary_synopsis"><p>Runs a <code class="inline">task</code> with the given <code class="inline">args</code></p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#shortdoc/1">shortdoc(module)</a></td>
+  
+    <td class="summary_synopsis"><p>Gets the shortdoc for the given task <code class="inline">module</code></p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#task?/1">task?(module)</a></td>
+  
+    <td class="summary_synopsis"><p>Returns <code class="inline">true</code> if given module is a task</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#task_name/1">task_name(module)</a></td>
+  
+    <td class="summary_synopsis"><p>Returns the task name for the given <code class="inline">module</code></p>
+</td>
+  
+</tr>
+
+        </table>
+      
+
+      
+        <section id="types_details" class="details_list">
+          <h2>Types <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a></h2>
+          <div class="type_detail">
+  <p class="typespec" id="t:task_name/0">
+    <a href="#t:task_name/0">task_name</a> :: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a> | atom
+  </p>
+  
+</div>
+<div class="type_detail">
+  <p class="typespec" id="t:task_module/0">
+    <a href="#t:task_module/0">task_module</a> :: atom
+  </p>
+  
+</div>
+
+        </section>
+      
+
+      
+        <section id="functions_details" class="details_list">
+          <h2>Functions</h2>
+          <section class="detail">
+  <div class="detail_header" id="alias?/1">
+    <span class="signature"><strong>alias?(task)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#alias?/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>alias?(<a href="#t:task_name/0">task_name</a>) :: boolean</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Checks if exists an alias with the given task name.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix/task.ex#L155" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="all_modules/0">
+    <span class="signature"><strong>all_modules()</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#all_modules/0" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>all_modules :: [<a href="#t:task_module/0">task_module</a>]</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Returns all loaded task modules.</p>
+<p>Modules that are not yet loaded won’t show up.
+Check <a href="#load_all/0"><code class="inline">load_all/0</code></a> if you want to preload all tasks.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix/task.ex#L97" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="clear/0">
+    <span class="signature"><strong>clear()</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#clear/0" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>clear :: :ok</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Clears all invoked tasks, allowing them to be reinvoked.</p>
+<p>This operation is not recursive.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix/task.ex#L289" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="get/1">
+    <span class="signature"><strong>get(task)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#get/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>get(<a href="#t:task_name/0">task_name</a>) :: <a href="#t:task_module/0">task_module</a> | nil</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Receives a task name and returns the task module if found.</p>
+<p>Otherwise returns <code class="inline">nil</code> in case the module
+exists but it isn’t a task or cannot be found.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix/task.ex#L170" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="get!/1">
+    <span class="signature"><strong>get!(task)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#get!/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>get!(<a href="#t:task_name/0">task_name</a>) :: <a href="#t:task_module/0">task_module</a> | no_return</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Receives a task name and retrieves the task module.</p>
+<h2>Exceptions</h2>
+<ul>
+<li><a href="Mix.NoTaskError.html"><code class="inline">Mix.NoTaskError</code></a>      - raised if the task could not be found
+</li>
+<li><a href="Mix.InvalidTaskError.html"><code class="inline">Mix.InvalidTaskError</code></a> - raised if the task is not a valid <a href="Mix.Task.html"><code class="inline">Mix.Task</code></a>
+</li>
+</ul>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix/task.ex#L187" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="load_all/0">
+    <span class="signature"><strong>load_all()</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#load_all/0" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>load_all :: [<a href="#t:task_module/0">task_module</a>]</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Loads all tasks in all code paths.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix/task.ex#L56" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="load_tasks/1">
+    <span class="signature"><strong>load_tasks(dirs)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#load_tasks/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>load_tasks([<a href="http://elixir-lang.org/docs/stable/elixir/List.Chars.html#t:t/0">List.Chars.t</a>]) :: [<a href="#t:task_module/0">task_module</a>]</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Loads all tasks in the given <code class="inline">paths</code>.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix/task.ex#L62" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="moduledoc/1">
+    <span class="signature"><strong>moduledoc(module)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#moduledoc/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>moduledoc(<a href="#t:task_module/0">task_module</a>) :: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a> | nil</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Gets the moduledoc for the given task <code class="inline">module</code>.</p>
+<p>Returns the moduledoc or <code class="inline">nil</code>.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix/task.ex#L109" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="recursive/1">
+    <span class="signature"><strong>recursive(module)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#recursive/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>recursive(<a href="#t:task_module/0">task_module</a>) :: boolean</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Checks if the task should be run recursively for all sub-apps in
+umbrella projects.</p>
+<p>Returns <code class="inline">true</code> or <code class="inline">false</code>.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix/task.ex#L136" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="reenable/1">
+    <span class="signature"><strong>reenable(task)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#reenable/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>reenable(<a href="#t:task_name/0">task_name</a>) :: :ok</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Reenables a given task so it can be executed again down the stack.</p>
+<p>Both alias and the regular stack are reenabled when this function
+is called.</p>
+<p>If an umbrella project reenables a task, it is reenabled for all
+children projects.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix/task.ex#L303" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="run/2">
+    <span class="signature"><strong>run(task, args \\ [])</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#run/2" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>run(<a href="#t:task_name/0">task_name</a>, [any]) :: any</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Runs a <code class="inline">task</code> with the given <code class="inline">args</code>.</p>
+<p>If the task was not yet invoked, it runs the task and
+returns the result.</p>
+<p>If there is an alias with the same name, the alias
+will be invoked instead of a task.</p>
+<p>If the task or alias were already invoked, it does not
+run them again and simply aborts with <code class="inline">:noop</code>.</p>
+<p>It may raise an exception if an alias or a task can’t
+be found or the task is invalid. Check <a href="#get!/1"><code class="inline">get!/1</code></a> for more
+information.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix/task.ex#L224" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="shortdoc/1">
+    <span class="signature"><strong>shortdoc(module)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#shortdoc/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>shortdoc(<a href="#t:task_module/0">task_module</a>) :: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a> | nil</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Gets the shortdoc for the given task <code class="inline">module</code>.</p>
+<p>Returns the shortdoc or <code class="inline">nil</code>.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix/task.ex#L122" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="task?/1">
+    <span class="signature"><strong>task?(module)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#task?/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>task?(<a href="#t:task_module/0">task_module</a>) :: boolean</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Returns <code class="inline">true</code> if given module is a task.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix/task.ex#L334" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="task_name/1">
+    <span class="signature"><strong>task_name(module)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#task_name/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>task_name(<a href="#t:task_module/0">task_module</a>) :: <a href="#t:task_name/0">task_name</a></li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Returns the task name for the given <code class="inline">module</code>.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix/task.ex#L147" class="view_source">Source</a>
+  
+</section>
+
+        </section>
+      
+
+      
+
+      
+        <section id="callbacks_details" class="details_list">
+          <h2>Callbacks</h2>
+          <section class="detail">
+  <div class="detail_header" id="c:run/1">
+    <span class="signature"><strong>run/1</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(callback)</span>
+      <a href="#c:run/1" class="detail_link" title="Link to this callback">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>run([binary]) :: any</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>A task needs to implement <code class="inline">run</code> which receives
+a list of command line args.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix/task.ex#L41" class="view_source">Source</a>
+  
+</section>
+
+        </section>
+      
+    </section>
+  </body>
+</html>

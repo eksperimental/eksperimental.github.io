@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>GenEvent.Stream</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+    <link rel="stylesheet" href="css/elixir.css" type="text/css" media="screen" charset="utf-8" />
+    <script type="text/javascript" charset="utf-8">
+      relpath = '';
+      if (relpath != '') relpath += '/';
+    </script>
+
+    <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/highlight.pack.js"></script>
+    <script type="text/javascript" charset="utf-8">
+      hljs.initHighlightingOnLoad();
+      hljs.configure({languages: []}); //disable autodetect
+    </script>
+  </head>
+
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+
+    <section id="content">
+      <div class="breadcrumbs">Elixir v1.1.0-dev &rarr; <a href="overview.html">Overview</a> &rarr; <a href="GenEvent.html">GenEvent</a> &rarr; <a href="GenEvent.Stream.html">Stream</a></div>
+      <h1>
+        GenEvent.Stream
+        
+      </h1>
+
+      <ul class="summary_links">
+        
+        
+          <li><a href="#types_details">Types</a></li>
+        
+        
+        
+        
+      </ul>
+
+      
+        <section id="moduledoc" class="docstring">
+          <p>Defines a <a href="GenEvent.html"><code class="inline">GenEvent</code></a> stream.</p>
+<p>This is a struct returned by <code class="inline">stream/2</code>. The struct is public and
+contains the following fields:</p>
+<ul>
+<li><code class="inline">:manager</code>  - the manager reference given to <a href="GenEvent.html#stream/2"><code class="inline">GenEvent.stream/2</code></a>
+</li>
+<li><code class="inline">:timeout</code>  - the timeout in between events, defaults to <code class="inline">:infinity</code>
+</li>
+</ul>
+
+        </section>
+      
+
+      
+        <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/elixir/lib/gen_event/stream.ex#L1" class="view_source">Source</a>
+      
+
+      
+
+      
+        <section id="types_details" class="details_list">
+          <h2>Types <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a></h2>
+          <div class="type_detail">
+  <p class="typespec" id="t:t/0">
+    <a href="#t:t/0">t</a> :: %GenEvent.Stream{manager: <a href="GenEvent.html#t:manager/0">GenEvent.manager</a>, timeout: timeout}
+  </p>
+  
+</div>
+
+        </section>
+      
+
+      
+
+      
+
+      
+    </section>
+  </body>
+</html>

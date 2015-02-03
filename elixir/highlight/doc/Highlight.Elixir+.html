@@ -637,6 +637,22 @@ defmodule Long.Module.Name do
   &quot;&quot;&quot;
   defstruct [:a, :name, :height]
 
+  @doc ~s&#39;&#39;&#39;
+  No #{interpolation} of any kind.
+  \000 \x{ff}
+
+  \n #{\x{ff}}
+  &#39;&#39;&#39;
+  def func(a, b \\ []), do: :ok
+
+  @doc ~s&quot;&quot;&quot;
+  No #{interpolation} of any kind.
+  \000 \x{ff}
+
+  \n #{\x{ff}}
+  &quot;&quot;&quot;
+  def func(a, b \\ []), do: :ok
+
   @doc false
   def __before_compile__(_) do
     :ok
@@ -718,6 +734,7 @@ cond do
 end
 
 # Lexical scope modifiers
+import Kernel, except: [spawn: 1, +: 2, /: 2, Unless: 2]
 alias Long.Module.Name, as: N0men123_and4
 use Bitwise
 

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Mix.Tasks.Test</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+    <link rel="stylesheet" href="css/elixir.css" type="text/css" media="screen" charset="utf-8" />
+    <script type="text/javascript" charset="utf-8">
+      relpath = '';
+      if (relpath != '') relpath += '/';
+    </script>
+
+    <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/highlight.pack.js"></script>
+    <script type="text/javascript" charset="utf-8">
+      hljs.initHighlightingOnLoad();
+      hljs.configure({languages: []}); //disable autodetect
+    </script>
+  </head>
+
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+
+    <section id="content">
+      <div class="breadcrumbs">Mix v1.1.0-dev &rarr; <a href="overview.html">Overview</a> &rarr; <a href="Mix.html">Mix</a> &rarr; Tasks &rarr; <a href="Mix.Tasks.Test.html">Test</a></div>
+      <h1>
+        Mix.Tasks.Test
+        
+      </h1>
+
+      <ul class="summary_links">
+        
+          <li><a href="#summary">Summary</a></li>
+        
+        
+        
+          <li><a href="#functions_details">Functions</a></li>
+        
+        
+        
+      </ul>
+
+      
+        <section id="moduledoc" class="docstring">
+          <p>Run the tests for a project.</p>
+<p>This task starts the current application, loads up
+<code class="inline">test/test_helper.exs</code> and then requires all files matching the
+<code class="inline">test/**/_test.exs</code> pattern in parallel.</p>
+<p>A list of files can be given after the task name in order to select
+the files to compile:</p>
+<pre><code class="elixir">mix test test/some/particular/file_test.exs</code></pre>
+<h2>Command line options</h2>
+<ul>
+<li><code class="inline">--trace</code>      - run tests with detailed reporting; automatically sets <code class="inline">--max-cases</code> to 1
+</li>
+<li><code class="inline">--max-cases</code>  - set the maximum number of cases running async
+</li>
+<li><code class="inline">--cover</code>      - the directory to include coverage results
+</li>
+<li><code class="inline">--force</code>      - forces compilation regardless of modification times
+</li>
+<li><code class="inline">--no-compile</code> - do not compile, even if files require compilation
+</li>
+<li><code class="inline">--no-start</code>   - do not start applications after compilation
+</li>
+<li><code class="inline">--no-color</code>   - disable color in the output
+</li>
+<li><code class="inline">--color</code>      - enable color in the output
+</li>
+<li><code class="inline">--include</code>    - include tests that match the filter
+</li>
+<li><code class="inline">--exclude</code>    - exclude tests that match the filter
+</li>
+<li><code class="inline">--only</code>       - run only tests that match the filter
+</li>
+<li><code class="inline">--seed</code>       - seeds the random number generator used to randomize tests order
+</li>
+</ul>
+<h2>Filters</h2>
+<p>ExUnit provides tags and filtering functionality that allows developers
+to select which tests to run. The most common functionality is to exclude
+some particular tests from running by default in your test helper file:</p>
+<pre><code class="elixir"># Exclude all external tests from running
+ExUnit.configure exclude: [external: true]</code></pre>
+<p>Then, whenever desired, those tests could be included in the run via the
+<code class="inline">--include</code> flag:</p>
+<pre><code class="elixir">mix test --include external:true</code></pre>
+<p>The example above will run all tests that have the external flag set to
+true. It is also possible to include all examples that have a given tag,
+regardless of its value:</p>
+<pre><code class="elixir">mix test --include external</code></pre>
+<p>Note that all tests are included by default, so unless they are excluded
+first (either in the test helper or via the <code class="inline">--exclude</code> option), the
+<code class="inline">--include</code> flag has no effect.</p>
+<p>For this reason, mix also provides an <code class="inline">--only</code> option that excludes all
+tests and includes only the given ones:</p>
+<pre><code class="elixir">mix test --only external</code></pre>
+<p>Which is equivalent to:</p>
+<pre><code class="elixir">mix test --include external --exclude test</code></pre>
+<p>In case a single file is being tested, it is possible pass a specific
+line number:</p>
+<pre><code class="elixir">mix test test/some/particular/file_test.exs:12</code></pre>
+<p>Which is equivalent to:</p>
+<pre><code class="elixir">mix test --only line:12 test/some/particular/file_test.exs</code></pre>
+<h2>Configuration</h2>
+<ul>
+<li><p><code class="inline">:test_paths</code> - list of paths containing test files, defaults to
+<code class="inline">[&quot;test&quot;]</code>. It is expected all test paths to contain a <code class="inline">test_helper.exs</code>
+file.</p>
+</li>
+<li><p><code class="inline">:test_pattern</code> - a pattern to load test files, defaults to <code class="inline">*_test.exs</code>.</p>
+</li>
+<li><code class="inline">:test_coverage</code> - a set of options to be passed down to the coverage
+mechanism.
+</li>
+</ul>
+<h2>Coverage</h2>
+<p>The <code class="inline">:test_coverage</code> configuration accepts the following options:</p>
+<ul>
+<li><code class="inline">:output</code> - the output for cover results, defaults to <code class="inline">&quot;cover&quot;</code>
+</li>
+<li><code class="inline">:tool</code>   - the coverage tool
+</li>
+</ul>
+<p>By default, a very simple wrapper around OTP’s <code class="inline">cover</code> is used as a tool,
+but it can be overridden as follows:</p>
+<pre><code class="elixir">test_coverage: [tool: CoverModule]</code></pre>
+<p><code class="inline">CoverModule</code> can be any module that exports <code class="inline">start/2</code>, receiving the
+compilation path and the <code class="inline">test_coverage</code> options as arguments. It must
+return an anonymous function of zero arity that will be run after the
+test suite is done or nil.</p>
+
+        </section>
+      
+
+      
+        <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix/tasks/test.ex#L1" class="view_source">Source</a>
+      
+
+      
+        <h2 id="summary">Summary<span class="detail_header_links"><a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a></span></h2>
+        <table class="summary">
+          <tr>
+  <td class="summary_signature"><a href="#run/1">run(args)</a></td>
+  
+    <td class="summary_synopsis"><p>Callback implementation of <a href="Mix.Task.html#run/1"><code class="inline">Mix.Task.run/1</code></a></p>
+</td>
+  
+</tr>
+
+        </table>
+      
+
+      
+
+      
+        <section id="functions_details" class="details_list">
+          <h2>Functions</h2>
+          <section class="detail">
+  <div class="detail_header" id="run/1">
+    <span class="signature"><strong>run(args)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#run/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>run(<a href="http://elixir-lang.org/docs/stable/elixir/OptionParser.html#t:argv/0">OptionParser.argv</a>) :: :ok</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Callback implementation of <a href="Mix.Task.html#run/1"><code class="inline">Mix.Task.run/1</code></a>.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix/tasks/test.ex#L139" class="view_source">Source</a>
+  
+</section>
+
+        </section>
+      
+
+      
+
+      
+    </section>
+  </body>
+</html>

@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ExUnit</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+    <link rel="stylesheet" href="css/elixir.css" type="text/css" media="screen" charset="utf-8" />
+    <script type="text/javascript" charset="utf-8">
+      relpath = '';
+      if (relpath != '') relpath += '/';
+    </script>
+
+    <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/highlight.pack.js"></script>
+    <script type="text/javascript" charset="utf-8">
+      hljs.initHighlightingOnLoad();
+      hljs.configure({languages: []}); //disable autodetect
+    </script>
+  </head>
+
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+
+    <section id="content">
+      <div class="breadcrumbs">ExUnit v1.1.0-dev &rarr; <a href="overview.html">Overview</a> &rarr; <a href="ExUnit.html">ExUnit</a></div>
+      <h1>
+        ExUnit
+        
+      </h1>
+
+      <ul class="summary_links">
+        
+          <li><a href="#summary">Summary</a></li>
+        
+        
+          <li><a href="#types_details">Types</a></li>
+        
+        
+          <li><a href="#functions_details">Functions</a></li>
+        
+        
+        
+      </ul>
+
+      
+        <section id="moduledoc" class="docstring">
+          <p>Basic unit testing framework for Elixir.</p>
+<h2>Example</h2>
+<p>A basic setup for ExUnit is shown below:</p>
+<pre><code class="elixir"># File: assertion_test.exs
+
+# 1) Start ExUnit.
+ExUnit.start
+
+# 2) Create a new test module (test case) and use [`ExUnit.Case`](ExUnit.Case.html).
+defmodule AssertionTest do
+  # 3) Notice we pass `async: true`, this runs the test case
+  #    concurrently with other test cases
+  use ExUnit.Case, async: true
+
+  # 4) Use the `test` macro instead of `def` for clarity.
+  test &quot;the truth&quot; do
+    assert true
+  end
+end</code></pre>
+<p>To run the tests above, run the file
+using <code class="inline">elixir</code> from the command line. Assuming you named the file
+<code class="inline">assertion_test.exs</code>, you can run it as:</p>
+<pre><code class="elixir">bin/elixir assertion_test.exs</code></pre>
+<h2>Case, Callbacks and Assertions</h2>
+<p>See <a href="ExUnit.Case.html"><code class="inline">ExUnit.Case</code></a> and <a href="ExUnit.Callbacks.html"><code class="inline">ExUnit.Callbacks</code></a>
+for more information about defining test cases.</p>
+<p>The <a href="ExUnit.Assertions.html"><code class="inline">ExUnit.Assertions</code></a> module contains
+a set of macros to easily generate assertions with appropriate
+error messages.</p>
+<h2>Integration with Mix</h2>
+<p>Mix is the project management and build tool for Elixir. Invoking <code class="inline">mix test</code>
+from the command line will run the tests in each file matching the pattern
+<code class="inline">*_test.exs</code> found in the <code class="inline">test</code> directory of your project.</p>
+<p>You must create a <code class="inline">test_helper.exs</code> file inside the
+<code class="inline">test</code> directory and put the code common to all tests there.</p>
+<p>The minimum example of a <code class="inline">test_helper.exs</code> file would be:</p>
+<pre><code class="elixir"># test/test_helper.exs
+ExUnit.start</code></pre>
+<p>Mix will load the <code class="inline">test_helper.exs</code> file before executing the tests.
+It is not necessary to <code class="inline">require</code> the <code class="inline">test_helper.exs</code> file in your test
+files. See <code class="inline">Mix.Tasks.Test</code> for more information.</p>
+
+        </section>
+      
+
+      
+        <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/ex_unit/lib/ex_unit.ex#L1" class="view_source">Source</a>
+      
+
+      
+        <h2 id="summary">Summary<span class="detail_header_links"><a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a></span></h2>
+        <table class="summary">
+          <tr>
+  <td class="summary_signature"><a href="#configuration/0">configuration()</a></td>
+  
+    <td class="summary_synopsis"><p>Returns ExUnit configuration</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#configure/1">configure(options)</a></td>
+  
+    <td class="summary_synopsis"><p>Configures ExUnit</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#run/0">run()</a></td>
+  
+    <td class="summary_synopsis"><p>API used to run the tests. It is invoked automatically
+if ExUnit is started via <a href="ExUnit.html#start/1"><code class="inline">ExUnit.start/1</code></a></p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#start/1">start(options \\ [])</a></td>
+  
+    <td class="summary_synopsis"><p>Starts ExUnit and automatically runs tests right before the
+VM terminates. It accepts a set of options to configure <a href="ExUnit.html"><code class="inline">ExUnit</code></a>
+(the same ones accepted by <a href="#configure/1"><code class="inline">configure/1</code></a>)</p>
+</td>
+  
+</tr>
+
+        </table>
+      
+
+      
+        <section id="types_details" class="details_list">
+          <h2>Types <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a></h2>
+          <div class="type_detail">
+  <p class="typespec" id="t:state/0">
+    <a href="#t:state/0">state</a> :: nil | {:failed, <a href="#t:failed/0">failed</a>} | {:skip, binary} | {:invalid, module}
+  </p>
+  
+      <div class="typespec_doc"><p>The state returned by ExUnit.Test and ExUnit.TestCase</p>
+</div>
+  
+</div>
+<div class="type_detail">
+  <p class="typespec" id="t:failed/0">
+    <a href="#t:failed/0">failed</a> :: {<a href="http://elixir-lang.org/docs/stable/elixir/Exception.html#t:kind/0">Exception.kind</a>, reason :: term, stacktrace :: [tuple]}
+  </p>
+  
+</div>
+
+        </section>
+      
+
+      
+        <section id="functions_details" class="details_list">
+          <h2>Functions</h2>
+          <section class="detail">
+  <div class="detail_header" id="configuration/0">
+    <span class="signature"><strong>configuration()</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#configuration/0" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Returns ExUnit configuration.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/ex_unit/lib/ex_unit.ex#L201" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="configure/1">
+    <span class="signature"><strong>configure(options)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#configure/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Configures ExUnit.</p>
+<h2>Options</h2>
+<p>ExUnit supports the following options:</p>
+<ul>
+<li><p><code class="inline">:colors</code> - a keyword list of colors to be used by some formatters.
+The only option so far is <code class="inline">[enabled: boolean]</code> which defaults to <code class="inline">IO.ANSI.enabled?/1</code></p>
+</li>
+<li><p><code class="inline">:formatters</code> - the formatters that will print results;
+defaults to <code class="inline">[ExUnit.CLIFormatter]</code></p>
+</li>
+<li><p><code class="inline">:max_cases</code> - maximum number of cases to run in parallel;
+defaults to <code class="inline">:erlang.system_info(:schedulers_online)</code></p>
+</li>
+<li><p><code class="inline">:trace</code> - set ExUnit into trace mode, this sets <code class="inline">:max_cases</code> to <code class="inline">1</code> and
+prints each test case and test while running</p>
+</li>
+<li><p><code class="inline">:autorun</code> - if ExUnit should run by default on exit; defaults to <code class="inline">true</code></p>
+</li>
+<li><p><code class="inline">:include</code> - specify which tests are run by skipping tests that do not
+match the filter</p>
+</li>
+<li><p><code class="inline">:exclude</code> - specify which tests are run by skipping tests that match the
+filter</p>
+</li>
+<li><code class="inline">:seed</code> - an integer seed value to randomize the test suite
+</li>
+</ul>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/ex_unit/lib/ex_unit.ex#L192" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="run/0">
+    <span class="signature"><strong>run()</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#run/0" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>API used to run the tests. It is invoked automatically
+if ExUnit is started via <a href="ExUnit.html#start/1"><code class="inline">ExUnit.start/1</code></a>.</p>
+<p>Returns a map containing the total number of tests, the number
+of failures and the number of skipped tests.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/ex_unit/lib/ex_unit.ex#L212" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="start/1">
+    <span class="signature"><strong>start(options \\ [])</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#start/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Starts ExUnit and automatically runs tests right before the
+VM terminates. It accepts a set of options to configure <a href="ExUnit.html"><code class="inline">ExUnit</code></a>
+(the same ones accepted by <a href="#configure/1"><code class="inline">configure/1</code></a>).</p>
+<p>If you want to run tests manually, you can set <code class="inline">:autorun</code> to <code class="inline">false</code>.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/ex_unit/lib/ex_unit.ex#L143" class="view_source">Source</a>
+  
+</section>
+
+        </section>
+      
+
+      
+
+      
+    </section>
+  </body>
+</html>

@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Mix.SCM</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+    <link rel="stylesheet" href="css/elixir.css" type="text/css" media="screen" charset="utf-8" />
+    <script type="text/javascript" charset="utf-8">
+      relpath = '';
+      if (relpath != '') relpath += '/';
+    </script>
+
+    <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/highlight.pack.js"></script>
+    <script type="text/javascript" charset="utf-8">
+      hljs.initHighlightingOnLoad();
+      hljs.configure({languages: []}); //disable autodetect
+    </script>
+  </head>
+
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+
+    <section id="content">
+      <div class="breadcrumbs">Mix v1.1.0-dev &rarr; <a href="overview.html">Overview</a> &rarr; <a href="Mix.html">Mix</a> &rarr; <a href="Mix.SCM.html">SCM</a></div>
+      <h1>
+        Mix.SCM
+        
+          <small>behaviour</small>
+        
+      </h1>
+
+      <ul class="summary_links">
+        
+          <li><a href="#summary">Summary</a></li>
+        
+        
+          <li><a href="#types_details">Types</a></li>
+        
+        
+          <li><a href="#functions_details">Functions</a></li>
+        
+        
+        
+          <li><a href="#callbacks_details">Callbacks</a></li>
+        
+      </ul>
+
+      
+        <section id="moduledoc" class="docstring">
+          <p>This module provides helper functions and defines the
+behaviour required by any SCM used by mix.</p>
+
+        </section>
+      
+
+      
+        <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix/scm.ex#L1" class="view_source">Source</a>
+      
+
+      
+        <h2 id="summary">Summary<span class="detail_header_links"><a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a></span></h2>
+        <table class="summary">
+          <tr>
+  <td class="summary_signature"><a href="#append/1">append(mod)</a></td>
+  
+    <td class="summary_synopsis"><p>Append the given SCM module to the list of available SCMs</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#available/0">available()</a></td>
+  
+    <td class="summary_synopsis"><p>Returns all available SCMs. Each SCM is tried in order
+until a matching one is found</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#prepend/1">prepend(mod)</a></td>
+  
+    <td class="summary_synopsis"><p>Prepend the given SCM module to the list of available SCMs</p>
+</td>
+  
+</tr>
+
+        </table>
+      
+
+      
+        <section id="types_details" class="details_list">
+          <h2>Types <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a></h2>
+          <div class="type_detail">
+  <p class="typespec" id="t:opts/0">
+    <a href="#t:opts/0">opts</a> :: <a href="http://elixir-lang.org/docs/stable/elixir/Keyword.html#t:t/0">Keyword.t</a>
+  </p>
+  
+</div>
+
+        </section>
+      
+
+      
+        <section id="functions_details" class="details_list">
+          <h2>Functions</h2>
+          <section class="detail">
+  <div class="detail_header" id="append/1">
+    <span class="signature"><strong>append(mod)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#append/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Append the given SCM module to the list of available SCMs.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix/scm.ex#L133" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="available/0">
+    <span class="signature"><strong>available()</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#available/0" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Returns all available SCMs. Each SCM is tried in order
+until a matching one is found.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix/scm.ex#L118" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="prepend/1">
+    <span class="signature"><strong>prepend(mod)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#prepend/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Prepend the given SCM module to the list of available SCMs.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix/scm.ex#L126" class="view_source">Source</a>
+  
+</section>
+
+        </section>
+      
+
+      
+
+      
+        <section id="callbacks_details" class="details_list">
+          <h2>Callbacks</h2>
+          <section class="detail">
+  <div class="detail_header" id="c:accepts_options/2">
+    <span class="signature"><strong>accepts_options/2</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(callback)</span>
+      <a href="#c:accepts_options/2" class="detail_link" title="Link to this callback">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>accepts_options(app :: atom, <a href="#t:opts/0">opts</a>) :: <a href="#t:opts/0">opts</a> | nil</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>This behaviour function receives a keyword list of <code class="inline">opts</code>
+and should return an updated list in case the SCM consumes
+the available options. For example, when a developer specifies
+a dependency:</p>
+<pre><code class="elixir">{:foo, &quot;0.1.0&quot;, github: &quot;foo/bar&quot;}</code></pre>
+<p>Each registered SCM will be asked if they consume this dependency,
+receiving <code class="inline">[github: &quot;foo/bar&quot;]</code> as argument. Since this option makes
+sense for the Git SCM, it will return an update list of options
+while other SCMs would simply return nil.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix/scm.ex#L52" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="c:checked_out?/1">
+    <span class="signature"><strong>checked_out?/1</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(callback)</span>
+      <a href="#c:checked_out?/1" class="detail_link" title="Link to this callback">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>checked_out?(<a href="#t:opts/0">opts</a>) :: boolean</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>This behaviour function returns a boolean if the
+dependency is available.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix/scm.ex#L58" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="c:checkout/1">
+    <span class="signature"><strong>checkout/1</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(callback)</span>
+      <a href="#c:checkout/1" class="detail_link" title="Link to this callback">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>checkout(<a href="#t:opts/0">opts</a>) :: any</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>This behaviour function checks out dependencies.</p>
+<p>If the dependency is locked, a lock is received in <code class="inline">opts</code>
+and the repository must be check out at the lock. Otherwise,
+no lock is given and the repository can be checked out
+to the latest version.</p>
+<p>It must return the current lock.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix/scm.ex#L70" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="c:equal?/2">
+    <span class="signature"><strong>equal?/2</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(callback)</span>
+      <a href="#c:equal?/2" class="detail_link" title="Link to this callback">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>equal?(opts1 :: <a href="#t:opts/0">opts</a>, opts2 :: <a href="#t:opts/0">opts</a>) :: boolean</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Receives two options and must return true if they refer to the
+same repository. The options are guaranteed to belong to the
+same SCM.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix/scm.ex#L112" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="c:fetchable?/0">
+    <span class="signature"><strong>fetchable?/0</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(callback)</span>
+      <a href="#c:fetchable?/0" class="detail_link" title="Link to this callback">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>fetchable? :: boolean</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Returns a boolean if the dependency can be fetched
+or it is meant to be previously available in the
+filesystem.</p>
+<p>Local dependencies (i.e. non fetchable ones) are automatically
+recompiled every time the parent project is compiled.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix/scm.ex#L19" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="c:format/1">
+    <span class="signature"><strong>format/1</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(callback)</span>
+      <a href="#c:format/1" class="detail_link" title="Link to this callback">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>format(<a href="#t:opts/0">opts</a>) :: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a></li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Returns a string representing the SCM. This is used
+when printing the dependency and not for inspection,
+so the amount of information should be concise and
+easy to spot.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix/scm.ex#L27" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="c:format_lock/1">
+    <span class="signature"><strong>format_lock/1</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(callback)</span>
+      <a href="#c:format_lock/1" class="detail_link" title="Link to this callback">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>format_lock(<a href="#t:opts/0">opts</a>) :: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a> | nil</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Returns a string representing the SCM. This is used
+when printing the dependency and not for inspection,
+so the amount of information should be concise and
+easy to spot.</p>
+<p>If nil is returned, it means no lock information is available.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix/scm.ex#L37" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="c:lock_status/1">
+    <span class="signature"><strong>lock_status/1</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(callback)</span>
+      <a href="#c:lock_status/1" class="detail_link" title="Link to this callback">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>lock_status(<a href="#t:opts/0">opts</a>) :: :mismatch | :outdated | :ok</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>This behaviour function checks the status of the lock. In
+particular, it checks if the revision stored in the lock
+is the same as the repository it is currently in. It may return:</p>
+<ul>
+<li><p><code class="inline">:mismatch</code> - if the lock doesn’t match and we need to
+simply move to the latest lock</p>
+</li>
+<li><p><code class="inline">:outdated</code> - the repository options are outdated in the
+lock and we need to trigger a full update</p>
+</li>
+<li><code class="inline">:ok</code> - everything is fine
+</li>
+</ul>
+<p>The lock is sent via <code class="inline">opts[:lock]</code> but it may not always be
+available. In such cases, if the SCM requires a lock, it must
+return <code class="inline">:lockmismatch</code>, otherwise simply <code class="inline">:ok</code>.</p>
+<p>Note the lock may also belong to another SCM and as such, an
+structural check is required. A structural mismatch should always
+return <code class="inline">:outdated</code>.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix/scm.ex#L105" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="c:update/1">
+    <span class="signature"><strong>update/1</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(callback)</span>
+      <a href="#c:update/1" class="detail_link" title="Link to this callback">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>update(<a href="#t:opts/0">opts</a>) :: any</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>This behaviour function updates dependencies. It may be
+called by <code class="inline">deps.get</code> or <code class="inline">deps.update</code>.</p>
+<p>In the first scenario, a lock is received in <code class="inline">opts</code> and
+the repository must be updated to the lock. In the second,
+no lock is given and the repository can be updated freely.</p>
+<p>It must return the current lock.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix/scm.ex#L82" class="view_source">Source</a>
+  
+</section>
+
+        </section>
+      
+    </section>
+  </body>
+</html>

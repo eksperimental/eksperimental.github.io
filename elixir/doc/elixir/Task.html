@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Task</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+    <link rel="stylesheet" href="css/elixir.css" type="text/css" media="screen" charset="utf-8" />
+    <script type="text/javascript" charset="utf-8">
+      relpath = '';
+      if (relpath != '') relpath += '/';
+    </script>
+
+    <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/highlight.pack.js"></script>
+    <script type="text/javascript" charset="utf-8">
+      hljs.initHighlightingOnLoad();
+      hljs.configure({languages: []}); //disable autodetect
+    </script>
+  </head>
+
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+
+    <section id="content">
+      <div class="breadcrumbs">Elixir v1.1.0-dev &rarr; <a href="overview.html">Overview</a> &rarr; <a href="Task.html">Task</a></div>
+      <h1>
+        Task
+        
+      </h1>
+
+      <ul class="summary_links">
+        
+          <li><a href="#summary">Summary</a></li>
+        
+        
+          <li><a href="#types_details">Types</a></li>
+        
+        
+          <li><a href="#functions_details">Functions</a></li>
+        
+        
+        
+      </ul>
+
+      
+        <section id="moduledoc" class="docstring">
+          <p>Conveniences for spawning and awaiting for tasks.</p>
+<p>Tasks are processes meant to execute one particular
+action throughout their life-cycle, often with little or no
+communication with other processes. The most common use case
+for tasks is to compute a value asynchronously:</p>
+<pre><code class="elixir">task = Task.async(fn -&gt; do_some_work() end)
+res  = do_some_other_work()
+res + Task.await(task)</code></pre>
+<p>Tasks spawned with <code class="inline">async</code> can be awaited on by its caller
+process (and only its caller) as shown in the example above.
+They are implemented by spawning a process that sends a message
+to the caller once the given computation is performed.</p>
+<p>Besides <a href="#async/1"><code class="inline">async/1</code></a> and <a href="#await/2"><code class="inline">await/2</code></a>, tasks can also be
+started as part of supervision trees and dynamically spawned
+in remote nodes. We will explore all three scenarios next.</p>
+<h2>async and await</h2>
+<p>The most common way to spawn a task is with <a href="Task.html#async/1"><code class="inline">Task.async/1</code></a>. A new
+process will be created, linked and monitored by the caller. Once
+the task action finishes, a message will be sent to the caller
+with the result.</p>
+<p><a href="Task.html#await/2"><code class="inline">Task.await/2</code></a> is used to read the message sent by the task. On
+<code class="inline">await</code>, Elixir will also setup a monitor to verify if the process
+exited for any abnormal reason (or in case exits are being
+trapped by the caller).</p>
+<h2>Supervised tasks</h2>
+<p>It is also possible to spawn a task inside a supervision tree
+with <a href="#start_link/1"><code class="inline">start_link/1</code></a> and <a href="#start_link/3"><code class="inline">start_link/3</code></a>:</p>
+<pre><code class="elixir">Task.start_link(fn -&gt; IO.puts &quot;ok&quot; end)</code></pre>
+<p>Such tasks can be mounted in your supervision tree as:</p>
+<pre><code class="elixir">import Supervisor.Spec
+
+children = [
+  worker(Task, [fn -&gt; IO.puts &quot;ok&quot; end])
+]</code></pre>
+<p>Since these tasks are supervised and not directly linked to
+the caller, they cannot be awaited on. Note <a href="#start_link/1"><code class="inline">start_link/1</code></a>,
+unlike <a href="#async/1"><code class="inline">async/1</code></a>, returns <code class="inline">{:ok, pid}</code> (which is
+the result expected by supervision trees).</p>
+<h2>Supervision trees</h2>
+<p>The <a href="Task.Supervisor.html"><code class="inline">Task.Supervisor</code></a> module allows developers to start supervisors
+that dynamically supervise tasks:</p>
+<pre><code class="elixir">{:ok, pid} = Task.Supervisor.start_link()
+Task.Supervisor.async(pid, MyMod, :my_fun, [arg1, arg2, arg3])</code></pre>
+<p><a href="Task.Supervisor.html"><code class="inline">Task.Supervisor</code></a> also makes it possible to spawn tasks in remote nodes as
+long as the supervisor is registered locally or globally:</p>
+<pre><code class="elixir"># In the remote node
+Task.Supervisor.start_link(name: :tasks_sup)
+
+# In the client
+Task.Supervisor.async({:tasks_sup, :remote@local}, MyMod, :my_fun, [arg1, arg2, arg3])</code></pre>
+<p><a href="Task.Supervisor.html"><code class="inline">Task.Supervisor</code></a> is more often started in your supervision tree as:</p>
+<pre><code class="elixir">import Supervisor.Spec
+
+children = [
+  supervisor(Task.Supervisor, [[name: :tasks_sup]])
+]</code></pre>
+<p>Note that, when working with distributed tasks, one should use the <a href="#async/3"><code class="inline">async/3</code></a> API,
+that expects explicit module, function and arguments, instead of <a href="#async/1"><code class="inline">async/1</code></a> that
+works with anonymous functions. That’s because the anonymous function API expects
+the same module version to exist on all involved nodes. Check the <a href="Agent.html"><code class="inline">Agent</code></a> module
+documentation for more information on distributed processes, as the limitations
+described in the agents documentation apply to the whole ecosystem.</p>
+<p>Finally, check <a href="Task.Supervisor.html"><code class="inline">Task.Supervisor</code></a> for other operations supported by the Task
+supervisor.</p>
+
+        </section>
+      
+
+      
+        <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/elixir/lib/task.ex#L1" class="view_source">Source</a>
+      
+
+      
+        <h2 id="summary">Summary<span class="detail_header_links"><a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a></span></h2>
+        <table class="summary">
+          <tr>
+  <td class="summary_signature"><a href="#__struct__/0">__struct__()</a></td>
+  
+    <td class="summary_synopsis"><p>The Task struct</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#async/1">async(fun)</a></td>
+  
+    <td class="summary_synopsis"><p>Starts a task that can be awaited on</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#async/3">async(mod, fun, args)</a></td>
+  
+    <td class="summary_synopsis"><p>Starts a task that can be awaited on</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#await/2">await(task, timeout \\ 5000)</a></td>
+  
+    <td class="summary_synopsis"><p>Awaits a task reply</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#find/2">find(tasks, msg)</a></td>
+  
+    <td class="summary_synopsis"><p>Receives a group of tasks and a message and finds
+a task that matches the given message</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#start/1">start(fun)</a></td>
+  
+    <td class="summary_synopsis"><p>Starts a task</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#start/3">start(mod, fun, args)</a></td>
+  
+    <td class="summary_synopsis"><p>Starts a task</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#start_link/1">start_link(fun)</a></td>
+  
+    <td class="summary_synopsis"><p>Starts a task as part of a supervision tree</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#start_link/3">start_link(mod, fun, args)</a></td>
+  
+    <td class="summary_synopsis"><p>Starts a task as part of a supervision tree</p>
+</td>
+  
+</tr>
+
+        </table>
+      
+
+      
+        <section id="types_details" class="details_list">
+          <h2>Types <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a></h2>
+          <div class="type_detail">
+  <p class="typespec" id="t:t/0">
+    <a href="#t:t/0">t</a> :: %Task{pid: term, ref: term}
+  </p>
+  
+</div>
+
+        </section>
+      
+
+      
+        <section id="functions_details" class="details_list">
+          <h2>Functions</h2>
+          <section class="detail">
+  <div class="detail_header" id="__struct__/0">
+    <span class="signature"><strong>__struct__()</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#__struct__/0" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>__struct__ :: %Task{pid: term, ref: term}</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>The Task struct.</p>
+<p>It contains two fields:</p>
+<ul>
+<li><p><code class="inline">:pid</code> - the process reference of the task process; it may be a pid
+or a tuple containing the process and node names</p>
+</li>
+<li><code class="inline">:ref</code> - the task monitor reference
+</li>
+</ul>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/elixir/lib/task.ex#L102" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="async/1">
+    <span class="signature"><strong>async(fun)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#async/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>async((... -> any)) :: <a href="#t:t/0">t</a></li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Starts a task that can be awaited on.</p>
+<p>This function spawns a process that is linked to and monitored
+by the caller process. A <a href="Task.html"><code class="inline">Task</code></a> struct is returned containing
+the relevant information.</p>
+<h2>Task's message format</h2>
+<p>The reply sent by the task will be in the format <code class="inline">{ref, msg}</code>,
+where <code class="inline">ref</code> is the monitoring reference held by the task.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/elixir/lib/task.ex#L159" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="async/3">
+    <span class="signature"><strong>async(mod, fun, args)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#async/3" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>async(module, atom, [term]) :: <a href="#t:t/0">t</a></li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Starts a task that can be awaited on.</p>
+<p>Similar to <a href="#async/1"><code class="inline">async/1</code></a>, but the task is specified by the given
+module, function and arguments.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/elixir/lib/task.ex#L170" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="await/2">
+    <span class="signature"><strong>await(task, timeout \\ 5000)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#await/2" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>await(<a href="#t:t/0">t</a>, timeout) :: term | no_return</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Awaits a task reply.</p>
+<p>A timeout, in milliseconds, can be given with default value
+of <code class="inline">5000</code>. In case the task process dies, this function will
+exit with the same reason as the task.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/elixir/lib/task.ex#L194" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="find/2">
+    <span class="signature"><strong>find(tasks, msg)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#find/2" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>find([<a href="#t:t/0">t</a>], any) :: {term, <a href="#t:t/0">t</a>} | nil | no_return</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Receives a group of tasks and a message and finds
+a task that matches the given message.</p>
+<p>This function returns a tuple with the task and the
+returned value in case the message matches a task that
+exited with success, it raises in case the found task
+failed or <code class="inline">nil</code> if no task was found.</p>
+<p>This function is useful in situations where multiple
+tasks are spawned and their results are collected
+later on. For example, a <a href="GenServer.html"><code class="inline">GenServer</code></a> can spawn tasks,
+store the tasks in a list and later use <a href="Task.html#find/2"><code class="inline">Task.find/2</code></a>
+to see if incoming messages are from any of the tasks.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/elixir/lib/task.ex#L227" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="start/1">
+    <span class="signature"><strong>start(fun)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#start/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>start((... -> any)) :: {:ok, pid}</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Starts a task.</p>
+<p>This is only used when the task is used for side-effects
+(i.e. no interest in its return result) and it should not
+be linked to the current process.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/elixir/lib/task.ex#L130" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="start/3">
+    <span class="signature"><strong>start(mod, fun, args)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#start/3" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>start(module, atom, [term]) :: {:ok, pid}</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Starts a task.</p>
+<p>This is only used when the task is used for side-effects
+(i.e. no interest in its return result) and it should not
+be linked to the current process.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/elixir/lib/task.ex#L142" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="start_link/1">
+    <span class="signature"><strong>start_link(fun)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#start_link/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>start_link((... -> any)) :: {:ok, pid}</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Starts a task as part of a supervision tree.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/elixir/lib/task.ex#L110" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="start_link/3">
+    <span class="signature"><strong>start_link(mod, fun, args)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#start_link/3" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>start_link(module, atom, [term]) :: {:ok, pid}</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Starts a task as part of a supervision tree.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/elixir/lib/task.ex#L118" class="view_source">Source</a>
+  
+</section>
+
+        </section>
+      
+
+      
+
+      
+    </section>
+  </body>
+</html>

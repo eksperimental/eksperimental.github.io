@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Path</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+    <link rel="stylesheet" href="css/elixir.css" type="text/css" media="screen" charset="utf-8" />
+    <script type="text/javascript" charset="utf-8">
+      relpath = '';
+      if (relpath != '') relpath += '/';
+    </script>
+
+    <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/highlight.pack.js"></script>
+    <script type="text/javascript" charset="utf-8">
+      hljs.initHighlightingOnLoad();
+      hljs.configure({languages: []}); //disable autodetect
+    </script>
+  </head>
+
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+
+    <section id="content">
+      <div class="breadcrumbs">Elixir v1.1.0-dev &rarr; <a href="overview.html">Overview</a> &rarr; <a href="Path.html">Path</a></div>
+      <h1>
+        Path
+        
+      </h1>
+
+      <ul class="summary_links">
+        
+          <li><a href="#summary">Summary</a></li>
+        
+        
+          <li><a href="#types_details">Types</a></li>
+        
+        
+          <li><a href="#functions_details">Functions</a></li>
+        
+        
+        
+      </ul>
+
+      
+        <section id="moduledoc" class="docstring">
+          <p>This module provides conveniences for manipulating or
+retrieving file system paths.</p>
+<p>The functions in this module may receive a char data as
+argument (i.e. a string or a list of characters / string)
+and will always return a string (encoded in UTF-8).</p>
+<p>The majority of the functions in this module do not
+interact with the file system, except for a few functions
+that require it (like <code class="inline">wildcard/1</code> and <a href="#expand/1"><code class="inline">expand/1</code></a>).</p>
+
+        </section>
+      
+
+      
+        <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/elixir/lib/path.ex#L1" class="view_source">Source</a>
+      
+
+      
+        <h2 id="summary">Summary<span class="detail_header_links"><a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a></span></h2>
+        <table class="summary">
+          <tr>
+  <td class="summary_signature"><a href="#absname/1">absname(path)</a></td>
+  
+    <td class="summary_synopsis"><p>Converts the given path to an absolute one. Unlike
+<a href="#expand/1"><code class="inline">expand/1</code></a>, no attempt is made to resolve <code class="inline">..</code>, <code class="inline">.</code> or <code class="inline">~</code></p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#absname/2">absname(path, relative_to)</a></td>
+  
+    <td class="summary_synopsis"><p>Builds a path from <code class="inline">relative_to</code> to <code class="inline">path</code>. If <code class="inline">path</code> is already
+an absolute path, <code class="inline">relative_to</code> is ignored. See also <a href="#relative_to/2"><code class="inline">relative_to/2</code></a></p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#basename/1">basename(path)</a></td>
+  
+    <td class="summary_synopsis"><p>Returns the last component of the path or the path
+itself if it does not contain any directory separators</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#basename/2">basename(path, extension)</a></td>
+  
+    <td class="summary_synopsis"><p>Returns the last component of <code class="inline">path</code> with the <code class="inline">extension</code>
+stripped. This function should be used to remove a specific
+extension which may, or may not, be there</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#dirname/1">dirname(path)</a></td>
+  
+    <td class="summary_synopsis"><p>Returns the directory component of <code class="inline">path</code></p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#expand/1">expand(path)</a></td>
+  
+    <td class="summary_synopsis"><p>Converts the path to an absolute one and expands
+any <code class="inline">.</code> and <code class="inline">..</code> characters and a leading <code class="inline">~</code></p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#expand/2">expand(path, relative_to)</a></td>
+  
+    <td class="summary_synopsis"><p>Expands the path relative to the path given as the second argument
+expanding any <code class="inline">.</code> and <code class="inline">..</code> characters. If the path is already an
+absolute path, <code class="inline">relative_to</code> is ignored</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#extname/1">extname(path)</a></td>
+  
+    <td class="summary_synopsis"><p>Returns the extension of the last component of <code class="inline">path</code></p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#join/1">join(list1)</a></td>
+  
+    <td class="summary_synopsis"><p>Joins a list of strings</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#join/2">join(left, right)</a></td>
+  
+    <td class="summary_synopsis"><p>Joins two paths</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#relative/1">relative(name)</a></td>
+  
+    <td class="summary_synopsis"><p>Forces the path to be a relative path</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#relative_to/2">relative_to(path, from)</a></td>
+  
+    <td class="summary_synopsis"><p>Returns the given <code class="inline">path</code> relative to the given <code class="inline">from</code> path.
+In other words, it tries to strip the <code class="inline">from</code> prefix from <code class="inline">path</code></p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#relative_to_cwd/1">relative_to_cwd(path)</a></td>
+  
+    <td class="summary_synopsis"><p>Convenience to get the path relative to the current working
+directory. If, for some reason, the current working directory
+cannot be retrieved, returns the full path</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#rootname/1">rootname(path)</a></td>
+  
+    <td class="summary_synopsis"><p>Returns the <code class="inline">path</code> with the <code class="inline">extension</code> stripped</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#rootname/2">rootname(path, extension)</a></td>
+  
+    <td class="summary_synopsis"><p>Returns the <code class="inline">path</code> with the <code class="inline">extension</code> stripped. This function should be used to
+remove a specific extension which might, or might not, be there</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#split/1">split(path)</a></td>
+  
+    <td class="summary_synopsis"><p>Splits the path into a list at the path separator</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#type/1">type(name)</a></td>
+  
+    <td class="summary_synopsis"><p>Returns the path type</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#wildcard/2">wildcard(glob, opts \\ [])</a></td>
+  
+    <td class="summary_synopsis"><p>Traverses paths according to the given <code class="inline">glob</code> expression</p>
+</td>
+  
+</tr>
+
+        </table>
+      
+
+      
+        <section id="types_details" class="details_list">
+          <h2>Types <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a></h2>
+          <div class="type_detail">
+  <p class="typespec" id="t:t/0">
+    <a href="#t:t/0">t</a> :: :unicode.chardata
+  </p>
+  
+</div>
+
+        </section>
+      
+
+      
+        <section id="functions_details" class="details_list">
+          <h2>Functions</h2>
+          <section class="detail">
+  <div class="detail_header" id="absname/1">
+    <span class="signature"><strong>absname(path)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#absname/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>absname(<a href="#t:t/0">t</a>) :: binary</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Converts the given path to an absolute one. Unlike
+<a href="#expand/1"><code class="inline">expand/1</code></a>, no attempt is made to resolve <code class="inline">..</code>, <code class="inline">.</code> or <code class="inline">~</code>.</p>
+<h2>Unix examples</h2>
+<pre><code class="elixir">Path.absname(&quot;foo&quot;)
+#=&gt; &quot;/usr/local/foo&quot;
+
+Path.absname(&quot;../x&quot;)
+#=&gt; &quot;/usr/local/../x&quot;</code></pre>
+<h2>Windows</h2>
+<pre><code class="elixir">Path.absname(&quot;foo&quot;).
+&quot;D:/usr/local/foo&quot;
+Path.absname(&quot;../x&quot;).
+&quot;D:/usr/local/../x&quot;</code></pre>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/elixir/lib/path.ex#L39" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="absname/2">
+    <span class="signature"><strong>absname(path, relative_to)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#absname/2" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>absname(<a href="#t:t/0">t</a>, <a href="#t:t/0">t</a>) :: binary</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Builds a path from <code class="inline">relative_to</code> to <code class="inline">path</code>. If <code class="inline">path</code> is already
+an absolute path, <code class="inline">relative_to</code> is ignored. See also <a href="#relative_to/2"><code class="inline">relative_to/2</code></a>.</p>
+<p>Unlike <a href="#expand/2"><code class="inline">expand/2</code></a>, no attempt is made to
+resolve <code class="inline">..</code>, <code class="inline">.</code> or <code class="inline">~</code>.</p>
+<h2>Examples</h2>
+<pre><code class="iex elixir">iex&gt; Path.absname(&quot;foo&quot;, &quot;bar&quot;)
+&quot;bar/foo&quot;
+
+iex&gt; Path.absname(&quot;../x&quot;, &quot;bar&quot;)
+&quot;bar/../x&quot;</code></pre>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/elixir/lib/path.ex#L60" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="basename/1">
+    <span class="signature"><strong>basename(path)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#basename/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>basename(<a href="#t:t/0">t</a>) :: binary</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Returns the last component of the path or the path
+itself if it does not contain any directory separators.</p>
+<h2>Examples</h2>
+<pre><code class="iex elixir">iex&gt; Path.basename(&quot;foo&quot;)
+&quot;foo&quot;
+
+iex&gt; Path.basename(&quot;foo/bar&quot;)
+&quot;bar&quot;
+
+iex&gt; Path.basename(&quot;/&quot;)
+&quot;&quot;</code></pre>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/elixir/lib/path.ex#L335" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="basename/2">
+    <span class="signature"><strong>basename(path, extension)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#basename/2" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>basename(<a href="#t:t/0">t</a>, <a href="#t:t/0">t</a>) :: binary</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Returns the last component of <code class="inline">path</code> with the <code class="inline">extension</code>
+stripped. This function should be used to remove a specific
+extension which may, or may not, be there.</p>
+<h2>Examples</h2>
+<pre><code class="iex elixir">iex&gt; Path.basename(&quot;~/foo/bar.ex&quot;, &quot;.ex&quot;)
+&quot;bar&quot;
+
+iex&gt; Path.basename(&quot;~/foo/bar.exs&quot;, &quot;.ex&quot;)
+&quot;bar.exs&quot;
+
+iex&gt; Path.basename(&quot;~/foo/bar.old.ex&quot;, &quot;.ex&quot;)
+&quot;bar.old&quot;</code></pre>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/elixir/lib/path.ex#L357" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="dirname/1">
+    <span class="signature"><strong>dirname(path)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#dirname/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>dirname(<a href="#t:t/0">t</a>) :: binary</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Returns the directory component of <code class="inline">path</code>.</p>
+<h2>Examples</h2>
+<pre><code class="elixir">Path.dirname(&quot;/foo/bar.ex&quot;)
+#=&gt; &quot;/foo&quot;
+Path.dirname(&quot;/foo/bar/baz.ex&quot;)
+#=&gt; &quot;/foo/bar&quot;</code></pre>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/elixir/lib/path.ex#L373" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="expand/1">
+    <span class="signature"><strong>expand(path)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#expand/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>expand(<a href="#t:t/0">t</a>) :: binary</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Converts the path to an absolute one and expands
+any <code class="inline">.</code> and <code class="inline">..</code> characters and a leading <code class="inline">~</code>.</p>
+<h2>Examples</h2>
+<pre><code class="elixir">Path.expand(&quot;/foo/bar/../bar&quot;)
+&quot;/foo/bar&quot;</code></pre>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/elixir/lib/path.ex#L138" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="expand/2">
+    <span class="signature"><strong>expand(path, relative_to)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#expand/2" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>expand(<a href="#t:t/0">t</a>, <a href="#t:t/0">t</a>) :: binary</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Expands the path relative to the path given as the second argument
+expanding any <code class="inline">.</code> and <code class="inline">..</code> characters. If the path is already an
+absolute path, <code class="inline">relative_to</code> is ignored.</p>
+<p>Note, that this function treats <code class="inline">path</code> with a leading <code class="inline">~</code> as
+an absolute one.</p>
+<p>The second argument is first expanded to an absolute path.</p>
+<h2>Examples</h2>
+<pre><code class="elixir"># Assuming that the absolute path to baz is /quux/baz
+Path.expand(&quot;foo/bar/../bar&quot;, &quot;baz&quot;)
+#=&gt; &quot;/quux/baz/foo/bar&quot;
+
+Path.expand(&quot;foo/bar/../bar&quot;, &quot;/baz&quot;)
+&quot;/baz/foo/bar&quot;
+Path.expand(&quot;/foo/bar/../bar&quot;, &quot;/baz&quot;)
+&quot;/foo/bar&quot;</code></pre>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/elixir/lib/path.ex#L165" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="extname/1">
+    <span class="signature"><strong>extname(path)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#extname/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>extname(<a href="#t:t/0">t</a>) :: binary</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Returns the extension of the last component of <code class="inline">path</code>.</p>
+<h2>Examples</h2>
+<pre><code class="iex elixir">iex&gt; Path.extname(&quot;foo.erl&quot;)
+&quot;.erl&quot;
+
+iex&gt; Path.extname(&quot;~/foo/bar&quot;)
+&quot;&quot;</code></pre>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/elixir/lib/path.ex#L390" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="join/1">
+    <span class="signature"><strong>join(list1)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#join/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>join([<a href="#t:t/0">t</a>]) :: binary</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Joins a list of strings.</p>
+<p>This function should be used to convert a list of strings to a path.
+Note that any trailing slash is removed on join.</p>
+<h2>Examples</h2>
+<pre><code class="iex elixir">iex&gt; Path.join([&quot;~&quot;, &quot;foo&quot;])
+&quot;~/foo&quot;
+
+iex&gt; Path.join([&quot;foo&quot;])
+&quot;foo&quot;
+
+iex&gt; Path.join([&quot;/&quot;, &quot;foo&quot;, &quot;bar/&quot;])
+&quot;/foo/bar&quot;</code></pre>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/elixir/lib/path.ex#L448" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="join/2">
+    <span class="signature"><strong>join(left, right)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#join/2" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>join(<a href="#t:t/0">t</a>, <a href="#t:t/0">t</a>) :: binary</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Joins two paths.</p>
+<p>The right path will always be expanded to its relative format
+and any trailing slash is removed on join.</p>
+<h2>Examples</h2>
+<pre><code class="iex elixir">iex&gt; Path.join(&quot;foo&quot;, &quot;bar&quot;)
+&quot;foo/bar&quot;</code></pre>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/elixir/lib/path.ex#L466" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="relative/1">
+    <span class="signature"><strong>relative(name)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#relative/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>relative(<a href="#t:t/0">t</a>) :: binary</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Forces the path to be a relative path.</p>
+<h2>Unix examples</h2>
+<pre><code class="elixir">Path.relative(&quot;/usr/local/bin&quot;)   #=&gt; &quot;usr/local/bin&quot;
+Path.relative(&quot;usr/local/bin&quot;)    #=&gt; &quot;usr/local/bin&quot;
+Path.relative(&quot;../usr/local/bin&quot;) #=&gt; &quot;../usr/local/bin&quot;</code></pre>
+<h2>Windows examples</h2>
+<pre><code class="elixir">Path.relative(&quot;D:/usr/local/bin&quot;) #=&gt; &quot;usr/local/bin&quot;
+Path.relative(&quot;usr/local/bin&quot;)    #=&gt; &quot;usr/local/bin&quot;
+Path.relative(&quot;D:bar.ex&quot;)         #=&gt; &quot;bar.ex&quot;
+Path.relative(&quot;/bar/foo.ex&quot;)      #=&gt; &quot;bar/foo.ex&quot;</code></pre>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/elixir/lib/path.ex#L211" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="relative_to/2">
+    <span class="signature"><strong>relative_to(path, from)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#relative_to/2" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>relative_to(<a href="#t:t/0">t</a>, <a href="#t:t/0">t</a>) :: binary</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Returns the given <code class="inline">path</code> relative to the given <code class="inline">from</code> path.
+In other words, it tries to strip the <code class="inline">from</code> prefix from <code class="inline">path</code>.</p>
+<p>This function does not query the file system, so it assumes
+no symlinks in between the paths.</p>
+<p>In case a direct relative path cannot be found, it returns
+the original path.</p>
+<h2>Examples</h2>
+<pre><code class="iex elixir">iex&gt; Path.relative_to(&quot;/usr/local/foo&quot;, &quot;/usr/local&quot;)
+&quot;foo&quot;
+
+iex&gt; Path.relative_to(&quot;/usr/local/foo&quot;, &quot;/&quot;)
+&quot;usr/local/foo&quot;
+
+iex&gt; Path.relative_to(&quot;/usr/local/foo&quot;, &quot;/etc&quot;)
+&quot;/usr/local/foo&quot;</code></pre>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/elixir/lib/path.ex#L288" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="relative_to_cwd/1">
+    <span class="signature"><strong>relative_to_cwd(path)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#relative_to_cwd/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>relative_to_cwd(<a href="#t:t/0">t</a>) :: binary</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Convenience to get the path relative to the current working
+directory. If, for some reason, the current working directory
+cannot be retrieved, returns the full path.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/elixir/lib/path.ex#L311" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="rootname/1">
+    <span class="signature"><strong>rootname(path)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#rootname/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>rootname(<a href="#t:t/0">t</a>) :: binary</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Returns the <code class="inline">path</code> with the <code class="inline">extension</code> stripped.</p>
+<h2>Examples</h2>
+<pre><code class="iex elixir">iex&gt; Path.rootname(&quot;/foo/bar&quot;)
+&quot;/foo/bar&quot;
+
+iex&gt; Path.rootname(&quot;/foo/bar.ex&quot;)
+&quot;/foo/bar&quot;</code></pre>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/elixir/lib/path.ex#L407" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="rootname/2">
+    <span class="signature"><strong>rootname(path, extension)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#rootname/2" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>rootname(<a href="#t:t/0">t</a>, <a href="#t:t/0">t</a>) :: binary</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Returns the <code class="inline">path</code> with the <code class="inline">extension</code> stripped. This function should be used to
+remove a specific extension which might, or might not, be there.</p>
+<h2>Examples</h2>
+<pre><code class="iex elixir">iex&gt; Path.rootname(&quot;/foo/bar.erl&quot;, &quot;.erl&quot;)
+&quot;/foo/bar&quot;
+
+iex&gt; Path.rootname(&quot;/foo/bar.erl&quot;, &quot;.ex&quot;)
+&quot;/foo/bar.erl&quot;</code></pre>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/elixir/lib/path.ex#L425" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="split/1">
+    <span class="signature"><strong>split(path)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#split/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>split(<a href="#t:t/0">t</a>) :: [binary]</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Splits the path into a list at the path separator.</p>
+<p>If an empty string is given, returns an empty list.</p>
+<p>On Windows, path is split on both “\” and “/“ separators
+and the driver letter, if there is one, is always returned
+in lowercase.</p>
+<h2>Examples</h2>
+<pre><code class="iex elixir">iex&gt; Path.split(&quot;&quot;)
+ []
+
+ iex&gt; Path.split(&quot;foo&quot;)
+ [&quot;foo&quot;]
+
+ iex&gt; Path.split(&quot;/foo/bar&quot;)
+ [&quot;/&quot;, &quot;foo&quot;, &quot;bar&quot;]</code></pre>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/elixir/lib/path.ex#L510" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="type/1">
+    <span class="signature"><strong>type(name)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#type/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>type(<a href="#t:t/0">t</a>) :: :absolute | :relative | :volumerelative</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Returns the path type.</p>
+<h2>Unix examples</h2>
+<pre><code class="elixir">Path.type(&quot;/&quot;)                #=&gt; :absolute
+Path.type(&quot;/usr/local/bin&quot;)   #=&gt; :absolute
+Path.type(&quot;usr/local/bin&quot;)    #=&gt; :relative
+Path.type(&quot;../usr/local/bin&quot;) #=&gt; :relative
+Path.type(&quot;~/file&quot;)           #=&gt; :relative</code></pre>
+<h2>Windows examples</h2>
+<pre><code class="elixir">Path.type(&quot;D:/usr/local/bin&quot;) #=&gt; :absolute
+Path.type(&quot;usr/local/bin&quot;)    #=&gt; :relative
+Path.type(&quot;D:bar.ex&quot;)         #=&gt; :volumerelative
+Path.type(&quot;/bar/foo.ex&quot;)      #=&gt; :volumerelative</code></pre>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/elixir/lib/path.ex#L189" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="wildcard/2">
+    <span class="signature"><strong>wildcard(glob, opts \\ [])</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#wildcard/2" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Traverses paths according to the given <code class="inline">glob</code> expression.</p>
+<p>The wildcard looks like an ordinary path, except that certain
+“wildcard characters” are interpreted in a special way. The
+following characters are special:</p>
+<ul>
+<li><p><code class="inline">?</code> - matches one character</p>
+</li>
+<li><p><code class="inline">*</code> - matches any number of characters up to the end of the filename, the
+next dot, or the next slash</p>
+</li>
+<li><p><code class="inline">**</code> - two adjacent <code class="inline">*</code>‘s used as a single pattern will match all
+files and zero or more directories and subdirectories</p>
+</li>
+<li><p><code class="inline">[char1,char2,...]</code> - matches any of the characters listed; two
+characters separated by a hyphen will match a range of characters</p>
+</li>
+<li><code class="inline">{item1,item2,...}</code> - matches one of the alternatives
+</li>
+</ul>
+<p>Other characters represent themselves. Only paths that have
+exactly the same character in the same position will match. Note
+that matching is case-sensitive; i.e. “a” will not match “A”.</p>
+<p>By default, the patterns <code class="inline">*</code> and <code class="inline">?</code> do not match files starting
+with a dot <code class="inline">.</code> unless <code class="inline">match_dot: true</code> is given.</p>
+<h2>Examples</h2>
+<p>Imagine you have a directory called <code class="inline">projects</code> with three Elixir projects
+inside of it: <code class="inline">elixir</code>, <code class="inline">ex_doc</code> and <code class="inline">dynamo</code>. You can find all <code class="inline">.beam</code> files
+inside the <code class="inline">ebin</code> directory of each project as follows:</p>
+<pre><code class="elixir">Path.wildcard(&quot;projects/*/ebin/**/*.beam&quot;)</code></pre>
+<p>If you want to search for both <code class="inline">.beam</code> and <code class="inline">.app</code> files, you could do:</p>
+<pre><code class="elixir">Path.wildcard(&quot;projects/*/ebin/**/*.{beam,app}&quot;)</code></pre>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/elixir/lib/path.ex#L588" class="view_source">Source</a>
+  
+</section>
+
+        </section>
+      
+
+      
+
+      
+    </section>
+  </body>
+</html>

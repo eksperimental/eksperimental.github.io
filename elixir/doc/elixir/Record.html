@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Record</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+    <link rel="stylesheet" href="css/elixir.css" type="text/css" media="screen" charset="utf-8" />
+    <script type="text/javascript" charset="utf-8">
+      relpath = '';
+      if (relpath != '') relpath += '/';
+    </script>
+
+    <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/highlight.pack.js"></script>
+    <script type="text/javascript" charset="utf-8">
+      hljs.initHighlightingOnLoad();
+      hljs.configure({languages: []}); //disable autodetect
+    </script>
+  </head>
+
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+
+    <section id="content">
+      <div class="breadcrumbs">Elixir v1.1.0-dev &rarr; <a href="overview.html">Overview</a> &rarr; <a href="Record.html">Record</a></div>
+      <h1>
+        Record
+        
+      </h1>
+
+      <ul class="summary_links">
+        
+          <li><a href="#summary">Summary</a></li>
+        
+        
+        
+          <li><a href="#functions_details">Functions</a></li>
+        
+        
+          <li><a href="#macros_details">Macros</a></li>
+        
+        
+      </ul>
+
+      
+        <section id="moduledoc" class="docstring">
+          <p>Module to work, define and import records.</p>
+<p>Records are simply tuples where the first element is an atom:</p>
+<pre><code class="iex elixir">iex&gt; Record.is_record {User, &quot;john&quot;, 27}
+true</code></pre>
+<p>This module provides conveniences for working with records at
+compilation time, where compile-time field names are used to
+manipulate the tuples, providing fast operations on top of
+the tuples compact structure.</p>
+<p>In Elixir, records are used mostly in two situations:</p>
+<p>  1. to work with short, internal data
+  2. to interface with Erlang records</p>
+<p>The macros <a href="#defrecord/3"><code class="inline">defrecord/3</code></a> and <a href="#defrecordp/3"><code class="inline">defrecordp/3</code></a> can be used to create
+records while <a href="#extract/2"><code class="inline">extract/2</code></a> can be used to extract records from Erlang
+files.</p>
+<h2>Types</h2>
+<p>Types can be defined for tuples with the <code class="inline">record/2</code> macro (only available
+in typespecs). Like with the generated record macros it will expand to
+a tuple.</p>
+<pre><code class="elixir">defmodule MyModule do
+  require Record
+  Record.defrecord :user, name: &quot;john&quot;, age: 25
+
+  @type user :: record(:user, name: String.t, age: integer)
+  # expands to: `@type user :: {:user, String.t, integer}`
+end</code></pre>
+
+        </section>
+      
+
+      
+        <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/elixir/lib/record.ex#L1" class="view_source">Source</a>
+      
+
+      
+        <h2 id="summary">Summary<span class="detail_header_links"><a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a></span></h2>
+        <table class="summary">
+          <tr>
+  <td class="summary_signature"><a href="#defrecord/3">defrecord(name, tag \\ nil, kv)</a></td>
+  
+    <td class="summary_synopsis"><p>Defines a set of macros to create and access a record</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#defrecordp/3">defrecordp(name, tag \\ nil, kv)</a></td>
+  
+    <td class="summary_synopsis"><p>Same as <a href="#defrecord/3"><code class="inline">defrecord/3</code></a> but generates private macros</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#extract/2">extract(name, opts)</a></td>
+  
+    <td class="summary_synopsis"><p>Extracts record information from an Erlang file</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#is_record/1">is_record(data)</a></td>
+  
+    <td class="summary_synopsis"><p>Checks if the given <code class="inline">data</code> is a record</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#is_record/2">is_record(data, kind)</a></td>
+  
+    <td class="summary_synopsis"><p>Checks if the given <code class="inline">data</code> is a record of <code class="inline">kind</code></p>
+</td>
+  
+</tr>
+
+        </table>
+      
+
+      
+
+      
+        <section id="functions_details" class="details_list">
+          <h2>Functions</h2>
+          <section class="detail">
+  <div class="detail_header" id="extract/2">
+    <span class="signature"><strong>extract(name, opts)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#extract/2" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Extracts record information from an Erlang file.</p>
+<p>Returns a quoted expression containing the fields as a list
+of tuples. It expects the record name to be an atom and the
+library path to be a string at expansion time.</p>
+<h2>Examples</h2>
+<pre><code class="iex elixir">iex&gt; Record.extract(:file_info, from_lib: &quot;kernel/include/file.hrl&quot;)
+[size: :undefined, type: :undefined, access: :undefined, atime: :undefined,
+ mtime: :undefined, ctime: :undefined, mode: :undefined, links: :undefined,
+ major_device: :undefined, minor_device: :undefined, inode: :undefined,
+ uid: :undefined, gid: :undefined]</code></pre>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/elixir/lib/record.ex#L55" class="view_source">Source</a>
+  
+</section>
+
+        </section>
+      
+
+      
+        <section id="macros_details" class="details_list">
+          <h2>Macros</h2>
+          <section class="detail">
+  <div class="detail_header" id="defrecord/3">
+    <span class="signature"><strong>defrecord(name, tag \\ nil, kv)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(macro)</span>
+      <a href="#defrecord/3" class="detail_link" title="Link to this macro">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Defines a set of macros to create and access a record.</p>
+<p>The macros are going to have <code class="inline">name</code>, a tag (which defaults)
+to the name if none is given, and a set of fields given by
+<code class="inline">kv</code>.</p>
+<h2>Examples</h2>
+<pre><code class="elixir">defmodule User do
+  require Record
+  Record.defrecord :user, [name: &quot;meg&quot;, age: &quot;25&quot;]
+end</code></pre>
+<p>In the example above, a set of macros named <code class="inline">user</code> but with different
+arities will be defined to manipulate the underlying record:</p>
+<pre><code class="elixir"># To create records
+record = user()        #=&gt; {:user, &quot;meg&quot;, 25}
+record = user(age: 26) #=&gt; {:user, &quot;meg&quot;, 26}
+
+# To get a field from the record
+user(record, :name) #=&gt; &quot;meg&quot;
+
+# To update the record
+user(record, age: 26) #=&gt; {:user, &quot;meg&quot;, 26}
+
+# Convert a record to a keyword list
+user(record) #=&gt; [name: &quot;meg&quot;, age: 26]</code></pre>
+<p>By default, Elixir uses the record name as the first element of
+the tuple (the tag). But it can be changed to something else:</p>
+<pre><code class="elixir">defmodule User do
+  require Record
+  Record.defrecord :user, User, name: nil
+end
+
+require User
+User.user() #=&gt; {User, nil}</code></pre>
+<h2>Defining extracted records with anonymous functions</h2>
+<p>If a record defines an anonymous function, an ArgumentError
+will occur if you attempt to create a record with it.
+This can occur unintentionally when defining a record after extracting
+it from an Erlang library that uses anonymous functions for defaults.</p>
+<pre><code class="elixir">Record.defrecord :my_rec, Record.extract(...)
+#=&gt; ** (ArgumentError) invalid value for record field fun_field,
+cannot escape #Function&lt;12.90072148/2 in :erl_eval.expr/5&gt;.</code></pre>
+<p>To work around this error, redefine the field with your own &amp;M.f/a function,
+like so:</p>
+<pre><code class="elixir">defmodule MyRec do
+  require Record
+  Record.defrecord :my_rec, Record.extract(...) |&gt; Keyword.merge(fun_field: &amp;__MODULE__.foo/2)
+  def foo(bar, baz), do: IO.inspect({bar, baz})
+end</code></pre>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/elixir/lib/record.ex#L179" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="defrecordp/3">
+    <span class="signature"><strong>defrecordp(name, tag \\ nil, kv)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(macro)</span>
+      <a href="#defrecordp/3" class="detail_link" title="Link to this macro">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Same as <a href="#defrecord/3"><code class="inline">defrecord/3</code></a> but generates private macros.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/elixir/lib/record.ex#L197" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="is_record/1">
+    <span class="signature"><strong>is_record(data)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(macro)</span>
+      <a href="#is_record/1" class="detail_link" title="Link to this macro">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Checks if the given <code class="inline">data</code> is a record.</p>
+<p>This is implemented as a macro so it can be used in guard clauses.</p>
+<h2>Examples</h2>
+<pre><code class="iex elixir">iex&gt; record = {User, &quot;john&quot;, 27}
+iex&gt; Record.is_record(record)
+true
+iex&gt; tuple = {}
+iex&gt; Record.is_record(tuple)
+false</code></pre>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/elixir/lib/record.ex#L102" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="is_record/2">
+    <span class="signature"><strong>is_record(data, kind)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(macro)</span>
+      <a href="#is_record/2" class="detail_link" title="Link to this macro">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Checks if the given <code class="inline">data</code> is a record of <code class="inline">kind</code>.</p>
+<p>This is implemented as a macro so it can be used in guard clauses.</p>
+<h2>Examples</h2>
+<pre><code class="iex elixir">iex&gt; record = {User, &quot;john&quot;, 27}
+iex&gt; Record.is_record(record, User)
+true</code></pre>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/elixir/lib/record.ex#L71" class="view_source">Source</a>
+  
+</section>
+
+        </section>
+      
+
+      
+    </section>
+  </body>
+</html>

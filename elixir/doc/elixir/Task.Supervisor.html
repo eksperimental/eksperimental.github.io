@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Task.Supervisor</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+    <link rel="stylesheet" href="css/elixir.css" type="text/css" media="screen" charset="utf-8" />
+    <script type="text/javascript" charset="utf-8">
+      relpath = '';
+      if (relpath != '') relpath += '/';
+    </script>
+
+    <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/highlight.pack.js"></script>
+    <script type="text/javascript" charset="utf-8">
+      hljs.initHighlightingOnLoad();
+      hljs.configure({languages: []}); //disable autodetect
+    </script>
+  </head>
+
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+
+    <section id="content">
+      <div class="breadcrumbs">Elixir v1.1.0-dev &rarr; <a href="overview.html">Overview</a> &rarr; <a href="Task.html">Task</a> &rarr; <a href="Task.Supervisor.html">Supervisor</a></div>
+      <h1>
+        Task.Supervisor
+        
+      </h1>
+
+      <ul class="summary_links">
+        
+          <li><a href="#summary">Summary</a></li>
+        
+        
+        
+          <li><a href="#functions_details">Functions</a></li>
+        
+        
+        
+      </ul>
+
+      
+        <section id="moduledoc" class="docstring">
+          <p>A tasks supervisor.</p>
+<p>This module defines a supervisor which can be used to dynamically
+supervise tasks. Behind the scenes, this module is implemented as a
+<code class="inline">:simple_one_for_one</code> supervisor where the workers are temporary
+(i.e. they are not restarted after they die).</p>
+<p>The functions in this module allow tasks to be spawned and awaited
+from a supervisor, similar to the functions defined in the <a href="Task.html"><code class="inline">Task</code></a> module.</p>
+<h2>Name Registration</h2>
+<p>A <a href="Task.Supervisor.html"><code class="inline">Task.Supervisor</code></a> is bound to the same name registration rules as a
+<a href="GenServer.html"><code class="inline">GenServer</code></a>. Read more about it in the <a href="GenServer.html"><code class="inline">GenServer</code></a> docs.</p>
+
+        </section>
+      
+
+      
+        <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/elixir/lib/task/supervisor.ex#L1" class="view_source">Source</a>
+      
+
+      
+        <h2 id="summary">Summary<span class="detail_header_links"><a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a></span></h2>
+        <table class="summary">
+          <tr>
+  <td class="summary_signature"><a href="#async/2">async(supervisor, fun)</a></td>
+  
+    <td class="summary_synopsis"><p>Starts a task that can be awaited on</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#async/4">async(supervisor, module, fun, args)</a></td>
+  
+    <td class="summary_synopsis"><p>Starts a task that can be awaited on</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#children/1">children(supervisor)</a></td>
+  
+    <td class="summary_synopsis"><p>Returns all children pids</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#start_child/2">start_child(supervisor, fun)</a></td>
+  
+    <td class="summary_synopsis"><p>Starts a task as child of the given <code class="inline">supervisor</code></p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#start_child/4">start_child(supervisor, module, fun, args)</a></td>
+  
+    <td class="summary_synopsis"><p>Starts a task as child of the given <code class="inline">supervisor</code></p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#start_link/1">start_link(opts \\ [])</a></td>
+  
+    <td class="summary_synopsis"><p>Starts a new supervisor</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#terminate_child/2">terminate_child(supervisor, pid)</a></td>
+  
+    <td class="summary_synopsis"><p>Terminates the child with the given <code class="inline">pid</code></p>
+</td>
+  
+</tr>
+
+        </table>
+      
+
+      
+
+      
+        <section id="functions_details" class="details_list">
+          <h2>Functions</h2>
+          <section class="detail">
+  <div class="detail_header" id="async/2">
+    <span class="signature"><strong>async(supervisor, fun)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#async/2" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>async(<a href="Supervisor.html#t:supervisor/0">Supervisor.supervisor</a>, (... -> any)) :: <a href="Task.html#t:t/0">Task.t</a></li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Starts a task that can be awaited on.</p>
+<p>The <code class="inline">supervisor</code> must be a reference as defined in <a href="Task.Supervisor.html"><code class="inline">Task.Supervisor</code></a>.
+For more information on tasks, check the <a href="Task.html"><code class="inline">Task</code></a> module.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/elixir/lib/task/supervisor.ex#L55" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="async/4">
+    <span class="signature"><strong>async(supervisor, module, fun, args)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#async/4" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>async(<a href="Supervisor.html#t:supervisor/0">Supervisor.supervisor</a>, module, atom, [term]) :: <a href="Task.html#t:t/0">Task.t</a></li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Starts a task that can be awaited on.</p>
+<p>The <code class="inline">supervisor</code> must be a reference as defined in <a href="Task.Supervisor.html"><code class="inline">Task.Supervisor</code></a>.
+For more information on tasks, check the <a href="Task.html"><code class="inline">Task</code></a> module.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/elixir/lib/task/supervisor.ex#L66" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="children/1">
+    <span class="signature"><strong>children(supervisor)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#children/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>children(<a href="Supervisor.html#t:supervisor/0">Supervisor.supervisor</a>) :: [pid]</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Returns all children pids.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/elixir/lib/task/supervisor.ex#L86" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="start_child/2">
+    <span class="signature"><strong>start_child(supervisor, fun)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#start_child/2" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>start_child(<a href="Supervisor.html#t:supervisor/0">Supervisor.supervisor</a>, (... -> any)) :: {:ok, pid}</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Starts a task as child of the given <code class="inline">supervisor</code>.</p>
+<p>Note that the spawned process is not linked to the caller, but
+only to the supervisor. This command is useful in case the
+task needs to perform side-effects (like I/O) and does not need
+to report back to the caller.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/elixir/lib/task/supervisor.ex#L99" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="start_child/4">
+    <span class="signature"><strong>start_child(supervisor, module, fun, args)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#start_child/4" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>start_child(<a href="Supervisor.html#t:supervisor/0">Supervisor.supervisor</a>, module, atom, [term]) :: {:ok, pid}</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Starts a task as child of the given <code class="inline">supervisor</code>.</p>
+<p>Similar to <a href="#start_child/2"><code class="inline">start_child/2</code></a> except the task is specified
+by the given <code class="inline">module</code>, <code class="inline">fun</code> and <code class="inline">args</code>.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/elixir/lib/task/supervisor.ex#L110" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="start_link/1">
+    <span class="signature"><strong>start_link(opts \\ [])</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#start_link/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>start_link(<a href="Supervisor.html#t:options/0">Supervisor.options</a>) :: <a href="Supervisor.html#t:on_start/0">Supervisor.on_start</a></li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Starts a new supervisor.</p>
+<p>The supported options are:</p>
+<ul>
+<li><p><code class="inline">:name</code> - used to register a supervisor name, the supported values are
+  described under the <code class="inline">Name Registration</code> section in the <a href="GenServer.html"><code class="inline">GenServer</code></a> module
+  docs;</p>
+</li>
+<li><p><code class="inline">:restart</code> - the restart strategy, may be <code class="inline">:temporary</code> (the default),
+  <code class="inline">:transient</code> or <code class="inline">:permanent</code>. Check <a href="Supervisor.Spec.html"><code class="inline">Supervisor.Spec</code></a> for more info.
+  Defaults to temporary as most tasks can’t be effectively restarted after
+  a crash;</p>
+</li>
+<li><p><code class="inline">:shutdown</code> - <code class="inline">:brutal_kill</code> if the tasks must be killed directly on shutdown
+  or an integer indicating the timeout value, defaults to 5000 milliseconds;</p>
+</li>
+<li><code class="inline">:max_restarts</code> and <code class="inline">:max_seconds</code> - as specified in <a href="Supervisor.Spec.html#supervise/2"><code class="inline">Supervisor.Spec.supervise/2</code></a>;
+</li>
+</ul>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/elixir/lib/task/supervisor.ex#L40" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="terminate_child/2">
+    <span class="signature"><strong>terminate_child(supervisor, pid)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#terminate_child/2" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>terminate_child(<a href="Supervisor.html#t:supervisor/0">Supervisor.supervisor</a>, pid) :: :ok</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Terminates the child with the given <code class="inline">pid</code>.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/elixir/lib/task/supervisor.ex#L78" class="view_source">Source</a>
+  
+</section>
+
+        </section>
+      
+
+      
+
+      
+    </section>
+  </body>
+</html>

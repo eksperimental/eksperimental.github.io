@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Mix.Shell.IO</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+    <link rel="stylesheet" href="css/elixir.css" type="text/css" media="screen" charset="utf-8" />
+    <script type="text/javascript" charset="utf-8">
+      relpath = '';
+      if (relpath != '') relpath += '/';
+    </script>
+
+    <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/highlight.pack.js"></script>
+    <script type="text/javascript" charset="utf-8">
+      hljs.initHighlightingOnLoad();
+      hljs.configure({languages: []}); //disable autodetect
+    </script>
+  </head>
+
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+
+    <section id="content">
+      <div class="breadcrumbs">Mix v1.1.0-dev &rarr; <a href="overview.html">Overview</a> &rarr; <a href="Mix.html">Mix</a> &rarr; <a href="Mix.Shell.html">Shell</a> &rarr; <a href="Mix.Shell.IO.html">IO</a></div>
+      <h1>
+        Mix.Shell.IO
+        
+      </h1>
+
+      <ul class="summary_links">
+        
+          <li><a href="#summary">Summary</a></li>
+        
+        
+        
+          <li><a href="#functions_details">Functions</a></li>
+        
+        
+        
+      </ul>
+
+      
+        <section id="moduledoc" class="docstring">
+          <p>This is Mix’s default shell.</p>
+<p>It simply prints messages to stdio and stderr.</p>
+
+        </section>
+      
+
+      
+        <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix/shell/io.ex#L1" class="view_source">Source</a>
+      
+
+      
+        <h2 id="summary">Summary<span class="detail_header_links"><a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a></span></h2>
+        <table class="summary">
+          <tr>
+  <td class="summary_signature"><a href="#cmd/2">cmd(command, opts \\ [])</a></td>
+  
+    <td class="summary_synopsis"><p>Executes the given command and prints its output
+to stdout as it comes</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#error/1">error(message)</a></td>
+  
+    <td class="summary_synopsis"><p>Writes an error message to the shell followed by new line</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#info/1">info(message)</a></td>
+  
+    <td class="summary_synopsis"><p>Writes a message to the shell followed by new line</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#print_app/0">print_app()</a></td>
+  
+    <td class="summary_synopsis"><p>Prints the currently running application if it
+was not printed yet</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#prompt/1">prompt(message)</a></td>
+  
+    <td class="summary_synopsis"><p>Writes a message shell followed by prompting the user for
+input. Input will be consumed until enter is pressed</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#yes?/1">yes?(message)</a></td>
+  
+    <td class="summary_synopsis"><p>Receives a message and asks the user if they want to proceed.
+The user must press enter or type anything that matches the “yes”
+regex <code class="inline">~r/^Y(es)?$/i</code></p>
+</td>
+  
+</tr>
+
+        </table>
+      
+
+      
+
+      
+        <section id="functions_details" class="details_list">
+          <h2>Functions</h2>
+          <section class="detail">
+  <div class="detail_header" id="cmd/2">
+    <span class="signature"><strong>cmd(command, opts \\ [])</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#cmd/2" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Executes the given command and prints its output
+to stdout as it comes.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix/shell/io.ex#L24" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="error/1">
+    <span class="signature"><strong>error(message)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#error/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Writes an error message to the shell followed by new line.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix/shell/io.ex#L43" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="info/1">
+    <span class="signature"><strong>info(message)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#info/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Writes a message to the shell followed by new line.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix/shell/io.ex#L35" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="print_app/0">
+    <span class="signature"><strong>print_app()</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#print_app/0" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Prints the currently running application if it
+was not printed yet.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix/shell/io.ex#L14" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="prompt/1">
+    <span class="signature"><strong>prompt(message)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#prompt/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Writes a message shell followed by prompting the user for
+input. Input will be consumed until enter is pressed.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix/shell/io.ex#L52" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="yes?/1">
+    <span class="signature"><strong>yes?(message)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#yes?/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Receives a message and asks the user if they want to proceed.
+The user must press enter or type anything that matches the “yes”
+regex <code class="inline">~r/^Y(es)?$/i</code>.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix/shell/io.ex#L62" class="view_source">Source</a>
+  
+</section>
+
+        </section>
+      
+
+      
+
+      
+    </section>
+  </body>
+</html>

@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Overview</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+
+    <script type="text/javascript" charset="utf-8">
+      relpath = '';
+      if (relpath != '') relpath += '/';
+    </script>
+
+    <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+  </head>
+
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+
+    <section id="content">
+      <div class="breadcrumbs">Mix v1.1.0-dev &rarr; <a href="overview.html">Overview</a></div>
+
+      <h1>Mix v1.1.0-dev</h1>
+
+      <ul class="summary_links">
+        
+          <li><a href="#modules_summary">Modules</a></li>
+        
+        
+          <li><a href="#exceptions_summary">Exceptions</a></li>
+        
+        
+      </ul>
+
+      
+        <h2 id="modules_summary">Modules summary <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a></h2>
+        <table class="summary">
+          <tr>
+  <td class="summary_signature"><a href="Mix.html">Mix</a></td>
+  
+    <td class="summary_synopsis"><p>Mix is a build tool that provides tasks for creating, compiling,
+testing Elixir projects, as well as handle dependencies, and more</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Mix.Archive.html">Mix.Archive</a></td>
+  
+    <td class="summary_synopsis"><p>Module responsible for managing <a href="http://www.erlang.org/doc/man/code.html">archives</a></p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Mix.Config.html">Mix.Config</a></td>
+  
+    <td class="summary_synopsis"><p>Module for defining, reading and merging app configurations</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Mix.Generator.html">Mix.Generator</a></td>
+  
+    <td class="summary_synopsis"><p>Conveniences for working with paths and generating content</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Mix.Project.html">Mix.Project</a></td>
+  
+    <td class="summary_synopsis"><p>Defines and manipulate Mix projects</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Mix.SCM.html">Mix.SCM</a></td>
+  
+    <td class="summary_synopsis"><p>This module provides helper functions and defines the
+behaviour required by any SCM used by mix</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Mix.Shell.html">Mix.Shell</a></td>
+  
+    <td class="summary_synopsis"><p>Defines Mix.Shell contract</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Mix.Shell.IO.html">Mix.Shell.IO</a></td>
+  
+    <td class="summary_synopsis"><p>This is Mix’s default shell</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Mix.Shell.Process.html">Mix.Shell.Process</a></td>
+  
+    <td class="summary_synopsis"><p>This is a Mix shell that uses the current process mailbox
+for communication instead of IO</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Mix.Task.html">Mix.Task</a></td>
+  
+    <td class="summary_synopsis"><p>A simple module that provides conveniences for creating,
+loading and manipulating tasks</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Mix.Tasks.App.Start.html">Mix.Tasks.App.Start</a></td>
+  
+    <td class="summary_synopsis"><p>Starts all registered apps. If no apps key exists,
+it starts the current application</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Mix.Tasks.Archive.html">Mix.Tasks.Archive</a></td>
+  
+    <td class="summary_synopsis"><p>Lists all installed archives</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Mix.Tasks.Archive.Build.html">Mix.Tasks.Archive.Build</a></td>
+  
+    <td class="summary_synopsis"><p>Builds an archive according to the specification of the
+<a href="http://www.erlang.org/doc/man/code.html">Erlang Archive Format</a></p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Mix.Tasks.Archive.Install.html">Mix.Tasks.Archive.Install</a></td>
+  
+    <td class="summary_synopsis"><p>Install an archive locally</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Mix.Tasks.Archive.Uninstall.html">Mix.Tasks.Archive.Uninstall</a></td>
+  
+    <td class="summary_synopsis"><p>Uninstall local archives:</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Mix.Tasks.Clean.html">Mix.Tasks.Clean</a></td>
+  
+    <td class="summary_synopsis"><p>Delete generated application files</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Mix.Tasks.Cmd.html">Mix.Tasks.Cmd</a></td>
+  
+    <td class="summary_synopsis"><p>Executes the given command</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Mix.Tasks.Compile.html">Mix.Tasks.Compile</a></td>
+  
+    <td class="summary_synopsis"><p>A meta task that compiles source files</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Mix.Tasks.Compile.App.html">Mix.Tasks.Compile.App</a></td>
+  
+    <td class="summary_synopsis"><p>Writes an .app file</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Mix.Tasks.Compile.Elixir.html">Mix.Tasks.Compile.Elixir</a></td>
+  
+    <td class="summary_synopsis"><p>Compiles Elixir source files</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Mix.Tasks.Compile.Erlang.html">Mix.Tasks.Compile.Erlang</a></td>
+  
+    <td class="summary_synopsis"><p>Compile Erlang source files</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Mix.Tasks.Compile.Leex.html">Mix.Tasks.Compile.Leex</a></td>
+  
+    <td class="summary_synopsis"><p>Compile Leex source files</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Mix.Tasks.Compile.Protocols.html">Mix.Tasks.Compile.Protocols</a></td>
+  
+    <td class="summary_synopsis"><p>Consolidates all protocols in all paths</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Mix.Tasks.Compile.Yecc.html">Mix.Tasks.Compile.Yecc</a></td>
+  
+    <td class="summary_synopsis"><p>Compile Yecc source files</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Mix.Tasks.Deps.html">Mix.Tasks.Deps</a></td>
+  
+    <td class="summary_synopsis"><p>List all dependencies and their status</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Mix.Tasks.Deps.Check.html">Mix.Tasks.Deps.Check</a></td>
+  
+    <td class="summary_synopsis"><p>Checks if all dependencies are valid and if not, abort.
+Prints the invalid dependencies’ status before aborting</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Mix.Tasks.Deps.Clean.html">Mix.Tasks.Deps.Clean</a></td>
+  
+    <td class="summary_synopsis"><p>Remove the given dependencies’ files</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Mix.Tasks.Deps.Compile.html">Mix.Tasks.Deps.Compile</a></td>
+  
+    <td class="summary_synopsis"><p>Compile dependencies</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Mix.Tasks.Deps.Get.html">Mix.Tasks.Deps.Get</a></td>
+  
+    <td class="summary_synopsis"><p>Get all out of date dependencies, i.e. dependencies
+that are not available or have an invalid lock</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Mix.Tasks.Deps.Loadpaths.html">Mix.Tasks.Deps.Loadpaths</a></td>
+  
+    <td class="summary_synopsis"><p>Loads the available dependencies paths</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Mix.Tasks.Deps.Unlock.html">Mix.Tasks.Deps.Unlock</a></td>
+  
+    <td class="summary_synopsis"><p>Unlock the given dependencies</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Mix.Tasks.Deps.Update.html">Mix.Tasks.Deps.Update</a></td>
+  
+    <td class="summary_synopsis"><p>Update the given dependencies</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Mix.Tasks.Do.html">Mix.Tasks.Do</a></td>
+  
+    <td class="summary_synopsis"><p>Executes the tasks separated by comma</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Mix.Tasks.Escript.Build.html">Mix.Tasks.Escript.Build</a></td>
+  
+    <td class="summary_synopsis"><p>Builds an escript for the project</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Mix.Tasks.Help.html">Mix.Tasks.Help</a></td>
+  
+    <td class="summary_synopsis"><p>Lists all tasks or prints the documentation for a given task</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Mix.Tasks.Iex.html">Mix.Tasks.Iex</a></td>
+  
+    <td class="summary_synopsis"><p>A task that is simply meant to redirect users to <code class="inline">iex -S mix</code></p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Mix.Tasks.Loadconfig.html">Mix.Tasks.Loadconfig</a></td>
+  
+    <td class="summary_synopsis"><p>Loads and persists the given configuration</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Mix.Tasks.Loadpaths.html">Mix.Tasks.Loadpaths</a></td>
+  
+    <td class="summary_synopsis"><p>Loads the application and its dependencies paths</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Mix.Tasks.Local.html">Mix.Tasks.Local</a></td>
+  
+    <td class="summary_synopsis"><p>List local tasks</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Mix.Tasks.Local.Hex.html">Mix.Tasks.Local.Hex</a></td>
+  
+    <td class="summary_synopsis"><p>Install Hex locally</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Mix.Tasks.Local.Rebar.html">Mix.Tasks.Local.Rebar</a></td>
+  
+    <td class="summary_synopsis"><p>Fetch a copy of rebar from the given path or url. It defaults to a
+rebar copy that ships with Elixir source if available or fetches it
+from <a href="http://s3.hex.pm/rebar">http://s3.hex.pm/rebar</a></p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Mix.Tasks.New.html">Mix.Tasks.New</a></td>
+  
+    <td class="summary_synopsis"><p>Creates a new Elixir project.
+It expects the path of the project as argument</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Mix.Tasks.Run.html">Mix.Tasks.Run</a></td>
+  
+    <td class="summary_synopsis"><p>Runs the given file or expression in the context of the application</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Mix.Tasks.Test.html">Mix.Tasks.Test</a></td>
+  
+    <td class="summary_synopsis"><p>Run the tests for a project</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Mix.Utils.html">Mix.Utils</a></td>
+  
+    <td class="summary_synopsis"><p>Utilities used throughout Mix and tasks</p>
+</td>
+  
+</tr>
+
+        </table>
+      
+
+      
+        <h2 id="exceptions_summary">Exceptions summary <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a></h2>
+        <table class="summary">
+          <tr>
+  <td class="summary_signature"><a href="Mix.Config.LoadError.html">Mix.Config.LoadError</a></td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Mix.ElixirVersionError.html">Mix.ElixirVersionError</a></td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Mix.Error.html">Mix.Error</a></td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Mix.InvalidTaskError.html">Mix.InvalidTaskError</a></td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Mix.NoProjectError.html">Mix.NoProjectError</a></td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Mix.NoTaskError.html">Mix.NoTaskError</a></td>
+  
+</tr>
+
+        </table>
+      
+
+      
+    </section>
+  </body>
+</html>

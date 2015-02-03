@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Inspect.Opts</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+    <link rel="stylesheet" href="css/elixir.css" type="text/css" media="screen" charset="utf-8" />
+    <script type="text/javascript" charset="utf-8">
+      relpath = '';
+      if (relpath != '') relpath += '/';
+    </script>
+
+    <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/highlight.pack.js"></script>
+    <script type="text/javascript" charset="utf-8">
+      hljs.initHighlightingOnLoad();
+      hljs.configure({languages: []}); //disable autodetect
+    </script>
+  </head>
+
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+
+    <section id="content">
+      <div class="breadcrumbs">Elixir v1.1.0-dev &rarr; <a href="overview.html">Overview</a> &rarr; <a href="Inspect.html">Inspect</a> &rarr; <a href="Inspect.Opts.html">Opts</a></div>
+      <h1>
+        Inspect.Opts
+        
+      </h1>
+
+      <ul class="summary_links">
+        
+        
+          <li><a href="#types_details">Types</a></li>
+        
+        
+        
+        
+      </ul>
+
+      
+        <section id="moduledoc" class="docstring">
+          <p>Defines the Inspect.Opts used by the Inspect protocol.</p>
+<p>The following fields are available:</p>
+<ul>
+<li><p><code class="inline">:structs</code> - when false, structs are not formatted by the inspect
+protocol, they are instead printed as maps, defaults to true.</p>
+</li>
+<li><p><code class="inline">:binaries</code> - when <code class="inline">:as_strings</code> all binaries will be printed as strings,
+non-printable bytes will be escaped.</p>
+<p>When <code class="inline">:as_binaries</code> all binaries will be printed in bit syntax.</p>
+<p>When the default <code class="inline">:infer</code>, the binary will be printed as a string if it
+is printable, otherwise in bit syntax.</p>
+</li>
+<li><p><code class="inline">:char_lists</code> - when <code class="inline">:as_char_lists</code> all lists will be printed as char
+lists, non-printable elements will be escaped.</p>
+<p>When <code class="inline">:as_lists</code> all lists will be printed as lists.</p>
+<p>When the default <code class="inline">:infer</code>, the list will be printed as a char list if it
+is printable, otherwise as list.</p>
+</li>
+<li><p><code class="inline">:limit</code> - limits the number of items that are printed for tuples,
+bitstrings, and lists, does not apply to strings nor char lists, defaults
+to 50.</p>
+</li>
+<li><p><code class="inline">:pretty</code> - if set to true enables pretty printing, defaults to false.</p>
+</li>
+<li><p><code class="inline">:width</code> - defaults to the 80 characters, used when pretty is true or
+when printing to IO devices.</p>
+</li>
+<li><p><code class="inline">:base</code> - print integers as :binary, :octal, :decimal, or :hex, defaults
+to :decimal</p>
+</li>
+<li><code class="inline">:safe</code> - when false, failures while inspecting structs will be raised
+as errors instead of being wrapped in the Inspect.Error exception. This
+is useful when debugging failures and crashes for custom inspect
+implementations
+</li>
+</ul>
+
+        </section>
+      
+
+      
+        <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/elixir/lib/inspect/algebra.ex#L1" class="view_source">Source</a>
+      
+
+      
+
+      
+        <section id="types_details" class="details_list">
+          <h2>Types <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a></h2>
+          <div class="type_detail">
+  <p class="typespec" id="t:t/0">
+    <a href="#t:t/0">t</a> :: %Inspect.Opts{structs: boolean, binaries: :infer | :as_binaries | :as_strings, char_lists: :infer | :as_lists | :as_char_lists, limit: pos_integer | :infinity, width: pos_integer | :infinity, base: :decimal | :binary | :hex | :octal, pretty: boolean, safe: boolean}
+  </p>
+  
+</div>
+
+        </section>
+      
+
+      
+
+      
+
+      
+    </section>
+  </body>
+</html>

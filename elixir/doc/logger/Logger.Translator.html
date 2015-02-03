@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Logger.Translator</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+    <link rel="stylesheet" href="css/elixir.css" type="text/css" media="screen" charset="utf-8" />
+    <script type="text/javascript" charset="utf-8">
+      relpath = '';
+      if (relpath != '') relpath += '/';
+    </script>
+
+    <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/highlight.pack.js"></script>
+    <script type="text/javascript" charset="utf-8">
+      hljs.initHighlightingOnLoad();
+      hljs.configure({languages: []}); //disable autodetect
+    </script>
+  </head>
+
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+
+    <section id="content">
+      <div class="breadcrumbs">Logger v1.1.0-dev &rarr; <a href="overview.html">Overview</a> &rarr; <a href="Logger.html">Logger</a> &rarr; <a href="Logger.Translator.html">Translator</a></div>
+      <h1>
+        Logger.Translator
+        
+      </h1>
+
+      <ul class="summary_links">
+        
+          <li><a href="#summary">Summary</a></li>
+        
+        
+        
+          <li><a href="#functions_details">Functions</a></li>
+        
+        
+        
+      </ul>
+
+      
+        <section id="moduledoc" class="docstring">
+          <p>Default translation for Erlang log messages.</p>
+<p>Logger allows developers to rewrite log messages provided by
+Erlang applications into a format more compatible with Elixir
+log messages by providing a translator.</p>
+<p>A translator is simply a tuple containing a module and a function
+that can be added and removed via the <a href="Logger.html#add_translator/1"><code class="inline">Logger.add_translator/1</code></a> and
+<a href="Logger.html#remove_translator/1"><code class="inline">Logger.remove_translator/1</code></a> functions and is invoked for every Erlang
+message above the minimum log level with four arguments:</p>
+<ul>
+<li><code class="inline">min_level</code> - the current Logger level
+</li>
+<li><code class="inline">level</code> - the level of the message being translator
+</li>
+<li><code class="inline">kind</code> - if the message is a report or a format
+</li>
+<li><code class="inline">data</code> - the data to format. If it is a report, it is a tuple
+with <code class="inline">{report_type, report_data}</code>, if it is a format, it is a
+tuple with <code class="inline">{format_message, format_args}</code>
+</li>
+</ul>
+<p>The function must return:</p>
+<ul>
+<li><code class="inline">{:ok, iodata}</code> - if the message was translated with its translation
+</li>
+<li><code class="inline">:skip</code> - if the message is not meant to be translated nor logged
+</li>
+<li><code class="inline">:none</code> - if there is no translation, which triggers the next translator
+</li>
+</ul>
+<p>See the function <a href="#translate/4"><code class="inline">translate/4</code></a> in this module for an example implementation
+and the default messages translated by Logger.</p>
+
+        </section>
+      
+
+      
+        <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/logger/lib/logger/translator.ex#L1" class="view_source">Source</a>
+      
+
+      
+        <h2 id="summary">Summary<span class="detail_header_links"><a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a></span></h2>
+        <table class="summary">
+          <tr>
+  <td class="summary_signature"><a href="#translate/4">translate(min_level, arg2, arg3, message)</a></td>
+  
+</tr>
+
+        </table>
+      
+
+      
+
+      
+        <section id="functions_details" class="details_list">
+          <h2>Functions</h2>
+          <section class="detail">
+  <div class="detail_header" id="translate/4">
+    <span class="signature"><strong>translate(min_level, arg2, arg3, message)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#translate/4" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/logger/lib/logger/translator.ex#L31" class="view_source">Source</a>
+  
+</section>
+
+        </section>
+      
+
+      
+
+      
+    </section>
+  </body>
+</html>

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ExUnit.Callbacks</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+    <link rel="stylesheet" href="css/elixir.css" type="text/css" media="screen" charset="utf-8" />
+    <script type="text/javascript" charset="utf-8">
+      relpath = '';
+      if (relpath != '') relpath += '/';
+    </script>
+
+    <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/highlight.pack.js"></script>
+    <script type="text/javascript" charset="utf-8">
+      hljs.initHighlightingOnLoad();
+      hljs.configure({languages: []}); //disable autodetect
+    </script>
+  </head>
+
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+
+    <section id="content">
+      <div class="breadcrumbs">ExUnit v1.1.0-dev &rarr; <a href="overview.html">Overview</a> &rarr; <a href="ExUnit.html">ExUnit</a> &rarr; <a href="ExUnit.Callbacks.html">Callbacks</a></div>
+      <h1>
+        ExUnit.Callbacks
+        
+      </h1>
+
+      <ul class="summary_links">
+        
+          <li><a href="#summary">Summary</a></li>
+        
+        
+        
+          <li><a href="#functions_details">Functions</a></li>
+        
+        
+          <li><a href="#macros_details">Macros</a></li>
+        
+        
+      </ul>
+
+      
+        <section id="moduledoc" class="docstring">
+          <p>Defines ExUnit Callbacks.</p>
+<p>This module defines both <code class="inline">setup_all</code> and <code class="inline">setup</code> callbacks, as well as
+the <code class="inline">on_exit</code> facility.</p>
+<p>The setup callbacks are defined via macros and each one can optionally
+receive a map with metadata, usually referred to as <code class="inline">context</code>. The
+callback may optionally put extra data into <code class="inline">context</code> to be used in
+the tests.</p>
+<p>The <code class="inline">setup_all</code> callbacks are invoked once before the first test’s <code class="inline">setup</code>
+and all <code class="inline">setup</code> callbacks are run before each test. No callback runs if the
+test case has no tests or all tests were filtered out.</p>
+<p><code class="inline">on_exit</code> callbacks are registered on demand, usually to undo an action
+performed by a setup callback. <code class="inline">on_exit</code> may also take a reference,
+allowing callback to be overridden in the future. A registered <code class="inline">on_exit</code>
+callback always runs, while failures in <code class="inline">setup</code> and <code class="inline">setup_all</code> will stop
+all remaining setup callbacks from executing.</p>
+<p>Finally, <code class="inline">setup_all</code> callbacks run in the test case process, while all
+<code class="inline">setup</code> callbacks run in the same process as the test itself. <code class="inline">on_exit</code>
+callbacks always run in a separate process than the test case or the
+test itself. Since the test process exits with reason <code class="inline">:shutdown</code>, most
+of times <code class="inline">on_exit/1</code> can be avoided as processes are going to clean
+up on their own.</p>
+<h2>Context</h2>
+<p>If you return <code class="inline">{:ok, &lt;dict&gt;}</code> from <code class="inline">setup_all</code>, the dictionary
+will be merged into the current context and be available in all
+subsequent <code class="inline">setup_all</code>, <code class="inline">setup</code> and the test itself.</p>
+<p>Similarly, returning <code class="inline">{:ok, &lt;dict&gt;}</code> from <code class="inline">setup</code>, the dict returned
+will be merged into the current context and be available in all
+subsequent <code class="inline">setup</code> and the <code class="inline">test</code> itself.</p>
+<p>Returning <code class="inline">:ok</code> leaves the context unchanged in both cases.</p>
+<p>Returning anything else from <code class="inline">setup_all</code> will force all tests to fail,
+while a bad response from <code class="inline">setup</code> causes the current test to fail.</p>
+<h2>Examples</h2>
+<pre><code class="elixir">defmodule AssertionTest do
+  use ExUnit.Case, async: true
+
+  # `setup_all` is called once before every test
+  setup_all do
+    IO.puts &quot;Starting AssertionTest&quot;
+
+    # No metadata
+    :ok
+  end
+
+  # `setup` is called before each test is run
+  setup do
+    IO.puts &quot;This is a setup callback&quot;
+
+    on_exit fn -&gt;
+      IO.puts &quot;This is invoked once the test is done&quot;
+    end
+
+    # Returns extra metadata, it must be a dict
+    {:ok, hello: &quot;world&quot;}
+  end
+
+  # Same as `setup`, but receives the context
+  # for the current test
+  setup context do
+    IO.puts &quot;Setting up: #{context[:test]}&quot;
+    :ok
+  end
+
+  test &quot;always pass&quot; do
+    assert true
+  end
+
+  test &quot;another one&quot;, context do
+    assert context[:hello] == &quot;world&quot;
+  end
+end</code></pre>
+
+        </section>
+      
+
+      
+        <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/ex_unit/lib/ex_unit/callbacks.ex#L1" class="view_source">Source</a>
+      
+
+      
+        <h2 id="summary">Summary<span class="detail_header_links"><a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a></span></h2>
+        <table class="summary">
+          <tr>
+  <td class="summary_signature"><a href="#on_exit/2">on_exit(ref \\ :erlang.make_ref(), callback)</a></td>
+  
+    <td class="summary_synopsis"><p>Defines a callback that runs on the test (or test case) exit</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#setup/2">setup(var \\ {:_, [], ExUnit.Callbacks}, block)</a></td>
+  
+    <td class="summary_synopsis"><p>Defines a callback to be run before each test in a case</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#setup_all/2">setup_all(var \\ {:_, [], ExUnit.Callbacks}, block)</a></td>
+  
+    <td class="summary_synopsis"><p>Defines a callback to be run before all tests in a case</p>
+</td>
+  
+</tr>
+
+        </table>
+      
+
+      
+
+      
+        <section id="functions_details" class="details_list">
+          <h2>Functions</h2>
+          <section class="detail">
+  <div class="detail_header" id="on_exit/2">
+    <span class="signature"><strong>on_exit(ref \\ :erlang.make_ref(), callback)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#on_exit/2" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>on_exit(term, (() -> term)) :: :ok</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Defines a callback that runs on the test (or test case) exit.</p>
+<p>An <code class="inline">on_exit</code> callback is a function that receives no arguments and
+runs in a separate process than the caller.</p>
+<p><a href="#on_exit/2"><code class="inline">on_exit/2</code></a> is usually called from <code class="inline">setup</code> and <code class="inline">setup_all</code> callbacks,
+often to undo the action performed during <code class="inline">setup</code>. However, <code class="inline">on_exit</code>
+may also be called dynamically, where a reference can be used to
+guarantee the callback will be invoked only once.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/ex_unit/lib/ex_unit/callbacks.ex#L139" class="view_source">Source</a>
+  
+</section>
+
+        </section>
+      
+
+      
+        <section id="macros_details" class="details_list">
+          <h2>Macros</h2>
+          <section class="detail">
+  <div class="detail_header" id="setup/2">
+    <span class="signature"><strong>setup(var \\ {:_, [], ExUnit.Callbacks}, block)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(macro)</span>
+      <a href="#setup/2" class="detail_link" title="Link to this macro">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Defines a callback to be run before each test in a case.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/ex_unit/lib/ex_unit/callbacks.ex#L108" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="setup_all/2">
+    <span class="signature"><strong>setup_all(var \\ {:_, [], ExUnit.Callbacks}, block)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(macro)</span>
+      <a href="#setup_all/2" class="detail_link" title="Link to this macro">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Defines a callback to be run before all tests in a case.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/ex_unit/lib/ex_unit/callbacks.ex#L119" class="view_source">Source</a>
+  
+</section>
+
+        </section>
+      
+
+      
+    </section>
+  </body>
+</html>

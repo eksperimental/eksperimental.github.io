@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Mix</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+    <link rel="stylesheet" href="css/elixir.css" type="text/css" media="screen" charset="utf-8" />
+    <script type="text/javascript" charset="utf-8">
+      relpath = '';
+      if (relpath != '') relpath += '/';
+    </script>
+
+    <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/highlight.pack.js"></script>
+    <script type="text/javascript" charset="utf-8">
+      hljs.initHighlightingOnLoad();
+      hljs.configure({languages: []}); //disable autodetect
+    </script>
+  </head>
+
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+
+    <section id="content">
+      <div class="breadcrumbs">Mix v1.1.0-dev &rarr; <a href="overview.html">Overview</a> &rarr; <a href="Mix.html">Mix</a></div>
+      <h1>
+        Mix
+        
+      </h1>
+
+      <ul class="summary_links">
+        
+          <li><a href="#summary">Summary</a></li>
+        
+        
+        
+          <li><a href="#functions_details">Functions</a></li>
+        
+        
+        
+      </ul>
+
+      
+        <section id="moduledoc" class="docstring">
+          <p>Mix is a build tool that provides tasks for creating, compiling,
+testing Elixir projects, as well as handle dependencies, and more.</p>
+<h2>Mix.Project</h2>
+<p>The foundation of Mix is a project. A project can be defined by using
+<a href="Mix.Project.html"><code class="inline">Mix.Project</code></a> in a module, usually placed in a file named <code class="inline">mix.exs</code>:</p>
+<pre><code class="elixir">defmodule MyApp.Mixfile do
+  use Mix.Project
+
+  def project do
+    [app: :my_app,
+     version: &quot;1.0.0&quot;]
+  end
+end</code></pre>
+<p>The <code class="inline">project/0</code> function is where the project information is defined
+and it allows developers to configure many tasks.</p>
+<p>After the project above is defined, there are many tasks one can
+run directly from the command line:</p>
+<ul>
+<li><code class="inline">mix compile</code> - compiles the current project
+</li>
+<li><code class="inline">mix test</code> - runs tests for the given project
+</li>
+<li><code class="inline">mix run</code> - runs a particular command inside the project
+</li>
+</ul>
+<p>Each task has its own options and sometimes specific configuration
+to be defined in the <code class="inline">project/0</code> function. You can use <code class="inline">mix help</code>
+to list all available tasks and <code class="inline">mix help NAME</code> to show help for
+a particular task.</p>
+<p>The best way to get started with your first project is by calling
+<code class="inline">mix new my_project</code> from the command line.</p>
+<h2>Mix.Task</h2>
+<p>Tasks are what make Mix extensible.</p>
+<p>Any project can extend Mix behaviour by adding their own tasks. For
+example, you can add the task below inside your project and it will
+be available to everyone that uses your project:</p>
+<pre><code class="elixir">defmodule Mix.Tasks.Hello do
+  use Mix.Task
+
+  def run(_) do
+    Mix.shell.info &quot;hello&quot;
+  end
+end</code></pre>
+<p>Now they can invoke it with <code class="inline">mix hello</code>.</p>
+<h2>Dependencies</h2>
+<p>Another important feature in Mix is that it is able to manage your
+dependencies and integrates nicely with <a href="http://hex.pm">the Hex package manager</a>.</p>
+<p>In order to use dependencies, you just need to add a <code class="inline">:deps</code> key
+to your project configuration. We often extract the dependencies
+listing to its own functions:</p>
+<pre><code class="elixir">defmodule MyApp.Mixfile do
+  use Mix.Project
+
+  def project do
+    [app: :my_app,
+     version: &quot;1.0.0&quot;,
+     deps: deps]
+  end
+
+  defp deps do
+    [{:ecto, &quot;~&gt; 0.2.5&quot;},
+     {:plug, github: &quot;elixir-lang/plug&quot;}]
+  end
+end</code></pre>
+<p>You can run <code class="inline">mix help deps</code> to learn more about dependencies in Mix.</p>
+<h2>Environments</h2>
+<p>Mix provides environments.</p>
+<p>Environments allow developers to prepare and organize their project
+specifically for different scenarios. By default, Mix provides three
+environments:</p>
+<ul>
+<li><code class="inline">:dev</code> - the default environment
+</li>
+<li><code class="inline">:test</code> - the environment <code class="inline">mix test</code> runs on
+</li>
+<li><code class="inline">:prod</code> - the environment your dependencies runs on
+</li>
+</ul>
+<p>The environment can be changed via the command line by setting
+the <code class="inline">MIX_ENV</code> environment variable, for example:</p>
+<pre><code class="elixir">$ MIX_ENV=prod mix run server.exs</code></pre>
+<h2>Aliases</h2>
+<p>Aliases are shortcuts or tasks specific to the current project.</p>
+<p>In the <a href="Mix.Task.html"><code class="inline">Mix.Task</code></a> section, we have defined a task that would be
+available to everyone using our project as a dependency. What if
+we wanted the task to only be available for our project? Just
+define an alias:</p>
+<pre><code class="elixir">defmodule MyApp.Mixfile do
+  use Mix.Project
+
+  def project do
+    [app: :my_app,
+     version: &quot;1.0.0&quot;,
+     aliases: aliases]
+  end
+
+  defp aliases do
+    [c: &quot;compile&quot;,
+     hello: &amp;hello/1]
+  end
+
+  defp hello(_) do
+    Mix.shell.info &quot;Hello world&quot;
+  end
+end</code></pre>
+<p>In the example above, we have defined two aliases. One is <code class="inline">mix c</code>
+which is a shortcut for <code class="inline">mix compile</code>. The other is named
+<code class="inline">mix hello</code>, which is the equivalent to the <code class="inline">Mix.Tasks.Hello</code>
+we have defined in the <a href="Mix.Task.html"><code class="inline">Mix.Task</code></a> section.</p>
+<p>Aliases may also be lists, specifying multiple tasks to run
+at once:</p>
+<pre><code class="elixir">[all: [&amp;hello/1, &quot;deps.get --only #{Mix.env}&quot;, &quot;compile&quot;]]</code></pre>
+<p>In the example above, we have defined an alias named <code class="inline">mix all</code>,
+that prints hello, then fetches dependencies specific to the
+current environment and compiles it.</p>
+<p>Arguments given to the alias will be appended to the arguments
+of the last task in the list, if the last task is a function
+they will be given as a list of strings to the function.</p>
+<p>Finally, aliases can also be use to augment existing tasks.
+Let’s suppose you want to augment <code class="inline">mix clean</code> to clean another
+directory Mix does not know about:</p>
+<pre><code class="elixir">[clean: [&quot;clean&quot;, &amp;clean_extra/1]]</code></pre>
+<p>Where <code class="inline">&amp;clean_extra/1</code> would be a function in your <code class="inline">mix.exs</code>
+with extra clean up logic.</p>
+<p>Note aliases do not show up on <code class="inline">mix help</code>.</p>
+
+        </section>
+      
+
+      
+        <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix.ex#L1" class="view_source">Source</a>
+      
+
+      
+        <h2 id="summary">Summary<span class="detail_header_links"><a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a></span></h2>
+        <table class="summary">
+          <tr>
+  <td class="summary_signature"><a href="#compilers/0">compilers()</a></td>
+  
+    <td class="summary_synopsis"><p>Returns the default compilers used by Mix</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#env/0">env()</a></td>
+  
+    <td class="summary_synopsis"><p>Returns the mix environment</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#env/1">env(env)</a></td>
+  
+    <td class="summary_synopsis"><p>Changes the current mix env</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#raise/1">raise(message)</a></td>
+  
+    <td class="summary_synopsis"><p>Raises a mix error that is nicely formatted</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#raise/2">raise(exception, opts)</a></td>
+  
+    <td class="summary_synopsis"><p>Raises a mix compatible exception</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#shell/0">shell()</a></td>
+  
+    <td class="summary_synopsis"><p>The shell is a wrapper for doing IO</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#shell/1">shell(shell)</a></td>
+  
+    <td class="summary_synopsis"><p>Sets the current shell</p>
+</td>
+  
+</tr>
+
+        </table>
+      
+
+      
+
+      
+        <section id="functions_details" class="details_list">
+          <h2>Functions</h2>
+          <section class="detail">
+  <div class="detail_header" id="compilers/0">
+    <span class="signature"><strong>compilers()</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#compilers/0" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Returns the default compilers used by Mix.</p>
+<p>It can be used in your <code class="inline">mix.exs</code> to prepend or
+append new compilers to Mix:</p>
+<pre><code class="elixir">def project do
+  [compilers: Mix.compilers ++ [:foo, :bar]]
+end</code></pre>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix.ex#L208" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="env/0">
+    <span class="signature"><strong>env()</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#env/0" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Returns the mix environment.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix.ex#L182" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="env/1">
+    <span class="signature"><strong>env(env)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#env/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Changes the current mix env.</p>
+<p>Be careful when invoking this function as any project
+configuration won’t be reloaded.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix.ex#L193" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="raise/1">
+    <span class="signature"><strong>raise(message)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#raise/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Raises a mix error that is nicely formatted.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix.ex#L234" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="raise/2">
+    <span class="signature"><strong>raise(exception, opts)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#raise/2" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Raises a mix compatible exception.</p>
+<p>A mix compatible exception has a <code class="inline">mix</code> field which mix
+uses to store the project or application name which is
+automatically by the formatting tools.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix.ex#L245" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="shell/0">
+    <span class="signature"><strong>shell()</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#shell/0" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>The shell is a wrapper for doing IO.</p>
+<p>It contains conveniences for asking the user information,
+printing status and so forth. It is also swappable,
+allowing developers to use a test shell that simply sends the
+messages to the current process.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix.ex#L220" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="shell/1">
+    <span class="signature"><strong>shell(shell)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#shell/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Sets the current shell.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/010b22a5cb3d858902c9cf6d9e743218eaed790c/lib/mix/lib/mix.ex#L227" class="view_source">Source</a>
+  
+</section>
+
+        </section>
+      
+
+      
+
+      
+    </section>
+  </body>
+</html>

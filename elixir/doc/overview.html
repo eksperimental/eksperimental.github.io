@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Overview</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+
+    <script type="text/javascript" charset="utf-8">
+      relpath = '';
+      if (relpath != '') relpath += '/';
+    </script>
+
+    <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+  </head>
+
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+
+    <section id="content">
+      <div class="breadcrumbs">Elixir v1.1.0-dev &rarr; <a href="overview.html">Overview</a></div>
+
+      <h1>Elixir v1.1.0-dev</h1>
+
+      <ul class="summary_links">
+        
+          <li><a href="#modules_summary">Modules</a></li>
+        
+        
+          <li><a href="#exceptions_summary">Exceptions</a></li>
+        
+        
+          <li><a href="#protocols_summary">Protocols</a></li>
+        
+      </ul>
+
+      
+        <h2 id="modules_summary">Modules summary <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a></h2>
+        <table class="summary">
+          <tr>
+  <td class="summary_signature"><a href="Agent.html">Agent</a></td>
+  
+    <td class="summary_synopsis"><p>Agents are a simple abstraction around state</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Application.html">Application</a></td>
+  
+    <td class="summary_synopsis"><p>A module for working with applications and defining application callbacks</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Atom.html">Atom</a></td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Base.html">Base</a></td>
+  
+    <td class="summary_synopsis"><p>This module provides data encoding and decoding functions
+according to <a href="http://tools.ietf.org/html/rfc4648">RFC 4648</a></p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Behaviour.html">Behaviour</a></td>
+  
+    <td class="summary_synopsis"><p>Utilities for defining behaviour interfaces</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Bitwise.html">Bitwise</a></td>
+  
+    <td class="summary_synopsis"><p>This module provides macros and operators for bitwise operators.
+These macros can be used in guards</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Code.html">Code</a></td>
+  
+    <td class="summary_synopsis"><p>Utilities for managing code compilation, code evaluation and code loading</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Dict.html">Dict</a></td>
+  
+    <td class="summary_synopsis"><p>This module specifies the Dict API expected to be
+implemented by different dictionaries. It also provides
+functions that redirect to the underlying Dict, allowing
+a developer to work with different Dict implementations
+using one API</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Enum.html">Enum</a></td>
+  
+    <td class="summary_synopsis"><p>Provides a set of algorithms that enumerate over collections according to the
+<a href="Enumerable.html"><code class="inline">Enumerable</code></a> protocol:</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Exception.html">Exception</a></td>
+  
+    <td class="summary_synopsis"><p>Functions to format throw/catch/exit and exceptions</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="File.html">File</a></td>
+  
+    <td class="summary_synopsis"><p>This module contains functions to manipulate files</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="File.Stat.html">File.Stat</a></td>
+  
+    <td class="summary_synopsis"><p>A struct responsible to hold file information</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="File.Stream.html">File.Stream</a></td>
+  
+    <td class="summary_synopsis"><p>Defines a <a href="File.Stream.html"><code class="inline">File.Stream</code></a> struct returned by <a href="File.html#stream!/3"><code class="inline">File.stream!/3</code></a></p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Float.html">Float</a></td>
+  
+    <td class="summary_synopsis"><p>Functions for working with floating point numbers</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="FooBar.html">FooBar</a></td>
+  
+    <td class="summary_synopsis"><p>Agents are a simple abstraction around state</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="FooBar2.html">FooBar2</a></td>
+  
+    <td class="summary_synopsis"><p>Agents are a simple abstraction around state</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="GenEvent.html">GenEvent</a></td>
+  
+    <td class="summary_synopsis"><p>A behaviour module for implementing event handling functionality</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="GenEvent.Stream.html">GenEvent.Stream</a></td>
+  
+    <td class="summary_synopsis"><p>Defines a <a href="GenEvent.html"><code class="inline">GenEvent</code></a> stream</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="GenServer.html">GenServer</a></td>
+  
+    <td class="summary_synopsis"><p>A behaviour module for implementing the server of a client-server relation</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="HashDict.html">HashDict</a></td>
+  
+    <td class="summary_synopsis"><p>A key-value store</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="HashSet.html">HashSet</a></td>
+  
+    <td class="summary_synopsis"><p>A set store</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="IO.html">IO</a></td>
+  
+    <td class="summary_synopsis"><p>Functions handling IO</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="IO.ANSI.html">IO.ANSI</a></td>
+  
+    <td class="summary_synopsis"><p>Functionality to render ANSI escape sequences
+(<a href="http://en.wikipedia.org/wiki/ANSI_escape_code">http://en.wikipedia.org/wiki/ANSI_escape_code</a>) —  characters embedded
+in text used to control formatting, color, and other output options
+on video text terminals</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="IO.Stream.html">IO.Stream</a></td>
+  
+    <td class="summary_synopsis"><p>Defines a <a href="IO.Stream.html"><code class="inline">IO.Stream</code></a> struct returned by <a href="IO.html#stream/2"><code class="inline">IO.stream/2</code></a> and <a href="IO.html#binstream/2"><code class="inline">IO.binstream/2</code></a></p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Inspect.Algebra.html">Inspect.Algebra</a></td>
+  
+    <td class="summary_synopsis"><p>A set of functions for creating and manipulating algebra
+documents, as described in ["Strictly Pretty" (2000) by Christian Lindig][0]</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Inspect.Opts.html">Inspect.Opts</a></td>
+  
+    <td class="summary_synopsis"><p>Defines the Inspect.Opts used by the Inspect protocol</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Integer.html">Integer</a></td>
+  
+    <td class="summary_synopsis"><p>Functions for working with integers</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Kernel.html">Kernel</a></td>
+  
+    <td class="summary_synopsis"><p><a href="Kernel.html"><code class="inline">Kernel</code></a> provides the default macros and functions
+Elixir imports into your environment. These macros and functions
+can be skipped or cherry-picked via the <code class="inline">import</code> macro. For
+instance, if you want to tell Elixir not to import the <code class="inline">if</code>
+macro, you can do:</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Kernel.ParallelCompiler.html">Kernel.ParallelCompiler</a></td>
+  
+    <td class="summary_synopsis"><p>A module responsible for compiling files in parallel</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Kernel.ParallelRequire.html">Kernel.ParallelRequire</a></td>
+  
+    <td class="summary_synopsis"><p>A module responsible for requiring files in parallel</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Kernel.SpecialForms.html">Kernel.SpecialForms</a></td>
+  
+    <td class="summary_synopsis"><p>In this module we define Elixir special forms. Special forms
+cannot be overridden by the developer and are the basic
+building blocks of Elixir code</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Kernel.Typespec.html">Kernel.Typespec</a></td>
+  
+    <td class="summary_synopsis"><p>Provides macros and functions for working with typespecs</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Keyword.html">Keyword</a></td>
+  
+    <td class="summary_synopsis"><p>A keyword is a list of tuples where the first element
+of the tuple is an atom and the second element can be
+any value</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="List.html">List</a></td>
+  
+    <td class="summary_synopsis"><p>Implements functions that only make sense for lists
+and cannot be part of the Enum protocol. In general,
+favor using the Enum API instead of List</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Macro.html">Macro</a></td>
+  
+    <td class="summary_synopsis"><p>Conveniences for working with macros</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Macro.Env.html">Macro.Env</a></td>
+  
+    <td class="summary_synopsis"><p>A struct that holds compile time environment information</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Map.html">Map</a></td>
+  
+    <td class="summary_synopsis"><p>A Dict implementation that works on maps</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Module.html">Module</a></td>
+  
+    <td class="summary_synopsis"><p>This module provides many functions to deal with modules during
+compilation time. It allows a developer to dynamically attach
+documentation, add, delete and register attributes and so forth</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Node.html">Node</a></td>
+  
+    <td class="summary_synopsis"><p>Functions related to VM nodes</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="OptionParser.html">OptionParser</a></td>
+  
+    <td class="summary_synopsis"><p>This module contains functions to parse command line arguments</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Path.html">Path</a></td>
+  
+    <td class="summary_synopsis"><p>This module provides conveniences for manipulating or
+retrieving file system paths</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Port.html">Port</a></td>
+  
+    <td class="summary_synopsis"><p>Functions related to Erlang ports</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Process.html">Process</a></td>
+  
+    <td class="summary_synopsis"><p>Conveniences for working with processes and the process dictionary</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Protocol.html">Protocol</a></td>
+  
+    <td class="summary_synopsis"><p>Functions for working with protocols</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Range.html">Range</a></td>
+  
+    <td class="summary_synopsis"><p>Defines a Range</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Record.html">Record</a></td>
+  
+    <td class="summary_synopsis"><p>Module to work, define and import records</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Regex.html">Regex</a></td>
+  
+    <td class="summary_synopsis"><p>Regular expressions for Elixir built on top of Erlang’s <code class="inline">re</code> module</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Set.html">Set</a></td>
+  
+    <td class="summary_synopsis"><p>This module specifies the Set API expected to be
+implemented by different representations</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Stream.html">Stream</a></td>
+  
+    <td class="summary_synopsis"><p>Module for creating and composing streams</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="String.html">String</a></td>
+  
+    <td class="summary_synopsis"><p>A String in Elixir is a UTF-8 encoded binary</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="StringIO.html">StringIO</a></td>
+  
+    <td class="summary_synopsis"><p>This module provides an IO device that wraps a string</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Supervisor.html">Supervisor</a></td>
+  
+    <td class="summary_synopsis"><p>A behaviour module for implementing supervision functionality</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Supervisor.Spec.html">Supervisor.Spec</a></td>
+  
+    <td class="summary_synopsis"><p>Convenience functions for defining a supervision specification</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="System.html">System</a></td>
+  
+    <td class="summary_synopsis"><p>The System module provides access to variables used or
+maintained by the VM and to functions that interact directly
+with the VM or the host system</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Task.html">Task</a></td>
+  
+    <td class="summary_synopsis"><p>Conveniences for spawning and awaiting for tasks</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Task.Supervisor.html">Task.Supervisor</a></td>
+  
+    <td class="summary_synopsis"><p>A tasks supervisor</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Tuple.html">Tuple</a></td>
+  
+    <td class="summary_synopsis"><p>Functions for working with tuples</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="URI.html">URI</a></td>
+  
+    <td class="summary_synopsis"><p>Utilities for working with and creating URIs</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Version.html">Version</a></td>
+  
+    <td class="summary_synopsis"><p>Functions for parsing and matching versions against requirements</p>
+</td>
+  
+</tr>
+
+        </table>
+      
+
+      
+        <h2 id="exceptions_summary">Exceptions summary <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a></h2>
+        <table class="summary">
+          <tr>
+  <td class="summary_signature"><a href="ArgumentError.html">ArgumentError</a></td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="ArithmeticError.html">ArithmeticError</a></td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="BadArityError.html">BadArityError</a></td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="BadFunctionError.html">BadFunctionError</a></td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="BadStructError.html">BadStructError</a></td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="CaseClauseError.html">CaseClauseError</a></td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Code.LoadError.html">Code.LoadError</a></td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="CompileError.html">CompileError</a></td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="CondClauseError.html">CondClauseError</a></td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Enum.EmptyError.html">Enum.EmptyError</a></td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Enum.OutOfBoundsError.html">Enum.OutOfBoundsError</a></td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="ErlangError.html">ErlangError</a></td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="File.CopyError.html">File.CopyError</a></td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="File.Error.html">File.Error</a></td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="FunctionClauseError.html">FunctionClauseError</a></td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="IO.StreamError.html">IO.StreamError</a></td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Inspect.Error.html">Inspect.Error</a></td>
+  
+    <td class="summary_synopsis"><p>Raised when a struct cannot be inspected</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="KeyError.html">KeyError</a></td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="MatchError.html">MatchError</a></td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Protocol.UndefinedError.html">Protocol.UndefinedError</a></td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Regex.CompileError.html">Regex.CompileError</a></td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="RuntimeError.html">RuntimeError</a></td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="SyntaxError.html">SyntaxError</a></td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="SystemLimitError.html">SystemLimitError</a></td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="TokenMissingError.html">TokenMissingError</a></td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="TryClauseError.html">TryClauseError</a></td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="UndefinedFunctionError.html">UndefinedFunctionError</a></td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="UnicodeConversionError.html">UnicodeConversionError</a></td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Version.InvalidRequirementError.html">Version.InvalidRequirementError</a></td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Version.InvalidVersionError.html">Version.InvalidVersionError</a></td>
+  
+</tr>
+
+        </table>
+      
+
+      
+        <h2 id="protocols_summary">Protocols summary <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a></h2>
+        <table class="summary">
+          <tr>
+  <td class="summary_signature"><a href="Access.html">Access</a></td>
+  
+    <td class="summary_synopsis"><p>The Access protocol is used by <code class="inline">foo[bar]</code> and also
+empowers the nested update functions in Kernel</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Collectable.html">Collectable</a></td>
+  
+    <td class="summary_synopsis"><p>A protocol to traverse data structures</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Enumerable.html">Enumerable</a></td>
+  
+    <td class="summary_synopsis"><p>Enumerable protocol used by <a href="Enum.html"><code class="inline">Enum</code></a> and <a href="Stream.html"><code class="inline">Stream</code></a> modules</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Inspect.html">Inspect</a></td>
+  
+    <td class="summary_synopsis"><p>The <a href="Inspect.html"><code class="inline">Inspect</code></a> protocol is responsible for converting any Elixir
+data structure into an algebra document. This document is then
+formatted, either in pretty printing format or a regular one</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="List.Chars.html">List.Chars</a></td>
+  
+    <td class="summary_synopsis"><p>The List.Chars protocol is responsible for
+converting a structure to a list (only if applicable).
+The only function required to be implemented is
+<code class="inline">to_char_list</code> which does the conversion</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Range.Iterator.html">Range.Iterator</a></td>
+  
+    <td class="summary_synopsis"><p>A protocol used for iterating range elements</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="String.Chars.html">String.Chars</a></td>
+  
+    <td class="summary_synopsis"><p>The String.Chars protocol is responsible for
+converting a structure to a Binary (only if applicable).
+The only function required to be implemented is
+<code class="inline">to_string</code> which does the conversion</p>
+</td>
+  
+</tr>
+
+        </table>
+      
+    </section>
+  </body>
+</html>

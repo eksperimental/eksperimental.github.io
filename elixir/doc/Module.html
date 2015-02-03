@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Module</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+    <link rel="stylesheet" href="css/elixir.css" type="text/css" media="screen" charset="utf-8" />
+    <script type="text/javascript" charset="utf-8">
+      relpath = '';
+      if (relpath != '') relpath += '/';
+    </script>
+
+    <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+
+    <section id="content">
+      <div class="breadcrumbs">Elixir v1.1.0-dev &rarr; <a href="overview.html">Overview</a> &rarr; <a href="Module.html">Module</a></div>
+      <h1>
+        Module
+        
+      </h1>
+
+      <ul class="summary_links">
+        
+          <li><a href="#summary">Summary</a></li>
+        
+        
+        
+          <li><a href="#functions_details">Functions</a></li>
+        
+        
+        
+      </ul>
+
+      
+        <section id="moduledoc" class="docstring">
+          <p>This module provides many functions to deal with modules during
+compilation time. It allows a developer to dynamically attach
+documentation, add, delete and register attributes and so forth.</p>
+<p>After a module is compiled, using many of the functions in
+this module will raise errors, since it is out of their scope
+to inspect runtime data. Most of the runtime data can be inspected
+via the <code class="inline">__info__(attr)</code> function attached to each compiled module.</p>
+<h2>Module attributes</h2>
+<p>Each module can be decorated with one or more attributes. The following ones
+are currently defined by Elixir:</p>
+<ul>
+<li><p><code class="inline">@after_compile</code></p>
+<p>A hook that will be invoked right after the current module is compiled.</p>
+<p>Accepts a module or a tuple <code class="inline">{&lt;module&gt;, &lt;function atom&gt;}</code>. The function
+must take two arguments: the module environment and its bytecode.
+When just a module is provided, the function is assumed to be
+<code class="inline">__after_compile__/2</code>.</p>
+<h3>Example</h3>
+<pre><code>defmodule M do
+  @after_compile __MODULE__
+
+  def __after_compile__(env, _bytecode) do
+    IO.inspect env
+  end
+end</code></pre>
+</li>
+<li><p><code class="inline">@before_compile</code></p>
+<p>A hook that will be invoked before the module is compiled.</p>
+<p>Accepts a module or a tuple <code class="inline">{&lt;module&gt;, &lt;function/macro atom&gt;}</code>. The
+function/macro must take one argument: the module environment. If it’s a
+macro, its returned value will be injected at the end of the module definition
+before the compilation starts.</p>
+<p>When just a module is provided, the function/macro is assumed to be
+<code class="inline">__before_compile__/1</code>.</p>
+<p>Note: unlike <code class="inline">@after_compile</code>, the callback function/macro must
+be placed in a separate module (because when the callback is invoked,
+the current module does not yet exist).</p>
+<h3>Example</h3>
+<pre><code>defmodule A do
+  defmacro __before_compile__(_env) do
+    quote do
+      def hello, do: &quot;world&quot;
+    end
+  end
+end
+
+defmodule B do
+  @before_compile A
+end</code></pre>
+</li>
+<li><p><code class="inline">@behaviour</code>   (notice the British spelling)</p>
+<p>Specifies an OTP or user-defined behaviour.</p>
+<h3>Example</h3>
+<pre><code>defmodule M do
+  @behaviour gen_event
+
+  # ...
+end</code></pre>
+</li>
+<li><p><code class="inline">@compile</code></p>
+<p>Defines options for module compilation that are passed to the Erlang
+compiler.</p>
+<p>Accepts an atom, a tuple, or a list of atoms and tuples.</p>
+<p>See <a href="http://www.erlang.org/doc/man/compile.html">http://www.erlang.org/doc/man/compile.html</a> for the list of supported
+options.</p>
+<p>Several uses of <code class="inline">@compile</code> will accumulate instead of overriding
+previous ones.</p>
+<h3>Example</h3>
+<pre><code>defmodule M do
+    @compile {:inline, myfun: 1}
+
+    def myfun(arg) do
+      to_string(arg)
+    end
+  end</code></pre>
+</li>
+<li><p><code class="inline">@doc</code></p>
+<p>Provides documentation for the function or macro that follows the
+attribute.</p>
+<p>Accepts a string (often a heredoc) or <code class="inline">false</code> where <code class="inline">@doc false</code> will
+make the function/macro invisible to the documentation extraction tools
+like ExDoc.</p>
+<p>Can be invoked more than once.</p>
+<h3>Example</h3>
+<pre><code>defmodule M do
+    @doc &quot;Hello world&quot;
+    def hello do
+      &quot;world&quot;
+    end
+
+    @doc &quot;&quot;&quot;
+    Sum.
+    &quot;&quot;&quot;
+    def sum(a, b) do
+      a + b
+    end
+  end</code></pre>
+</li>
+<li><p><code class="inline">@file</code></p>
+<p>Changes the filename used in stacktraces for the function or macro that
+follows the attribute.</p>
+<p>Accepts a string. Can be used more than once.</p>
+<h3>Example</h3>
+<pre><code>defmodule M do
+    @doc &quot;Hello world&quot;
+    @file &quot;hello.ex&quot;
+    def hello do
+      &quot;world&quot;
+    end
+  end</code></pre>
+</li>
+<li><p><code class="inline">@moduledoc</code></p>
+<p>Provides documentation for the current module.</p>
+<p>Accepts a string (which is often a heredoc) or <code class="inline">false</code> where
+<code class="inline">@moduledoc false</code> will make the module invisible to the
+documentation extraction tools like ExDoc.</p>
+<h3>Example</h3>
+<pre><code>defmodule M do
+    @moduledoc &quot;&quot;&quot;
+    A very useful module
+    &quot;&quot;&quot;
+  end</code></pre>
+</li>
+<li><p><code class="inline">@on_definition</code></p>
+<p>A hook that will be invoked when each function or macro in the current
+module is defined. Useful when annotating functions.</p>
+<p>Accepts a module or a tuple <code class="inline">{&lt;module&gt;, &lt;function atom&gt;}</code>. The function
+must take 6 arguments:</p>
+<ul>
+<li>the module environment
+</li>
+<li>kind: <code class="inline">:def</code>, <code class="inline">:defp</code>, <code class="inline">:defmacro</code>, or <code class="inline">:defmacrop</code>
+</li>
+<li>function/macro name
+</li>
+<li>list of expanded arguments
+</li>
+<li>list of expanded guards
+</li>
+<li>expanded function body
+</li>
+</ul>
+<p>Note the hook receives the expanded arguments and it is invoked before
+the function is stored in the module. So <a href="Module.html#defines?/2"><code class="inline">Module.defines?/2</code></a> will return
+false for the first clause of every function.</p>
+<p>If the function/macro being defined has multiple clauses, the hook will
+be called for each clause.</p>
+<p>Unlike other hooks, <code class="inline">@on_definition</code> will only invoke functions
+and never macros. This is because the hook is invoked inside the context
+of the function (and nested function definitions are not allowed in
+Elixir).</p>
+<p>When just a module is provided, the function is assumed to be
+<code class="inline">__on_definition__/6</code>.</p>
+<h3>Example</h3>
+<pre><code>defmodule H do
+    def on_def(_env, kind, name, args, guards, body) do
+      IO.puts &quot;Defining #{kind} named #{name} with args:&quot;
+      IO.inspect args
+      IO.puts &quot;and guards&quot;
+      IO.inspect guards
+      IO.puts &quot;and body&quot;
+      IO.puts Macro.to_string(body)
+    end
+  end
+
+  defmodule M do
+    @on_definition {H, :on_def}
+
+    def hello(arg) when is_binary(arg) or is_list(arg) do
+      &quot;Hello&quot; &lt;&gt; to_string(arg)
+    end
+
+    def hello(_) do
+      :ok
+    end
+  end</code></pre>
+</li>
+<li><p><code class="inline">@on_load</code></p>
+<p>A hook that will be invoked whenever the module is loaded.</p>
+<p>Accepts a function atom of a function in the current module. The function
+must have arity 0 (no arguments) and has to return <code class="inline">:ok</code>, otherwise the
+loading of the module will be aborted.</p>
+<h3>Example</h3>
+<pre><code>defmodule M do
+    @on_load :load_check
+
+    def load_check do
+      if some_condition() do
+        :ok
+      else
+        nil
+      end
+    end
+
+    def some_condition do
+      false
+    end
+  end</code></pre>
+</li>
+<li><p><code class="inline">@vsn</code></p>
+<p>Specify the module version. Accepts any valid Elixir value.</p>
+<h3>Example</h3>
+<pre><code>defmodule M do
+    @vsn &quot;1.0&quot;
+  end</code></pre>
+</li>
+<li><p><code class="inline">@external_resource</code></p>
+<p>Specifies an external resource to the current module.</p>
+<p>Many times a module embeds information from an external file. This
+attribute allows the module to annotate which external resources
+have been used.</p>
+<p>Tools like Mix may use this information to ensure the module is
+recompiled in case any of the external resources change.</p>
+</li>
+</ul>
+<p>The following attributes are part of typespecs and are also reserved by
+Elixir (see <a href="Kernel.Typespec.html"><code class="inline">Kernel.Typespec</code></a> for more information about typespecs):</p>
+<ul>
+<li><code class="inline">@type</code>        - defines a type to be used in <code class="inline">@spec</code>
+</li>
+<li><code class="inline">@typep</code>       - defines a private type to be used in <code class="inline">@spec</code>
+</li>
+<li><code class="inline">@opaque</code>      - defines an opaque type to be used in <code class="inline">@spec</code>
+</li>
+<li><code class="inline">@spec</code>        - provides a specification for a function
+</li>
+<li><code class="inline">@callback</code>    - provides a specification for the behaviour callback
+</li>
+</ul>
+<p>In addition to the built-in attributes outlined above, custom attributes may
+also be added. A custom attribute is any valid identifier prefixed with an
+<code class="inline">@</code> and followed by a valid Elixir value:</p>
+<pre><code>defmodule M do
+    @custom_attr [some: &quot;stuff&quot;]
+  end</code></pre>
+<p>For more advanced options available when defining custom attributes, see
+<a href="#register_attribute/3"><code class="inline">register_attribute/3</code></a>.</p>
+<h2>Runtime information about a module</h2>
+<p>It is possible to query a module at runtime to find out which functions and
+macros it defines, extract its docstrings, etc. See <a href="#__info__/1"><code class="inline">__info__/1</code></a>.</p>
+
+        </section>
+      
+
+      
+        <a href="https://github.com/elixir-lang/elixir/blob/9e4cb451fef5dff533b54f68b875434a6252a269/lib/elixir/lib/module.ex#L1" class="view_source">Source</a>
+      
+
+      
+        <h2 id="summary">Summary<span class="detail_header_links"><a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a></span></h2>
+        <table class="summary">
+          <tr>
+  <td class="summary_signature"><a href="#__info__/1">__info__(kind)</a></td>
+  
+    <td class="summary_synopsis"><p>Provides runtime information about functions and macros defined by the
+module, enables docstring extraction, etc</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#add_doc/6">add_doc(module, line, kind, tuple, signature \\ [], doc)</a></td>
+  
+    <td class="summary_synopsis"><p>Attaches documentation to a given function or type. It expects
+the module the function/type belongs to, the line (a non negative
+integer), the kind (<code class="inline">def</code> or <code class="inline">defmacro</code>), a tuple representing
+the function and its arity, the function signature (the signature
+should be omitted for types) and the documentation, which should
+be either a binary or a boolean</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#concat/1">concat(list)</a></td>
+  
+    <td class="summary_synopsis"><p>Concatenates a list of aliases and returns a new alias</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#concat/2">concat(left, right)</a></td>
+  
+    <td class="summary_synopsis"><p>Concatenates two aliases and returns a new alias</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#create/3">create(module, quoted, opts)</a></td>
+  
+    <td class="summary_synopsis"><p>Creates a module with the given name and defined by
+the given quoted expressions</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#defines?/2">defines?(module, tuple)</a></td>
+  
+    <td class="summary_synopsis"><p>Checks if the module defines the given function or macro.
+Use <a href="#defines?/3"><code class="inline">defines?/3</code></a> to assert for a specific type</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#defines?/3">defines?(module, tuple, kind)</a></td>
+  
+    <td class="summary_synopsis"><p>Checks if the module defines a function or macro of the
+given <code class="inline">kind</code>. <code class="inline">kind</code> can be any of <code class="inline">:def</code>, <code class="inline">:defp</code>,
+<code class="inline">:defmacro</code> or <code class="inline">:defmacrop</code></p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#definitions_in/1">definitions_in(module)</a></td>
+  
+    <td class="summary_synopsis"><p>Returns all functions defined in <code class="inline">module</code></p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#definitions_in/2">definitions_in(module, kind)</a></td>
+  
+    <td class="summary_synopsis"><p>Returns all functions defined in <code class="inline">module</code>, according
+to its kind</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#delete_attribute/2">delete_attribute(module, key)</a></td>
+  
+    <td class="summary_synopsis"><p>Deletes all attributes that match the given key</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#eval_quoted/4">eval_quoted(module, quoted, binding \\ [], opts \\ [])</a></td>
+  
+    <td class="summary_synopsis"><p>Evaluates the quoted contents in the given module’s context</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#get_attribute/2">get_attribute(module, key)</a></td>
+  
+    <td class="summary_synopsis"><p>Gets the given attribute from a module. If the attribute
+was marked with <code class="inline">accumulate</code> with <a href="Module.html#register_attribute/3"><code class="inline">Module.register_attribute/3</code></a>,
+a list is always returned</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#make_overridable/2">make_overridable(module, tuples)</a></td>
+  
+    <td class="summary_synopsis"><p>Makes the given functions in <code class="inline">module</code> overridable.
+An overridable function is lazily defined, allowing a
+developer to customize it. See <a href="Kernel.html#defoverridable/1"><code class="inline">Kernel.defoverridable/1</code></a> for
+more information and documentation</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#open?/1">open?(module)</a></td>
+  
+    <td class="summary_synopsis"><p>Checks if a module is open, i.e. it is currently being defined
+and its attributes and functions can be modified</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#overridable?/2">overridable?(module, tuple)</a></td>
+  
+    <td class="summary_synopsis"><p>Returns <code class="inline">true</code> if <code class="inline">tuple</code> in <code class="inline">module</code> is marked as overridable</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#put_attribute/3">put_attribute(module, key, value)</a></td>
+  
+    <td class="summary_synopsis"><p>Puts an Erlang attribute to the given module with the given
+key and value. The semantics of putting the attribute depends
+if the attribute was registered or not via <a href="#register_attribute/3"><code class="inline">register_attribute/3</code></a></p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#register_attribute/3">register_attribute(module, new, opts)</a></td>
+  
+    <td class="summary_synopsis"><p>Registers an attribute. By registering an attribute, a developer
+is able to customize how Elixir will store and accumulate the
+attribute values</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#safe_concat/1">safe_concat(list)</a></td>
+  
+    <td class="summary_synopsis"><p>Concatenates a list of aliases and returns a new alias only
+if the alias was already referenced. If the alias was not
+referenced yet, fails with <a href="ArgumentError.html"><code class="inline">ArgumentError</code></a>.
+It handles char lists, binaries and atoms</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#safe_concat/2">safe_concat(left, right)</a></td>
+  
+    <td class="summary_synopsis"><p>Concatenates two aliases and returns a new alias only
+if the alias was already referenced. If the alias was not
+referenced yet, fails with <a href="ArgumentError.html"><code class="inline">ArgumentError</code></a>.
+It handles char lists, binaries and atoms</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#split/1">split(module)</a></td>
+  
+    <td class="summary_synopsis"><p>Splits the given module name into binary parts</p>
+</td>
+  
+</tr>
+
+        </table>
+      
+
+      
+
+      
+        <section id="functions_details" class="details_list">
+          <h2>Functions</h2>
+          <section class="detail">
+  <div class="detail_header" id="__info__/1">
+    <span class="signature"><strong>__info__(kind)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#__info__/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>__info__(:attributes | :compile | :functions | :macros | :module) :: atom | [{atom, any}]</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Provides runtime information about functions and macros defined by the
+module, enables docstring extraction, etc.</p>
+<p>Each module gets an <a href="#__info__/1"><code class="inline">__info__/1</code></a> function when it’s compiled. The function
+takes one of the following atoms:</p>
+<ul>
+<li><p><code class="inline">:functions</code>  - keyword list of public functions along with their arities</p>
+</li>
+<li><p><code class="inline">:macros</code>     - keyword list of public macros along with their arities</p>
+</li>
+<li><code class="inline">:module</code>     - module name (<code class="inline">Module == Module.__info__(:module)</code>)
+</li>
+</ul>
+<p>In addition to the above, you may also pass to <a href="#__info__/1"><code class="inline">__info__/1</code></a> any atom supported
+by Erlang’s <code class="inline">module_info</code> function which also gets defined for each compiled
+module. See <a href="http://erlang.org/doc/reference_manual/modules.html#id69430">http://erlang.org/doc/reference_manual/modules.html#id69430</a> for
+more information.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/9e4cb451fef5dff533b54f68b875434a6252a269/lib/elixir/lib/module.ex#L308" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="add_doc/6">
+    <span class="signature"><strong>add_doc(module, line, kind, tuple, signature \\ [], doc)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#add_doc/6" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Attaches documentation to a given function or type. It expects
+the module the function/type belongs to, the line (a non negative
+integer), the kind (<code class="inline">def</code> or <code class="inline">defmacro</code>), a tuple representing
+the function and its arity, the function signature (the signature
+should be omitted for types) and the documentation, which should
+be either a binary or a boolean.</p>
+<h2>Examples</h2>
+<pre><code>defmodule MyModule do
+  Module.add_doc(__MODULE__, __ENV__.line + 1, :def, {:version, 0}, [], &quot;Manually added docs&quot;)
+  def version, do: 1
+end</code></pre>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/9e4cb451fef5dff533b54f68b875434a6252a269/lib/elixir/lib/module.ex#L498" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="concat/1">
+    <span class="signature"><strong>concat(list)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#concat/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>concat([binary | atom]) :: atom</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Concatenates a list of aliases and returns a new alias.</p>
+<h2>Examples</h2>
+<pre><code>iex&gt; Module.concat([Foo, Bar])
+Foo.Bar
+
+iex&gt; Module.concat([Foo, &quot;Bar&quot;])
+Foo.Bar</code></pre>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/9e4cb451fef5dff533b54f68b875434a6252a269/lib/elixir/lib/module.ex#L421" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="concat/2">
+    <span class="signature"><strong>concat(left, right)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#concat/2" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>concat(binary | atom, binary | atom) :: atom</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Concatenates two aliases and returns a new alias.</p>
+<h2>Examples</h2>
+<pre><code>iex&gt; Module.concat(Foo, Bar)
+Foo.Bar
+
+iex&gt; Module.concat(Foo, &quot;Bar&quot;)
+Foo.Bar</code></pre>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/9e4cb451fef5dff533b54f68b875434a6252a269/lib/elixir/lib/module.ex#L438" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="create/3">
+    <span class="signature"><strong>create(module, quoted, opts)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#create/3" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Creates a module with the given name and defined by
+the given quoted expressions.</p>
+<p>The line where the module is defined and its file <strong>must</strong>
+be passed as options.</p>
+<h2>Examples</h2>
+<pre><code>contents =
+  quote do
+    def world, do: true
+  end
+
+Module.create(Hello, contents, Macro.Env.location(__ENV__))
+
+Hello.world #=&gt; true</code></pre>
+<h2>Differences from `defmodule`</h2>
+<p><code class="inline">Module.create</code> works similarly to <code class="inline">defmodule</code> and
+return the same results. While one could also use
+<code class="inline">defmodule</code> to define modules dynamically, this
+function is preferred when the module body is given
+by a quoted expression.</p>
+<p>Another important distinction is that <code class="inline">Module.create</code>
+allows you to control the environment variables used
+when defining the module, while <code class="inline">defmodule</code> automatically
+shares the same environment.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/9e4cb451fef5dff533b54f68b875434a6252a269/lib/elixir/lib/module.ex#L395" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="defines?/2">
+    <span class="signature"><strong>defines?(module, tuple)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#defines?/2" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Checks if the module defines the given function or macro.
+Use <a href="#defines?/3"><code class="inline">defines?/3</code></a> to assert for a specific type.</p>
+<h2>Examples</h2>
+<pre><code>defmodule Example do
+  Module.defines? __MODULE__, {:version, 0} #=&gt; false
+  def version, do: 1
+  Module.defines? __MODULE__, {:version, 0} #=&gt; true
+end</code></pre>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/9e4cb451fef5dff533b54f68b875434a6252a269/lib/elixir/lib/module.ex#L613" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="defines?/3">
+    <span class="signature"><strong>defines?(module, tuple, kind)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#defines?/3" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Checks if the module defines a function or macro of the
+given <code class="inline">kind</code>. <code class="inline">kind</code> can be any of <code class="inline">:def</code>, <code class="inline">:defp</code>,
+<code class="inline">:defmacro</code> or <code class="inline">:defmacrop</code>.</p>
+<h2>Examples</h2>
+<pre><code>defmodule Example do
+  Module.defines? __MODULE__, {:version, 0}, :defp #=&gt; false
+  def version, do: 1
+  Module.defines? __MODULE__, {:version, 0}, :defp #=&gt; false
+end</code></pre>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/9e4cb451fef5dff533b54f68b875434a6252a269/lib/elixir/lib/module.ex#L633" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="definitions_in/1">
+    <span class="signature"><strong>definitions_in(module)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#definitions_in/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Returns all functions defined in <code class="inline">module</code>.</p>
+<h2>Examples</h2>
+<pre><code>defmodule Example do
+  def version, do: 1
+  Module.definitions_in __MODULE__ #=&gt; [{:version,0}]
+end</code></pre>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/9e4cb451fef5dff533b54f68b875434a6252a269/lib/elixir/lib/module.ex#L653" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="definitions_in/2">
+    <span class="signature"><strong>definitions_in(module, kind)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#definitions_in/2" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Returns all functions defined in <code class="inline">module</code>, according
+to its kind.</p>
+<h2>Examples</h2>
+<pre><code>defmodule Example do
+  def version, do: 1
+  Module.definitions_in __MODULE__, :def  #=&gt; [{:version,0}]
+  Module.definitions_in __MODULE__, :defp #=&gt; []
+end</code></pre>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/9e4cb451fef5dff533b54f68b875434a6252a269/lib/elixir/lib/module.ex#L672" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="delete_attribute/2">
+    <span class="signature"><strong>delete_attribute(module, key)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#delete_attribute/2" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>delete_attribute(atom, atom) :: :ok</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Deletes all attributes that match the given key.</p>
+<h2>Examples</h2>
+<pre><code>defmodule MyModule do
+  Module.put_attribute __MODULE__, :custom_threshold_for_lib, 10
+  Module.delete_attribute __MODULE__, :custom_threshold_for_lib
+end</code></pre>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/9e4cb451fef5dff533b54f68b875434a6252a269/lib/elixir/lib/module.ex#L791" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="eval_quoted/4">
+    <span class="signature"><strong>eval_quoted(module, quoted, binding \\ [], opts \\ [])</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#eval_quoted/4" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Evaluates the quoted contents in the given module’s context.</p>
+<p>A list of environment options can also be given as argument.
+See <a href="Code.html#eval_string/3"><code class="inline">Code.eval_string/3</code></a> for more information.</p>
+<p>Raises an error if the module was already compiled.</p>
+<h2>Examples</h2>
+<pre><code>defmodule Foo do
+  contents = quote do: (def sum(a, b), do: a + b)
+  Module.eval_quoted __MODULE__, contents
+end
+
+Foo.sum(1, 2) #=&gt; 3</code></pre>
+<p>For convenience, you can pass <code class="inline">__ENV__</code> as an argument and
+all options will be automatically extracted from the environment:</p>
+<pre><code>defmodule Foo do
+  contents = quote do: (def sum(a, b), do: a + b)
+  Module.eval_quoted __MODULE__, contents, [], __ENV__
+end
+
+Foo.sum(1, 2) #=&gt; 3</code></pre>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/9e4cb451fef5dff533b54f68b875434a6252a269/lib/elixir/lib/module.ex#L346" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="get_attribute/2">
+    <span class="signature"><strong>get_attribute(module, key)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#get_attribute/2" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>get_attribute(atom, atom) :: term</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Gets the given attribute from a module. If the attribute
+was marked with <code class="inline">accumulate</code> with <a href="Module.html#register_attribute/3"><code class="inline">Module.register_attribute/3</code></a>,
+a list is always returned.</p>
+<p>The <code class="inline">@</code> macro compiles to a call to this function. For example,
+the following code:</p>
+<pre><code>@foo</code></pre>
+<p>Expands close to:</p>
+<pre><code>Module.get_attribute(__MODULE__, :foo)</code></pre>
+<h2>Examples</h2>
+<pre><code>defmodule Foo do
+  Module.put_attribute __MODULE__, :value, 1
+  Module.get_attribute __MODULE__, :value #=&gt; 1
+
+  Module.register_attribute __MODULE__, :value, accumulate: true
+  Module.put_attribute __MODULE__, :value, 1
+  Module.get_attribute __MODULE__, :value #=&gt; [1]
+end</code></pre>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/9e4cb451fef5dff533b54f68b875434a6252a269/lib/elixir/lib/module.ex#L775" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="make_overridable/2">
+    <span class="signature"><strong>make_overridable(module, tuples)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#make_overridable/2" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Makes the given functions in <code class="inline">module</code> overridable.
+An overridable function is lazily defined, allowing a
+developer to customize it. See <a href="Kernel.html#defoverridable/1"><code class="inline">Kernel.defoverridable/1</code></a> for
+more information and documentation.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/9e4cb451fef5dff533b54f68b875434a6252a269/lib/elixir/lib/module.ex#L684" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="open?/1">
+    <span class="signature"><strong>open?(module)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#open?/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Checks if a module is open, i.e. it is currently being defined
+and its attributes and functions can be modified.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/9e4cb451fef5dff533b54f68b875434a6252a269/lib/elixir/lib/module.ex#L314" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="overridable?/2">
+    <span class="signature"><strong>overridable?(module, tuple)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#overridable?/2" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Returns <code class="inline">true</code> if <code class="inline">tuple</code> in <code class="inline">module</code> is marked as overridable.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/9e4cb451fef5dff533b54f68b875434a6252a269/lib/elixir/lib/module.ex#L713" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="put_attribute/3">
+    <span class="signature"><strong>put_attribute(module, key, value)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#put_attribute/3" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Puts an Erlang attribute to the given module with the given
+key and value. The semantics of putting the attribute depends
+if the attribute was registered or not via <a href="#register_attribute/3"><code class="inline">register_attribute/3</code></a>.</p>
+<h2>Examples</h2>
+<pre><code>defmodule MyModule do
+  Module.put_attribute __MODULE__, :custom_threshold_for_lib, 10
+end</code></pre>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/9e4cb451fef5dff533b54f68b875434a6252a269/lib/elixir/lib/module.ex#L729" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="register_attribute/3">
+    <span class="signature"><strong>register_attribute(module, new, opts)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#register_attribute/3" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Registers an attribute. By registering an attribute, a developer
+is able to customize how Elixir will store and accumulate the
+attribute values.</p>
+<h2>Options</h2>
+<p>When registering an attribute, two options can be given:</p>
+<ul>
+<li><p><code class="inline">:accumulate</code> - several calls to the same attribute will
+accumulate instead of override the previous one. New attributes
+are always added to the top of the accumulated list.</p>
+</li>
+<li><code class="inline">:persist</code> - the attribute will be persisted in the Erlang
+Abstract Format. Useful when interfacing with Erlang libraries.
+</li>
+</ul>
+<p>By default, both options are <code class="inline">false</code>.</p>
+<h2>Examples</h2>
+<pre><code>defmodule MyModule do
+  Module.register_attribute __MODULE__,
+    :custom_threshold_for_lib,
+    accumulate: true, persist: false
+
+  @custom_threshold_for_lib 10
+  @custom_threshold_for_lib 20
+  @custom_threshold_for_lib #=&gt; [20, 10]
+end</code></pre>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/9e4cb451fef5dff533b54f68b875434a6252a269/lib/elixir/lib/module.ex#L829" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="safe_concat/1">
+    <span class="signature"><strong>safe_concat(list)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#safe_concat/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>safe_concat([binary | atom]) :: atom | no_return</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Concatenates a list of aliases and returns a new alias only
+if the alias was already referenced. If the alias was not
+referenced yet, fails with <a href="ArgumentError.html"><code class="inline">ArgumentError</code></a>.
+It handles char lists, binaries and atoms.</p>
+<h2>Examples</h2>
+<pre><code>iex&gt; Module.safe_concat([Unknown, Module])
+** (ArgumentError) argument error
+
+iex&gt; Module.safe_concat([List, Chars])
+List.Chars</code></pre>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/9e4cb451fef5dff533b54f68b875434a6252a269/lib/elixir/lib/module.ex#L458" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="safe_concat/2">
+    <span class="signature"><strong>safe_concat(left, right)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#safe_concat/2" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>safe_concat(binary | atom, binary | atom) :: atom | no_return</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Concatenates two aliases and returns a new alias only
+if the alias was already referenced. If the alias was not
+referenced yet, fails with <a href="ArgumentError.html"><code class="inline">ArgumentError</code></a>.
+It handles char lists, binaries and atoms.</p>
+<h2>Examples</h2>
+<pre><code>iex&gt; Module.safe_concat(Unknown, Module)
+** (ArgumentError) argument error
+
+iex&gt; Module.safe_concat(List, Chars)
+List.Chars</code></pre>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/9e4cb451fef5dff533b54f68b875434a6252a269/lib/elixir/lib/module.ex#L478" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="split/1">
+    <span class="signature"><strong>split(module)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#split/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Splits the given module name into binary parts.</p>
+<h2>Examples</h2>
+<pre><code>Module.split Very.Long.Module.Name.And.Even.Longer
+#=&gt; [&quot;Very&quot;, &quot;Long&quot;, &quot;Module&quot;, &quot;Name&quot;, &quot;And&quot;, &quot;Even&quot;, &quot;Longer&quot;]</code></pre>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/9e4cb451fef5dff533b54f68b875434a6252a269/lib/elixir/lib/module.ex#L853" class="view_source">Source</a>
+  
+</section>
+
+        </section>
+      
+
+      
+
+      
+    </section>
+  </body>
+</html>

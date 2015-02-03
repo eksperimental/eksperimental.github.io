@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>URI</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+    <link rel="stylesheet" href="css/elixir.css" type="text/css" media="screen" charset="utf-8" />
+    <script type="text/javascript" charset="utf-8">
+      relpath = '';
+      if (relpath != '') relpath += '/';
+    </script>
+
+    <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+
+    <section id="content">
+      <div class="breadcrumbs">Elixir v1.1.0-dev &rarr; <a href="overview.html">Overview</a> &rarr; <a href="URI.html">URI</a></div>
+      <h1>
+        URI
+        
+      </h1>
+
+      <ul class="summary_links">
+        
+          <li><a href="#summary">Summary</a></li>
+        
+        
+          <li><a href="#types_details">Types</a></li>
+        
+        
+          <li><a href="#functions_details">Functions</a></li>
+        
+        
+        
+      </ul>
+
+      
+        <section id="moduledoc" class="docstring">
+          <p>Utilities for working with and creating URIs.</p>
+
+        </section>
+      
+
+      
+        <a href="https://github.com/elixir-lang/elixir/blob/9e4cb451fef5dff533b54f68b875434a6252a269/lib/elixir/lib/uri.ex#L1" class="view_source">Source</a>
+      
+
+      
+        <h2 id="summary">Summary<span class="detail_header_links"><a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a></span></h2>
+        <table class="summary">
+          <tr>
+  <td class="summary_signature"><a href="#char_reserved?/1">char_reserved?(c)</a></td>
+  
+    <td class="summary_synopsis"><p>Checks if the character is a “reserved” character in a URI</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#char_unescaped?/1">char_unescaped?(c)</a></td>
+  
+    <td class="summary_synopsis"><p>Checks if the character is allowed unescaped in a URI</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#char_unreserved?/1">char_unreserved?(c)</a></td>
+  
+    <td class="summary_synopsis"><p>Checks if the character is a “unreserved” character in a URI</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#decode/1">decode(uri)</a></td>
+  
+    <td class="summary_synopsis"><p>Percent-unescapes a URI</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#decode_query/2">decode_query(q, dict \\ %{})</a></td>
+  
+    <td class="summary_synopsis"><p>Decodes a query string into a dictionary (by default uses a map)</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#decode_www_form/1">decode_www_form(str)</a></td>
+  
+    <td class="summary_synopsis"><p>Decodes a string as “x-www-urlencoded”</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#default_port/1">default_port(scheme)</a></td>
+  
+    <td class="summary_synopsis"><p>Returns the default port for a given scheme</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#default_port/2">default_port(scheme, port)</a></td>
+  
+    <td class="summary_synopsis"><p>Registers a scheme with a default port</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#encode/2">encode(str, predicate \\ &amp;(char_unescaped? / 1))</a></td>
+  
+    <td class="summary_synopsis"><p>Percent-escapes a URI.
+Accepts <code class="inline">predicate</code> function as an argument to specify if char can be left as is</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#encode_query/1">encode_query(l)</a></td>
+  
+    <td class="summary_synopsis"><p>Encodes an enumerable into a query string</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#encode_www_form/1">encode_www_form(str)</a></td>
+  
+    <td class="summary_synopsis"><p>Encodes a string as “x-www-urlencoded”</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#parse/1">parse(uri)</a></td>
+  
+    <td class="summary_synopsis"><p>Parses a well-formed URI reference into its components</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#query_decoder/1">query_decoder(q)</a></td>
+  
+    <td class="summary_synopsis"><p>Returns an iterator function over the query string that decodes
+the query string in steps</p>
+</td>
+  
+</tr>
+
+        </table>
+      
+
+      
+        <section id="types_details" class="details_list">
+          <h2>Types <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a></h2>
+          <div class="type_detail">
+  <p class="typespec" id="t:t/0">
+    <a href="#t:t/0">t</a> :: %URI{authority: term, fragment: term, host: term, path: term, port: term, query: term, scheme: term, userinfo: term}
+  </p>
+  
+</div>
+
+        </section>
+      
+
+      
+        <section id="functions_details" class="details_list">
+          <h2>Functions</h2>
+          <section class="detail">
+  <div class="detail_header" id="char_reserved?/1">
+    <span class="signature"><strong>char_reserved?(c)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#char_reserved?/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Checks if the character is a “reserved” character in a URI.</p>
+<p>Reserved characters are specified in RFC3986, section 2.2.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/9e4cb451fef5dff533b54f68b875434a6252a269/lib/elixir/lib/uri.ex#L136" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="char_unescaped?/1">
+    <span class="signature"><strong>char_unescaped?(c)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#char_unescaped?/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Checks if the character is allowed unescaped in a URI.</p>
+<p>This is the default used by <a href="URI.html#encode/2"><code class="inline">URI.encode/2</code></a> where both
+reserved and unreserved characters are kept unescaped.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/9e4cb451fef5dff533b54f68b875434a6252a269/lib/elixir/lib/uri.ex#L158" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="char_unreserved?/1">
+    <span class="signature"><strong>char_unreserved?(c)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#char_unreserved?/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Checks if the character is a “unreserved” character in a URI.</p>
+<p>Unreserved characters are specified in RFC3986, section 2.3.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/9e4cb451fef5dff533b54f68b875434a6252a269/lib/elixir/lib/uri.ex#L145" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="decode/1">
+    <span class="signature"><strong>decode(uri)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#decode/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Percent-unescapes a URI.</p>
+<h2>Examples</h2>
+<pre><code>iex&gt; URI.decode(&quot;http%3A%2F%2Felixir-lang.org&quot;)
+&quot;http://elixir-lang.org&quot;</code></pre>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/9e4cb451fef5dff533b54f68b875434a6252a269/lib/elixir/lib/uri.ex#L214" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="decode_query/2">
+    <span class="signature"><strong>decode_query(q, dict \\ %{})</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#decode_query/2" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Decodes a query string into a dictionary (by default uses a map).</p>
+<p>Given a query string of the form “key1=value1&amp;key2=value2…”, produces a
+map with one entry for each key-value pair. Each key and value will be a
+binary. Keys and values will be percent-unescaped.</p>
+<p>Use <a href="#query_decoder/1"><code class="inline">query_decoder/1</code></a> if you want to iterate over each value manually.</p>
+<h2>Examples</h2>
+<pre><code>iex&gt; URI.decode_query(&quot;foo=1&amp;bar=2&quot;)
+%{&quot;bar&quot; =&gt; &quot;2&quot;, &quot;foo&quot; =&gt; &quot;1&quot;}</code></pre>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/9e4cb451fef5dff533b54f68b875434a6252a269/lib/elixir/lib/uri.ex#L78" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="decode_www_form/1">
+    <span class="signature"><strong>decode_www_form(str)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#decode_www_form/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Decodes a string as “x-www-urlencoded”.</p>
+<h2>Examples</h2>
+<pre><code>iex&gt; URI.decode_www_form(&quot;%3Call+in%2F&quot;)
+&quot;&lt;all in/&quot;</code></pre>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/9e4cb451fef5dff533b54f68b875434a6252a269/lib/elixir/lib/uri.ex#L230" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="default_port/1">
+    <span class="signature"><strong>default_port(scheme)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#default_port/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Returns the default port for a given scheme.</p>
+<p>If the scheme is unknown to URI, returns <code class="inline">nil</code>.
+Any scheme may be registered via <a href="#default_port/2"><code class="inline">default_port/2</code></a>.</p>
+<h2>Examples</h2>
+<pre><code>iex&gt; URI.default_port(&quot;ftp&quot;)
+21
+
+iex&gt; URI.default_port(&quot;ponzi&quot;)
+nil</code></pre>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/9e4cb451fef5dff533b54f68b875434a6252a269/lib/elixir/lib/uri.ex#L29" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="default_port/2">
+    <span class="signature"><strong>default_port(scheme, port)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#default_port/2" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Registers a scheme with a default port.</p>
+<p>It is recommended for this function to be invoked in your
+application start callback in case you want to register
+new URIs.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/9e4cb451fef5dff533b54f68b875434a6252a269/lib/elixir/lib/uri.ex#L40" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="encode/2">
+    <span class="signature"><strong>encode(str, predicate \\ &amp;(char_unescaped? / 1))</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#encode/2" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Percent-escapes a URI.
+Accepts <code class="inline">predicate</code> function as an argument to specify if char can be left as is.</p>
+<h2>Example</h2>
+<pre><code>iex&gt; URI.encode(&quot;ftp://s-ite.tld/?value=put it+й&quot;)
+&quot;ftp://s-ite.tld/?value=put%20it+%D0%B9&quot;</code></pre>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/9e4cb451fef5dff533b54f68b875434a6252a269/lib/elixir/lib/uri.ex#L172" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="encode_query/1">
+    <span class="signature"><strong>encode_query(l)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#encode_query/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Encodes an enumerable into a query string.</p>
+<p>Takes an enumerable (containing a sequence of two-item tuples)
+and returns a string of the form “key1=value1&amp;key2=value2…” where
+keys and values are URL encoded as per <a href="#encode/2"><code class="inline">encode/2</code></a>.</p>
+<p>Keys and values can be any term that implements the <a href="String.Chars.html"><code class="inline">String.Chars</code></a>
+protocol, except lists which are explicitly forbidden.</p>
+<h2>Examples</h2>
+<pre><code>iex&gt; hd = %{&quot;foo&quot; =&gt; 1, &quot;bar&quot; =&gt; 2}
+iex&gt; URI.encode_query(hd)
+&quot;bar=2&amp;foo=1&quot;</code></pre>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/9e4cb451fef5dff533b54f68b875434a6252a269/lib/elixir/lib/uri.ex#L61" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="encode_www_form/1">
+    <span class="signature"><strong>encode_www_form(str)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#encode_www_form/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Encodes a string as “x-www-urlencoded”.</p>
+<h2>Example</h2>
+<pre><code>iex&gt; URI.encode_www_form(&quot;put: it+й&quot;)
+&quot;put%3A+it%2B%D0%B9&quot;</code></pre>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/9e4cb451fef5dff533b54f68b875434a6252a269/lib/elixir/lib/uri.ex#L185" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="parse/1">
+    <span class="signature"><strong>parse(uri)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#parse/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Parses a well-formed URI reference into its components.</p>
+<p>Note this function expects a well-formed URI and does not perform
+any validation. See the examples section below of how <a href="URI.html#parse/1"><code class="inline">URI.parse/1</code></a>
+can be used to parse a wide range of relative URIs.</p>
+<p>This function uses the parsing regular expression as defined
+in the Appendix B of RFC3986.</p>
+<p>When a URI is given without a port, the values registered via
+<a href="URI.html#default_port/1"><code class="inline">URI.default_port/1</code></a> and <a href="URI.html#default_port/2"><code class="inline">URI.default_port/2</code></a> are used.</p>
+<h2>Examples</h2>
+<pre><code>iex&gt; URI.parse(&quot;http://elixir-lang.org/&quot;)
+%URI{scheme: &quot;http&quot;, path: &quot;/&quot;, query: nil, fragment: nil,
+     authority: &quot;elixir-lang.org&quot;, userinfo: nil,
+     host: &quot;elixir-lang.org&quot;, port: 80}
+
+iex&gt; URI.parse(&quot;//elixir-lang.org/&quot;)
+%URI{authority: &quot;elixir-lang.org&quot;, fragment: nil, host: &quot;elixir-lang.org&quot;,
+     path: &quot;/&quot;, port: nil, query: nil, scheme: nil, userinfo: nil}
+
+iex&gt; URI.parse(&quot;/foo/bar&quot;)
+%URI{authority: nil, fragment: nil, host: nil, path: &quot;/foo/bar&quot;,
+     port: nil, query: nil, scheme: nil, userinfo: nil}
+
+iex&gt; URI.parse(&quot;foo/bar&quot;)
+%URI{authority: nil, fragment: nil, host: nil, path: &quot;foo/bar&quot;,
+     port: nil, query: nil, scheme: nil, userinfo: nil}</code></pre>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/9e4cb451fef5dff533b54f68b875434a6252a269/lib/elixir/lib/uri.ex#L287" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="query_decoder/1">
+    <span class="signature"><strong>query_decoder(q)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#query_decoder/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Returns an iterator function over the query string that decodes
+the query string in steps.</p>
+<h2>Examples</h2>
+<pre><code>iex&gt; URI.query_decoder(&quot;foo=1&amp;bar=2&quot;) |&gt; Enum.map &amp;(&amp;1)
+[{&quot;foo&quot;, &quot;1&quot;}, {&quot;bar&quot;, &quot;2&quot;}]</code></pre>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/9e4cb451fef5dff533b54f68b875434a6252a269/lib/elixir/lib/uri.ex#L92" class="view_source">Source</a>
+  
+</section>
+
+        </section>
+      
+
+      
+
+      
+    </section>
+  </body>
+</html>

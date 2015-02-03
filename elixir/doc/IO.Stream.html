@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>IO.Stream</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+    <link rel="stylesheet" href="css/elixir.css" type="text/css" media="screen" charset="utf-8" />
+    <script type="text/javascript" charset="utf-8">
+      relpath = '';
+      if (relpath != '') relpath += '/';
+    </script>
+
+    <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+
+    <section id="content">
+      <div class="breadcrumbs">Elixir v1.1.0-dev &rarr; <a href="overview.html">Overview</a> &rarr; <a href="IO.html">IO</a> &rarr; <a href="IO.Stream.html">Stream</a></div>
+      <h1>
+        IO.Stream
+        
+      </h1>
+
+      <ul class="summary_links">
+        
+        
+          <li><a href="#types_details">Types</a></li>
+        
+        
+        
+        
+      </ul>
+
+      
+        <section id="moduledoc" class="docstring">
+          <p>Defines a <a href="IO.Stream.html"><code class="inline">IO.Stream</code></a> struct returned by <a href="IO.html#stream/2"><code class="inline">IO.stream/2</code></a> and <a href="IO.html#binstream/2"><code class="inline">IO.binstream/2</code></a>.</p>
+<p>The following fields are public:</p>
+<ul>
+<li><code class="inline">device</code>        - the IO device
+</li>
+<li><code class="inline">raw</code>           - a boolean indicating if bin functions should be used
+</li>
+<li><code class="inline">line_or_bytes</code> - if reading should read lines or a given amount of bytes
+</li>
+</ul>
+
+        </section>
+      
+
+      
+        <a href="https://github.com/elixir-lang/elixir/blob/9e4cb451fef5dff533b54f68b875434a6252a269/lib/elixir/lib/io/stream.ex#L11" class="view_source">Source</a>
+      
+
+      
+
+      
+        <section id="types_details" class="details_list">
+          <h2>Types <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a></h2>
+          <div class="type_detail">
+  <p class="typespec" id="t:t/0">
+    <a href="#t:t/0">t</a> :: %IO.Stream{device: term, line_or_bytes: term, raw: term}
+  </p>
+  
+</div>
+
+        </section>
+      
+
+      
+
+      
+
+      
+    </section>
+  </body>
+</html>

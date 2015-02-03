@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Integer</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+    <link rel="stylesheet" href="css/elixir.css" type="text/css" media="screen" charset="utf-8" />
+    <script type="text/javascript" charset="utf-8">
+      relpath = '';
+      if (relpath != '') relpath += '/';
+    </script>
+
+    <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+
+    <section id="content">
+      <div class="breadcrumbs">Elixir v1.1.0-dev &rarr; <a href="overview.html">Overview</a> &rarr; <a href="Integer.html">Integer</a></div>
+      <h1>
+        Integer
+        
+      </h1>
+
+      <ul class="summary_links">
+        
+          <li><a href="#summary">Summary</a></li>
+        
+        
+        
+          <li><a href="#functions_details">Functions</a></li>
+        
+        
+          <li><a href="#macros_details">Macros</a></li>
+        
+        
+      </ul>
+
+      
+        <section id="moduledoc" class="docstring">
+          <p>Functions for working with integers.</p>
+
+        </section>
+      
+
+      
+        <a href="https://github.com/elixir-lang/elixir/blob/9e4cb451fef5dff533b54f68b875434a6252a269/lib/elixir/lib/integer.ex#L1" class="view_source">Source</a>
+      
+
+      
+        <h2 id="summary">Summary<span class="detail_header_links"><a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a></span></h2>
+        <table class="summary">
+          <tr>
+  <td class="summary_signature"><a href="#digits/2">digits(n, base \\ 10)</a></td>
+  
+    <td class="summary_synopsis"><p>Returns the ordered digits for the given non-negative integer</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#is_even/1">is_even(n)</a></td>
+  
+    <td class="summary_synopsis"><p>Determines if an integer is even</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#is_odd/1">is_odd(n)</a></td>
+  
+    <td class="summary_synopsis"><p>Determines if an integer is odd</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#parse/2">parse(binary, base \\ 10)</a></td>
+  
+    <td class="summary_synopsis"><p>Converts a binary from a text representation of an integer
+in an optional base <code class="inline">base</code> to the corresponding integer</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#to_char_list/1">to_char_list(number)</a></td>
+  
+    <td class="summary_synopsis"><p>Returns a char list which corresponds to the text representation of the given integer</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#to_char_list/2">to_char_list(number, base)</a></td>
+  
+    <td class="summary_synopsis"><p>Returns a char list which corresponds to the text representation of the
+given integer in the given base</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#to_string/1">to_string(some_integer)</a></td>
+  
+    <td class="summary_synopsis"><p>Returns a binary which corresponds to the text representation
+of <code class="inline">some_integer</code></p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#to_string/2">to_string(some_integer, base)</a></td>
+  
+    <td class="summary_synopsis"><p>Returns a binary which corresponds to the text representation
+of <code class="inline">some_integer</code> in base <code class="inline">base</code></p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#undigits/2">undigits(digits, base \\ 10)</a></td>
+  
+    <td class="summary_synopsis"><p>Returns the integer represented by the ordered digits</p>
+</td>
+  
+</tr>
+
+        </table>
+      
+
+      
+
+      
+        <section id="functions_details" class="details_list">
+          <h2>Functions</h2>
+          <section class="detail">
+  <div class="detail_header" id="digits/2">
+    <span class="signature"><strong>digits(n, base \\ 10)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#digits/2" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>digits(non_neg_integer, pos_integer) :: [non_neg_integer]</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Returns the ordered digits for the given non-negative integer.</p>
+<p>An optional base value may be provided representing the radix for the returned
+digits.</p>
+<h2>Examples</h2>
+<pre><code>iex&gt; Integer.digits(101)
+[1, 0, 1]
+
+iex&gt; Integer.digits(58127, 2)
+[1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1]</code></pre>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/9e4cb451fef5dff533b54f68b875434a6252a269/lib/elixir/lib/integer.ex#L46" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="parse/2">
+    <span class="signature"><strong>parse(binary, base \\ 10)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#parse/2" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>parse(binary, 2 .. 36) :: {integer, binary} | :error | no_return</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Converts a binary from a text representation of an integer
+in an optional base <code class="inline">base</code> to the corresponding integer.</p>
+<p>If the base <code class="inline">base</code> is not given, base 10 will be used.</p>
+<p>If successful, returns a tuple of the form <code class="inline">{integer, remainder_of_binary}</code>.
+Otherwise <code class="inline">:error</code>.</p>
+<p>Raises an error if <code class="inline">base</code> is less than 2 or more than 36.</p>
+<h2>Examples</h2>
+<pre><code>iex&gt; Integer.parse(&quot;34&quot;)
+{34,&quot;&quot;}
+
+iex&gt; Integer.parse(&quot;34.5&quot;)
+{34,&quot;.5&quot;}
+
+iex&gt; Integer.parse(&quot;three&quot;)
+:error
+
+iex&gt; Integer.parse(&quot;34&quot;, 10)
+{34, &quot;&quot;}
+
+iex&gt; Integer.parse(&quot;f4&quot;, 16)
+{244, &quot;&quot;}
+
+iex&gt; Integer.parse(&quot;Awww++&quot;, 36)
+{509216, &quot;++&quot;}
+
+iex&gt; Integer.parse(&quot;fab&quot;, 10)
+:error
+
+iex&gt; Integer.parse(&quot;a2&quot;, 38)
+** (ArgumentError) invalid base 38</code></pre>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/9e4cb451fef5dff533b54f68b875434a6252a269/lib/elixir/lib/integer.ex#L119" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="to_char_list/1">
+    <span class="signature"><strong>to_char_list(number)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#to_char_list/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>to_char_list(integer) :: char_list</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Returns a char list which corresponds to the text representation of the given integer.</p>
+<p>Inlined by the compiler.</p>
+<h2>Examples</h2>
+<pre><code>iex&gt; Integer.to_char_list(7)
+'7'</code></pre>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/9e4cb451fef5dff533b54f68b875434a6252a269/lib/elixir/lib/integer.ex#L228" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="to_char_list/2">
+    <span class="signature"><strong>to_char_list(number, base)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#to_char_list/2" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>to_char_list(integer, 2 .. 36) :: char_list</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Returns a char list which corresponds to the text representation of the
+given integer in the given base.</p>
+<p>Inlined by the compiler.</p>
+<h2>Examples</h2>
+<pre><code>iex&gt; Integer.to_char_list(1023, 16)
+'3FF'</code></pre>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/9e4cb451fef5dff533b54f68b875434a6252a269/lib/elixir/lib/integer.ex#L245" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="to_string/1">
+    <span class="signature"><strong>to_string(some_integer)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#to_string/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>to_string(integer) :: <a href="String.html#t:t/0">String.t</a></li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Returns a binary which corresponds to the text representation
+of <code class="inline">some_integer</code>.</p>
+<p>Inlined by the compiler.</p>
+<h2>Examples</h2>
+<pre><code>iex&gt; Integer.to_string(123)
+&quot;123&quot;</code></pre>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/9e4cb451fef5dff533b54f68b875434a6252a269/lib/elixir/lib/integer.ex#L195" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="to_string/2">
+    <span class="signature"><strong>to_string(some_integer, base)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#to_string/2" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>to_string(integer, 2 .. 36) :: <a href="String.html#t:t/0">String.t</a></li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Returns a binary which corresponds to the text representation
+of <code class="inline">some_integer</code> in base <code class="inline">base</code>.</p>
+<p>Inlined by the compiler.</p>
+<h2>Examples</h2>
+<pre><code>iex&gt; Integer.to_string(100, 16)
+&quot;64&quot;</code></pre>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/9e4cb451fef5dff533b54f68b875434a6252a269/lib/elixir/lib/integer.ex#L212" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="undigits/2">
+    <span class="signature"><strong>undigits(digits, base \\ 10)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#undigits/2" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>undigits([integer], integer) :: integer</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Returns the integer represented by the ordered digits.</p>
+<p>An optional base value may be provided representing the radix for the digits.</p>
+<p> ## Examples</p>
+<pre><code>iex&gt; Integer.undigits([1, 0, 1])
+ 101
+
+ iex&gt; Integer.undigits([1, 4], 16)
+ 20</code></pre>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/9e4cb451fef5dff533b54f68b875434a6252a269/lib/elixir/lib/integer.ex#L71" class="view_source">Source</a>
+  
+</section>
+
+        </section>
+      
+
+      
+        <section id="macros_details" class="details_list">
+          <h2>Macros</h2>
+          <section class="detail">
+  <div class="detail_header" id="is_even/1">
+    <span class="signature"><strong>is_even(n)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(macro)</span>
+      <a href="#is_even/1" class="detail_link" title="Link to this macro">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Determines if an integer is even.</p>
+<p>Returns <code class="inline">true</code> if <code class="inline">n</code> is an even number, otherwise <code class="inline">false</code>.</p>
+<p>Allowed in guard clauses.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/9e4cb451fef5dff533b54f68b875434a6252a269/lib/elixir/lib/integer.ex#L26" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="is_odd/1">
+    <span class="signature"><strong>is_odd(n)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(macro)</span>
+      <a href="#is_odd/1" class="detail_link" title="Link to this macro">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Determines if an integer is odd.</p>
+<p>Returns <code class="inline">true</code> if <code class="inline">n</code> is an odd number, otherwise <code class="inline">false</code>.</p>
+<p>Allowed in guard clauses.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/9e4cb451fef5dff533b54f68b875434a6252a269/lib/elixir/lib/integer.ex#L15" class="view_source">Source</a>
+  
+</section>
+
+        </section>
+      
+
+      
+    </section>
+  </body>
+</html>

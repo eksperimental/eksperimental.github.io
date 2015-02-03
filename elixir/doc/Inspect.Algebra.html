@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Inspect.Algebra</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+    <link rel="stylesheet" href="css/elixir.css" type="text/css" media="screen" charset="utf-8" />
+    <script type="text/javascript" charset="utf-8">
+      relpath = '';
+      if (relpath != '') relpath += '/';
+    </script>
+
+    <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+
+    <section id="content">
+      <div class="breadcrumbs">Elixir v1.1.0-dev &rarr; <a href="overview.html">Overview</a> &rarr; <a href="Inspect.html">Inspect</a> &rarr; <a href="Inspect.Algebra.html">Algebra</a></div>
+      <h1>
+        Inspect.Algebra
+        
+      </h1>
+
+      <ul class="summary_links">
+        
+          <li><a href="#summary">Summary</a></li>
+        
+        
+          <li><a href="#types_details">Types</a></li>
+        
+        
+          <li><a href="#functions_details">Functions</a></li>
+        
+        
+        
+      </ul>
+
+      
+        <section id="moduledoc" class="docstring">
+          <p>A set of functions for creating and manipulating algebra
+documents, as described in <a href="http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.34.2200" title="">“Strictly Pretty” (2000) by Christian Lindig</a>.</p>
+<p>An algebra document is represented by an <a href="Inspect.Algebra.html"><code class="inline">Inspect.Algebra</code></a> node
+or a regular string.</p>
+<pre><code>iex&gt; Inspect.Algebra.empty
+:doc_nil
+
+iex&gt; &quot;foo&quot;
+&quot;foo&quot;</code></pre>
+<p>With the functions in this module, we can concatenate different
+elements together and render them:</p>
+<pre><code>iex&gt; doc = Inspect.Algebra.concat(Inspect.Algebra.empty, &quot;foo&quot;)
+iex&gt; Inspect.Algebra.format(doc, 80)
+[&quot;foo&quot;]</code></pre>
+<p>The functions <a href="#nest/2"><code class="inline">nest/2</code></a>, <a href="#space/2"><code class="inline">space/2</code></a> and <a href="#line/2"><code class="inline">line/2</code></a> help you put the
+document together into a rigid structure. However, the document
+algebra gets interesting when using functions like <code class="inline">break/2</code>, which
+converts the given string into a line break depending on how much space
+there is to print. Let’s glue two docs together with a break and then
+render it:</p>
+<pre><code>iex&gt; doc = Inspect.Algebra.glue(&quot;a&quot;, &quot; &quot;, &quot;b&quot;)
+iex&gt; Inspect.Algebra.format(doc, 80)
+[&quot;a&quot;, &quot; &quot;, &quot;b&quot;]</code></pre>
+<p>Notice the break was represented as is, because we haven’t reached
+a line limit. Once we do, it is replaced by a newline:</p>
+<pre><code>iex&gt; doc = Inspect.Algebra.glue(String.duplicate(&quot;a&quot;, 20), &quot; &quot;, &quot;b&quot;)
+iex&gt; Inspect.Algebra.format(doc, 10)
+[&quot;aaaaaaaaaaaaaaaaaaaa&quot;, &quot;\n&quot;, &quot;b&quot;]</code></pre>
+<p>Finally, this module also contains Elixir related functions, a bit
+tied to Elixir formatting, namely <a href="#surround/3"><code class="inline">surround/3</code></a> and <code class="inline">surround_many/5</code>.</p>
+<h2>Implementation details</h2>
+<p>The original Haskell implementation of the algorithm by <a href="http://homepages.inf.ed.ac.uk/wadler/papers/prettier/prettier.pdf" title="">Wadler</a>
+relies on lazy evaluation to unfold document groups on two alternatives:
+<code class="inline">:flat</code> (breaks as spaces) and <code class="inline">:break</code> (breaks as newlines).
+Implementing the same logic in a strict language such as Elixir leads
+to an exponential growth of possible documents, unless document groups
+are encoded explictly as <code class="inline">:flat</code> or <code class="inline">:break</code>. Those groups are then reduced
+to a simple document, where the layout is already decided, per <a href="http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.34.2200" title="">Lindig</a>.</p>
+<p>This implementation slightly changes the semantic of Lindig’s algorithm
+to allow elements that belong to the same group to be printed together
+in the same line, even if they do not fit the line fully. This was achieved
+by changing <code class="inline">:break</code> to mean a possible break and <code class="inline">:flat</code> to force a flat
+structure. Then deciding if a break works as a newline is just a matter
+of checking if we have enough space until the next break that is not
+inside a group (which is still flat).</p>
+<p>Custom pretty printers can be implemented using the documents returned
+by this module and by providing their own rendering functions.</p>
+
+        </section>
+      
+
+      
+        <a href="https://github.com/elixir-lang/elixir/blob/9e4cb451fef5dff533b54f68b875434a6252a269/lib/elixir/lib/inspect/algebra.ex#L72" class="view_source">Source</a>
+      
+
+      
+        <h2 id="summary">Summary<span class="detail_header_links"><a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a></span></h2>
+        <table class="summary">
+          <tr>
+  <td class="summary_signature"><a href="#break/0">break()</a></td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#break/1">break(s)</a></td>
+  
+    <td class="summary_synopsis"><p>Document entity representing a break</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#concat/1">concat(docs)</a></td>
+  
+    <td class="summary_synopsis"><p>Concatenates a list of documents</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#concat/2">concat(x, y)</a></td>
+  
+    <td class="summary_synopsis"><p>Concatenates two document entities</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#empty/0">empty()</a></td>
+  
+    <td class="summary_synopsis"><p>Returns a document entity used to represent nothingness</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#folddoc/2">folddoc(list1, f)</a></td>
+  
+    <td class="summary_synopsis"><p>Folds a list of document entities into a document entity
+using a function that is passed as the first argument</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#format/2">format(d, w)</a></td>
+  
+    <td class="summary_synopsis"><p>The formatting function</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#glue/2">glue(x, y)</a></td>
+  
+    <td class="summary_synopsis"><p>Inserts a break between two docs. See <a href="#break/1"><code class="inline">break/1</code></a> for more info</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#glue/3">glue(x, g, y)</a></td>
+  
+    <td class="summary_synopsis"><p>Inserts a break, passed as the second argument, between two docs,
+the first and the third arguments</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#group/1">group(d)</a></td>
+  
+    <td class="summary_synopsis"><p>Returns a group containing the specified document</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#line/2">line(x, y)</a></td>
+  
+    <td class="summary_synopsis"><p>Inserts a mandatory linebreak between two document entities</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#nest/2">nest(x, i)</a></td>
+  
+    <td class="summary_synopsis"><p>Nests document entity <code class="inline">x</code> positions deep</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#space/2">space(x, y)</a></td>
+  
+    <td class="summary_synopsis"><p>Inserts a mandatory single space between two document entities</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#surround/3">surround(left, doc, right)</a></td>
+  
+    <td class="summary_synopsis"><p>Surrounds a document with characters</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#surround_many/6">surround_many(left, docs, right, opts, fun, separator \\ &quot;,&quot;)</a></td>
+  
+    <td class="summary_synopsis"><p>Maps and glues a collection of items</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#to_doc/2">to_doc(map, opts)</a></td>
+  
+    <td class="summary_synopsis"><p>Converts an Elixir structure to an algebra document
+according to the inspect protocol</p>
+</td>
+  
+</tr>
+
+        </table>
+      
+
+      
+        <section id="types_details" class="details_list">
+          <h2>Types <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a></h2>
+          <div class="type_detail">
+  <p class="typespec" id="t:t/0">
+    <a href="#t:t/0">t</a> :: :doc_nil | :doc_line | doc_cons | doc_nest | doc_break | doc_group | binary
+  </p>
+  
+</div>
+
+        </section>
+      
+
+      
+        <section id="functions_details" class="details_list">
+          <h2>Functions</h2>
+          <section class="detail">
+  <div class="detail_header" id="break/0">
+    <span class="signature"><strong>break()</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#break/0" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>break :: doc_break</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/9e4cb451fef5dff533b54f68b875434a6252a269/lib/elixir/lib/inspect/algebra.ex#L326" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="break/1">
+    <span class="signature"><strong>break(s)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#break/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>break(binary) :: doc_break</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Document entity representing a break.</p>
+<p>This break can be rendered as a linebreak or as spaces,
+depending on the <code class="inline">mode</code> of the chosen layout or the provided
+separator.</p>
+<h2>Examples</h2>
+<p>Let’s glue two docs together with a break and then render it:</p>
+<pre><code>iex&gt; doc = Inspect.Algebra.glue(&quot;a&quot;, &quot; &quot;, &quot;b&quot;)
+iex&gt; Inspect.Algebra.format(doc, 80)
+[&quot;a&quot;, &quot; &quot;, &quot;b&quot;]</code></pre>
+<p>Notice the break was represented as is, because we haven’t reached
+a line limit. Once we do, it is replaced by a newline:</p>
+<pre><code>iex&gt; doc = Inspect.Algebra.glue(String.duplicate(&quot;a&quot;, 20), &quot; &quot;, &quot;b&quot;)
+iex&gt; Inspect.Algebra.format(doc, 10)
+[&quot;aaaaaaaaaaaaaaaaaaaa&quot;, &quot;\n&quot;, &quot;b&quot;]</code></pre>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/9e4cb451fef5dff533b54f68b875434a6252a269/lib/elixir/lib/inspect/algebra.ex#L323" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="concat/1">
+    <span class="signature"><strong>concat(docs)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#concat/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>concat([<a href="#t:t/0">t</a>]) :: doc_cons</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Concatenates a list of documents.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/9e4cb451fef5dff533b54f68b875434a6252a269/lib/elixir/lib/inspect/algebra.ex#L274" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="concat/2">
+    <span class="signature"><strong>concat(x, y)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#concat/2" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>concat(<a href="#t:t/0">t</a>, <a href="#t:t/0">t</a>) :: doc_cons</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Concatenates two document entities.</p>
+<h2>Examples</h2>
+<pre><code>iex&gt; doc = Inspect.Algebra.concat &quot;hello&quot;, &quot;world&quot;
+iex&gt; Inspect.Algebra.format(doc, 80)
+[&quot;hello&quot;, &quot;world&quot;]</code></pre>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/9e4cb451fef5dff533b54f68b875434a6252a269/lib/elixir/lib/inspect/algebra.ex#L266" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="empty/0">
+    <span class="signature"><strong>empty()</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#empty/0" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>empty :: :doc_nil</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Returns a document entity used to represent nothingness.</p>
+<h2>Examples</h2>
+<pre><code>iex&gt; Inspect.Algebra.empty
+:doc_nil</code></pre>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/9e4cb451fef5dff533b54f68b875434a6252a269/lib/elixir/lib/inspect/algebra.ex#L253" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="folddoc/2">
+    <span class="signature"><strong>folddoc(list1, f)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#folddoc/2" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>folddoc([<a href="#t:t/0">t</a>], (<a href="#t:t/0">t</a>, <a href="#t:t/0">t</a> -> <a href="#t:t/0">t</a>)) :: <a href="#t:t/0">t</a></li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Folds a list of document entities into a document entity
+using a function that is passed as the first argument.</p>
+<h2>Examples</h2>
+<pre><code>iex&gt; doc = [&quot;A&quot;, &quot;B&quot;]
+iex&gt; doc = Inspect.Algebra.folddoc(doc, fn(x,y) -&gt;
+...&gt;   Inspect.Algebra.concat [x, &quot;!&quot;, y]
+...&gt; end)
+iex&gt; Inspect.Algebra.format(doc, 80)
+[&quot;A&quot;, &quot;!&quot;, &quot;B&quot;]</code></pre>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/9e4cb451fef5dff533b54f68b875434a6252a269/lib/elixir/lib/inspect/algebra.ex#L414" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="format/2">
+    <span class="signature"><strong>format(d, w)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#format/2" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>format(<a href="#t:t/0">t</a>, non_neg_integer | :infinity) :: iodata</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>The formatting function.</p>
+<p>Takes the maximum width and a document to print as its arguments
+and returns an IO data representation of the best layout for the
+document to fit in the given width.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/9e4cb451fef5dff533b54f68b875434a6252a269/lib/elixir/lib/inspect/algebra.ex#L511" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="glue/2">
+    <span class="signature"><strong>glue(x, y)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#glue/2" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>glue(<a href="#t:t/0">t</a>, <a href="#t:t/0">t</a>) :: doc_cons</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Inserts a break between two docs. See <a href="#break/1"><code class="inline">break/1</code></a> for more info.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/9e4cb451fef5dff533b54f68b875434a6252a269/lib/elixir/lib/inspect/algebra.ex#L332" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="glue/3">
+    <span class="signature"><strong>glue(x, g, y)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#glue/3" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>glue(<a href="#t:t/0">t</a>, binary, <a href="#t:t/0">t</a>) :: doc_cons</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Inserts a break, passed as the second argument, between two docs,
+the first and the third arguments.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/9e4cb451fef5dff533b54f68b875434a6252a269/lib/elixir/lib/inspect/algebra.ex#L339" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="group/1">
+    <span class="signature"><strong>group(d)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#group/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>group(<a href="#t:t/0">t</a>) :: doc_group</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Returns a group containing the specified document.</p>
+<h2>Examples</h2>
+<pre><code>iex&gt; doc = Inspect.Algebra.group(
+...&gt;   Inspect.Algebra.concat(
+...&gt;     Inspect.Algebra.group(
+...&gt;       Inspect.Algebra.concat(
+...&gt;         &quot;Hello,&quot;,
+...&gt;         Inspect.Algebra.concat(
+...&gt;           Inspect.Algebra.break,
+...&gt;           &quot;A&quot;
+...&gt;         )
+...&gt;       )
+...&gt;     ),
+...&gt;     Inspect.Algebra.concat(
+...&gt;       Inspect.Algebra.break,
+...&gt;       &quot;B&quot;
+...&gt;     )
+...&gt; ))
+iex&gt; Inspect.Algebra.format(doc, 80)
+[&quot;Hello,&quot;, &quot; &quot;, &quot;A&quot;, &quot; &quot;, &quot;B&quot;]
+iex&gt; Inspect.Algebra.format(doc, 6)
+[&quot;Hello,&quot;, &quot;\n&quot;, &quot;A&quot;, &quot; &quot;, &quot;B&quot;]</code></pre>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/9e4cb451fef5dff533b54f68b875434a6252a269/lib/elixir/lib/inspect/algebra.ex#L369" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="line/2">
+    <span class="signature"><strong>line(x, y)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#line/2" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>line(<a href="#t:t/0">t</a>, <a href="#t:t/0">t</a>) :: doc_cons</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Inserts a mandatory linebreak between two document entities.</p>
+<h2>Examples</h2>
+<pre><code>iex&gt; doc = Inspect.Algebra.line &quot;Hughes&quot;, &quot;Wadler&quot;
+iex&gt; Inspect.Algebra.format(doc, 80)
+[&quot;Hughes&quot;, &quot;\n&quot;, &quot;Wadler&quot;]</code></pre>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/9e4cb451fef5dff533b54f68b875434a6252a269/lib/elixir/lib/inspect/algebra.ex#L397" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="nest/2">
+    <span class="signature"><strong>nest(x, i)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#nest/2" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>nest(<a href="#t:t/0">t</a>, non_neg_integer) :: doc_nest</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Nests document entity <code class="inline">x</code> positions deep.</p>
+<p>Nesting will be appended to the line breaks.</p>
+<h2>Examples</h2>
+<pre><code>iex&gt; doc = Inspect.Algebra.nest(Inspect.Algebra.glue(&quot;hello&quot;, &quot;world&quot;), 5)
+iex&gt; Inspect.Algebra.format(doc, 5)
+[&quot;hello&quot;, &quot;\n     &quot;, &quot;world&quot;]</code></pre>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/9e4cb451fef5dff533b54f68b875434a6252a269/lib/elixir/lib/inspect/algebra.ex#L291" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="space/2">
+    <span class="signature"><strong>space(x, y)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#space/2" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>space(<a href="#t:t/0">t</a>, <a href="#t:t/0">t</a>) :: doc_cons</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Inserts a mandatory single space between two document entities.</p>
+<h2>Examples</h2>
+<pre><code>iex&gt; doc = Inspect.Algebra.space &quot;Hughes&quot;, &quot;Wadler&quot;
+iex&gt; Inspect.Algebra.format(doc, 80)
+[&quot;Hughes&quot;, &quot; &quot;, &quot;Wadler&quot;]</code></pre>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/9e4cb451fef5dff533b54f68b875434a6252a269/lib/elixir/lib/inspect/algebra.ex#L384" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="surround/3">
+    <span class="signature"><strong>surround(left, doc, right)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#surround/3" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>surround(binary, <a href="#t:t/0">t</a>, binary) :: <a href="#t:t/0">t</a></li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Surrounds a document with characters.</p>
+<p>Puts the document between left and right enclosing and nesting it.
+The document is marked as a group, to show the maximum as possible
+concisely together.</p>
+<h2>Examples</h2>
+<pre><code>iex&gt; doc = Inspect.Algebra.surround &quot;[&quot;, Inspect.Algebra.glue(&quot;a&quot;, &quot;b&quot;), &quot;]&quot;
+iex&gt; Inspect.Algebra.format(doc, 3)
+[&quot;[&quot;, &quot;a&quot;, &quot;\n &quot;, &quot;b&quot;, &quot;]&quot;]</code></pre>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/9e4cb451fef5dff533b54f68b875434a6252a269/lib/elixir/lib/inspect/algebra.ex#L435" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="surround_many/6">
+    <span class="signature"><strong>surround_many(left, docs, right, opts, fun, separator \\ &quot;,&quot;)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#surround_many/6" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>surround_many(binary, [any], binary, <a href="Inspect.Opts.html#t:t/0">Inspect.Opts.t</a>, (term, <a href="Inspect.Opts.html#t:t/0">Inspect.Opts.t</a> -> <a href="#t:t/0">t</a>), binary) :: <a href="#t:t/0">t</a></li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Maps and glues a collection of items.</p>
+<p>It uses the given left and right as surrounding and a separator for
+each item. A limit can be passed which, once reached, stops gluing
+and outputs “…” instead.</p>
+<h2>Examples</h2>
+<pre><code>iex&gt; doc = Inspect.Algebra.surround_many(&quot;[&quot;, Enum.to_list(1..5), &quot;]&quot;,
+...&gt;         %Inspect.Opts{limit: :infinity}, fn i, _opts -&gt; to_string(i) end)
+iex&gt; Inspect.Algebra.format(doc, 5) |&gt; IO.iodata_to_binary
+&quot;[1,\n 2,\n 3,\n 4,\n 5]&quot;
+
+iex&gt; doc = Inspect.Algebra.surround_many(&quot;[&quot;, Enum.to_list(1..5), &quot;]&quot;,
+...&gt;         %Inspect.Opts{limit: 3}, fn i, _opts -&gt; to_string(i) end)
+iex&gt; Inspect.Algebra.format(doc, 20) |&gt; IO.iodata_to_binary
+&quot;[1, 2, 3, ...]&quot;
+
+iex&gt; doc = Inspect.Algebra.surround_many(&quot;[&quot;, Enum.to_list(1..5), &quot;]&quot;,
+...&gt;         %Inspect.Opts{limit: 3}, fn i, _opts -&gt; to_string(i) end, &quot;!&quot;)
+iex&gt; Inspect.Algebra.format(doc, 20) |&gt; IO.iodata_to_binary
+&quot;[1! 2! 3! ...]&quot;</code></pre>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/9e4cb451fef5dff533b54f68b875434a6252a269/lib/elixir/lib/inspect/algebra.ex#L464" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="to_doc/2">
+    <span class="signature"><strong>to_doc(map, opts)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#to_doc/2" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>to_doc(any, <a href="Inspect.Opts.html#t:t/0">Inspect.Opts.t</a>) :: <a href="#t:t/0">t</a></li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Converts an Elixir structure to an algebra document
+according to the inspect protocol.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/9e4cb451fef5dff533b54f68b875434a6252a269/lib/elixir/lib/inspect/algebra.ex#L196" class="view_source">Source</a>
+  
+</section>
+
+        </section>
+      
+
+      
+
+      
+    </section>
+  </body>
+</html>

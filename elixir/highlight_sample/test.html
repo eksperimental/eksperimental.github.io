@@ -1,0 +1,1453 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>FooBar2</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+    <link rel="stylesheet" href="css/elixir.css" type="text/css" media="screen" charset="utf-8" />
+    <script type="text/javascript" charset="utf-8">
+      relpath = '';
+      if (relpath != '') relpath += '/';
+    </script>
+
+    <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/highlight.pack.js"></script>
+    <script type="text/javascript" charset="utf-8">
+      hljs.initHighlightingOnLoad();
+      // languages supported: 'bash', 'coffeescript', 'css', 'diff', 'elixir', 'erlang', 'erlang-repl', 'http', 'javascript', 'json', 'markdown', 'sql', 'xml'
+      
+      /* languages supported and their aliases
+        bash, sh, zsh,
+        coffeescript, coffee, cson, iced,
+        css,
+        diff, patch,
+        elixir, iex,
+        erlang, erl,
+        erlang-repl,
+        http,
+        javascript, js,
+        json,
+        markdown, md, mkdown, mkd,
+        sql,
+        xml, html, xhtml, rss, atom, xsl, plist,
+      */
+      hljs.configure({languages: []}); //disable autodetect
+    </script>
+  </head>
+
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+
+    <section id="content">
+      <div class="breadcrumbs">Elixir v1.1.0-dev &rarr; <a href="overview.html">Overview</a> &rarr; <a href="FooBar2.html">FooBar2</a></div>
+      <h1>
+        FooBar2
+        
+      </h1>
+
+      <ul class="summary_links">
+        
+          <li><a href="#summary">Summary</a></li>
+        
+        
+          <li><a href="#types_details">Types</a></li>
+        
+        
+          <li><a href="#functions_details">Functions</a></li>
+        
+        
+        
+      </ul>
+
+      
+        <section id="moduledoc" class="docstring">
+          <p>Agents are a simple abstraction around state.</p>
+<p>Often in Elixir there is a need to share or store state that
+must be accessed from different processes or by the same process
+at different points in time.</p>
+<p>The Agent module provides a basic server implementation that
+allows state to be retrieved and updated via a simple API.</p>
+<h2>Examples</h2>
+<p>Iex (by default, with no language definition )</p>
+<pre><code class="iex elixir">iex&gt; Base.decode16(&quot;666F6F626172&quot;)
+{:ok, &quot;foobar&quot;}
+
+iex&gt; Base.decode16(&quot;666f6f626172&quot;, case: :lower)
+{:ok, &quot;foobar&quot;}
+
+iex&gt; Base.decode16(&quot;666f6F626172&quot;, case: :mixed)
+{:ok, &quot;foobar&quot;}</code></pre>
+<p>Iex</p>
+<pre><code class="iex">iex&gt; Base.decode16(&quot;666F6F626172&quot;)
+{:ok, &quot;foobar&quot;}
+
+iex&gt; Base.decode16(&quot;666f6f626172&quot;, case: :lower)
+{:ok, &quot;foobar&quot;}
+
+iex&gt; Base.decode16(&quot;666f6F626172&quot;, case: :mixed)
+{:ok, &quot;foobar&quot;}</code></pre>
+<p>Elixir</p>
+<pre><code class="elixir">#This should be highlighted as elixir
+# Numbers
+0b0101011
+1234 ; 0x1A ; 0xbeef ; 0763 ; 0o123
+3.14 ; 5.0e21 ; 0.5e-12
+100_000_000
+
+# these are not valid numbers
+0b012 ; 0xboar ; 0o888
+0B01 ; 0XAF ; 0O123
+
+# Characters
+?a ; ?1 ; ?\n ; ?\s ; ?\c ; ? ; ?,
+?\x{12} ; ?\x{abcd}
+?\x34 ; ?\xF
+
+# these show that only the first digit is part of the character
+?\123 ; ?\12 ; ?\7
+
+# Atoms
+:this ; :that
+:'complex atom'
+:&quot;with' \&quot;\&quot; 'quotes&quot;
+:&quot; multi
+ line ' \s \123 \xff
+atom&quot;
+:... ; :&lt;&lt;&gt;&gt; ; :%{} ; :% ; :{}
+:++; :--; :*; :~~~; :::
+:% ; :. ; :&lt;-
+
+# Strings
+&quot;Hello world&quot;
+&quot;Interspersed \x{ff} codes \7 \8 \65 \016 and \t\s\\s\z\+ \\ escapes&quot;
+&quot;Quotes ' inside \&quot; \123 the \&quot;\&quot; \xF \\xF string \\\&quot; end&quot;
+&quot;Multiline
+   string&quot;
+
+# Char lists
+'this is a list'
+'escapes \' \t \\\''
+'Multiline
+    char
+  list
+'
+
+# Binaries
+&lt;&lt;1, 2, 3&gt;&gt;
+&lt;&lt;&quot;hello&quot;::binary, c :: utf8, x::[4, unit(2)]&gt;&gt; = &quot;hello™1&quot;
+
+# Sigils
+~r/this + i\s &quot;a&quot; regex/
+~R'this + i\s &quot;a&quot; regex too'
+~w(hello #{ [&quot;has&quot; &lt;&gt; &quot;123&quot;, '\c\d', &quot;\123 interpol&quot; | []] } world)s
+~W(hello #{no &quot;123&quot; \c\d \123 interpol} world)s
+
+~s{Escapes terminators \{ and \}, but no {balancing} # outside of sigil here }
+
+~S&quot;No escapes \s\t\n and no #{interpolation}&quot;
+
+:&quot;atoms work #{&quot;to&quot; &lt;&gt; &quot;o&quot;}&quot;
+
+# Operators
+x = 1 + 2.0 * 3
+y = true and false; z = false or true
+... = 144
+... == !x &amp;&amp; y || z
+&quot;hello&quot; |&gt; String.upcase |&gt; String.downcase()
+{^z, a} = {true, x}
+
+# Free operators (added in 1.0.0)
+p  ~&gt;&gt; f  = bind(p, f)
+p1 ~&gt;  p2 = pair_right(p1, p2)
+p1 &lt;~  p2 = pair_left(p1, p2)
+p1 &lt;~&gt; p2 = pair_both(p1, p2)
+p  |~&gt; f  = map(p, f)
+p1 &lt;|&gt; p2 = either(p1, p2)
+
+# Lists, tuples, maps, keywords
+[1, :a, 'hello'] ++ [2, 3]
+[:head | [?t, ?a, ?i, ?l]]
+
+{:one, 2.0, &quot;three&quot;}
+
+[...: &quot;this&quot;, &lt;&lt;&gt;&gt;: &quot;is&quot;, %{}: &quot;a keyword&quot;, %: &quot;list&quot;, {}: &quot;too&quot;]
+[&quot;this is an atom too&quot;: 1, &quot;so is this&quot;: 2]
+[option: &quot;value&quot;, key: :word]
+[++: &quot;operator&quot;, ~~~: :&amp;&amp;&amp;]
+
+map = %{shortcut: &quot;syntax&quot;}
+%{map | &quot;update&quot; =&gt; &quot;me&quot;}
+%{ 12 =&gt; 13, :weird =&gt; ['thing'] }
+
+# Comprehensions
+for x &lt;- 1..10, x &lt; 5, do: {x, x}
+pixels = &quot;12345678&quot;
+for &lt;&lt; &lt;&lt;r::4, g::4, b::4, a::size(4)&gt;&gt; &lt;- pixels &gt;&gt; do
+  [r, {g, %{&quot;b&quot; =&gt; a}}]
+end
+
+# String interpolation
+&quot;String #{inspect &quot;interpolation&quot;} is quite #{1+4+7} difficult&quot;
+
+# Identifiers
+abc_123 = 1
+_018OP = 2
+A__0 == 3
+
+# Modules
+defmodule Long.Module.Name do
+  @moduledoc &quot;Simple module docstring&quot;
+
+  @doc &quot;&quot;&quot;
+  Multiline docstring
+  &quot;with quotes&quot;
+  and #{ inspect %{&quot;interpolation&quot; =&gt; &quot;in&quot; &lt;&gt; &quot;action&quot;} }
+  now with #{ {:a, 'tuple'} }
+  and #{ inspect {
+      :tuple,
+      %{ with: &quot;nested #{ inspect %{ :interpolation =&gt; %{} } }&quot; }
+  } }
+  &quot;&quot;&quot;
+  defstruct [:a, :name, :height]
+
+  @doc ~S&quot;&quot;&quot;
+  No #{interpolation} of any kind.
+  \000 \x{ff}
+
+  \n #{\x{ff}}
+  &quot;&quot;&quot;
+  def func(a, b \\ []), do: :ok
+
+  @doc false
+  def __before_compile__(_) do
+    :ok
+  end
+end
+
+# Structs
+defmodule Second.Module do
+  s = %Long.Module.Name{name: &quot;Silly&quot;}
+  %Long.Module.Name{s | height: {192, :cm}}
+  &quot;.. #{%Long.Module.Name{s | height: {192, :cm}}} ..&quot;
+end
+
+# Types, pseudo-vars, attributes
+defmodule M do
+  @custom_attr :some_constant
+
+  @before_compile Long.Module.Name
+
+  @typedoc &quot;This is a type&quot;
+  @type typ :: integer
+
+  @typedoc &quot;&quot;&quot;
+  Another type
+  &quot;&quot;&quot;
+  @opaque typtyp :: 1..10
+
+  @spec func(typ, typtyp) :: :ok | :fail
+  def func(a, b) do
+    a || b || :ok || :fail
+    Path.expand(&quot;..&quot;, __DIR__)
+    IO.inspect __ENV__
+    __NOTAPSEUDOVAR__ = 11
+    __MODULE__.func(b, a)
+  end
+
+  defmacro m() do
+    __CALLER__
+  end
+end
+
+# Functions
+anon = fn x, y, z -&gt;
+  fn(a, b, c) -&gt;
+    &amp;(x + y - z * a / &amp;1 + b + div(&amp;2, c))
+  end
+end
+
+&amp;Set.put(&amp;1, &amp;2) ; &amp; Set.put(&amp;1, &amp;2) ; &amp;( Set.put(&amp;1, &amp;1) )
+
+# Function calls
+anon.(1, 2, 3); self; hd([1,2,3])
+Kernel.spawn(fn -&gt; :ok end)
+IO.ANSI.black
+
+# Control flow
+if :this do
+  :that
+else
+  :otherwise
+end
+
+pid = self
+receive do
+  {:EXIT, _} -&gt; :done
+  {^pid, :_} -&gt; nil
+  after 100 -&gt; :no_luck
+end
+
+case __ENV__.line do
+  x when is_integer(x) -&gt; x
+  x when x in 1..12 -&gt; -x
+end
+
+cond do
+  false -&gt; &quot;too bad&quot;
+  4 &gt; 5 -&gt; &quot;oops&quot;
+  true -&gt; nil
+end
+
+# Lexical scope modifiers
+import Kernel, except: [spawn: 1, +: 2, /: 2, Unless: 2]
+alias Long.Module.Name, as: N0men123_and4
+use Bitwise
+
+4 &amp;&amp;&amp; 5
+2 &lt;&lt;&lt; 3
+
+# Protocols
+defprotocol Useless do
+  def func1(this)
+  def func2(that)
+end
+
+defimpl Useless, for: Atom do
+end
+
+# Exceptions
+defmodule NotAnError do
+  defexception [:message]
+end
+
+raise NotAnError, message: &quot;This is not an error&quot;</code></pre>
+<p>SQL</p>
+<pre><code class="sql">BEGIN;
+CREATE TABLE &quot;topic&quot; (
+    -- This is the greatest table of all time
+    &quot;id&quot; serial NOT NULL PRIMARY KEY,
+    &quot;forum_id&quot; integer NOT NULL,
+    &quot;subject&quot; varchar(255) NOT NULL -- Because nobody likes an empty subject
+);
+ALTER TABLE &quot;topic&quot; ADD CONSTRAINT forum_id FOREIGN KEY (&quot;forum_id&quot;) REFERENCES &quot;forum&quot; (&quot;id&quot;);
+
+-- Initials
+insert into &quot;topic&quot; (&quot;forum_id&quot;, &quot;subject&quot;) values (2, 'D''artagnian');
+
+select /* comment */ count(*) from cicero_forum;
+
+-- this line lacks ; at the end to allow people to be sloppy and omit it in one-liners
+/*
+but who cares?
+*/
+COMMIT</code></pre>
+<p>Markdown</p>
+<pre><code class="markdown"># hello world
+
+you can write text [with links](http://example.com) inline or [link references][1].
+
+* one _thing_ has *em*phasis
+* two __things__ are **bold**
+
+[1]: http://example.com
+
+---
+
+hello world
+===========
+
+&lt;this_is inline=&quot;xml&quot;&gt;&lt;/this_is&gt;
+
+&gt; markdown is so cool
+
+    so are code segments
+
+1. one thing (yeah!)
+2. two thing `i can write code`, and `more` wipee!</code></pre>
+<p>Erlang</p>
+<pre><code class="erlang">-module(ssh_cli).
+
+-behaviour(ssh_channel).
+
+-include(&quot;ssh.hrl&quot;).
+%% backwards compatibility
+-export([listen/1, listen/2, listen/3, listen/4, stop/1]).
+
+if L =/= [] -&gt;      % If L is not empty
+    sum(L) / count(L);
+true -&gt;
+    error
+end.
+
+%% state
+-record(state, {
+    cm,
+    channel
+   }).
+
+-spec foo(integer()) -&gt; integer().
+foo(X) -&gt; 1 + X.
+
+test(Foo)-&gt;Foo.
+
+init([Shell, Exec]) -&gt;
+    {ok, #state{shell = Shell, exec = Exec}};
+init([Shell]) -&gt;
+    false = not true,
+    io:format(&quot;Hello, \&quot;~p!~n&quot;, [atom_to_list('World')]),
+    {ok, #state{shell = Shell}}.
+
+concat([Single]) -&gt; Single;
+concat(RList) -&gt;
+    EpsilonFree = lists:filter(
+        fun (Element) -&gt;
+            case Element of
+                epsilon -&gt; false;
+                _ -&gt; true
+            end
+        end,
+        RList),
+    case EpsilonFree of
+        [Single] -&gt; Single;
+        Other -&gt; {concat, Other}
+    end.
+
+union_dot_union({union, _}=U1, {union, _}=U2) -&gt;
+    union(lists:flatten(
+        lists:map(
+            fun (X1) -&gt;
+                lists:map(
+                    fun (X2) -&gt;
+                        concat([X1, X2])
+                    end,
+                    union_to_list(U2)
+                )
+            end,
+            union_to_list(U1)
+        ))).</code></pre>
+<p>Erlang REPL</p>
+<pre><code class="erlang-repl">Eshell V6.3  (abort with ^G)
+1&gt; A=2;
+1&gt; .
+* 2: syntax error before: '.'
+1&gt; A = 2.
+2
+2&gt; A = 3.
+** exception error: no match of right hand side value 3
+3&gt;</code></pre>
+<pre><code class="erlang-repl">1&gt; Str = &quot;abcd&quot;.
+&quot;abcd&quot;
+2&gt; L = test:length(Str).
+4
+3&gt; Descriptor = {L, list_to_atom(Str)}.
+{4,abcd}
+4&gt; L.
+4
+5&gt; b().
+Descriptor = {4,abcd}
+L = 4
+Str = &quot;abcd&quot;
+ok
+6&gt; f(L).
+ok
+7&gt; b().
+Descriptor = {4,abcd}
+Str = &quot;abcd&quot;
+ok
+8&gt; {L, _} = Descriptor.
+{4,abcd}
+9&gt; L.
+4
+10&gt; 2#101.
+5
+11&gt; 1.85e+3.
+1850</code></pre>
+<p>JavaScript</p>
+<pre><code class="javascript">function $initHighlight(block, flags) {
+  try {
+    if (block.className.search(/\bno\-highlight\b/) != -1)
+      return processBlock(block.function, true, 0x0F) + ' class=&quot;&quot;';
+  } catch (e) {
+    /* handle exception */
+    var e4x =
+        &lt;div&gt;Example
+            &lt;p&gt;1234&lt;/p&gt;&lt;/div&gt;;
+  }
+  for (var i = 0 / 2; i &lt; classes.length; i++) { // &quot;0 / 2&quot; should not be parsed as regexp
+    if (checkCondition(classes[i]) === undefined)
+      return /\d+[\s/]/g;
+  }
+  console.log(Array.every(classes, Boolean));
+}</code></pre>
+<pre><code class="js">// This is js
+function fixOutsideWorldLinks() {
+  $('a').each(function() {
+    if (window.location.host != this.host) this.target = '_parent';
+  });
+}
+
+$(fixOutsideWorldLinks);</code></pre>
+<p>Bash</p>
+<pre><code class="bash">#!/bin/bash
+
+###### BEGIN CONFIG
+ACCEPTED_HOSTS=&quot;/root/.hag_accepted.conf&quot;
+BE_VERBOSE=false
+###### END CONFIG
+
+if [ &quot;$UID&quot; -ne 0 ]
+then
+ echo &quot;Superuser rights is required&quot;
+ echo 'Printing the # sign'
+ exit 2
+fi
+
+if test $# -eq 0
+then
+elif test [ $1 == 'start' ]
+else
+fi
+
+genApacheConf(){
+ if [[ &quot;$2&quot; = &quot;www&quot; ]]
+ then
+  full_domain=$1
+ else
+  full_domain=$2.$1
+ fi
+ host_root=&quot;${APACHE_HOME_DIR}$1/$2/$(title)&quot;
+ echo -e &quot;# Host $1/$2 :&quot;
+}</code></pre>
+<p>JSON</p>
+<pre><code class="json">{
+    &quot;glossary&quot;: {
+        &quot;title&quot;: &quot;example glossary&quot;,
+    &quot;GlossDiv&quot;: {
+            &quot;title&quot;: &quot;S&quot;,
+      &quot;GlossList&quot;: {
+                &quot;GlossEntry&quot;: {
+                    &quot;ID&quot;: &quot;SGML&quot;,
+          &quot;SortAs&quot;: &quot;SGML&quot;,
+          &quot;GlossTerm&quot;: &quot;Standard Generalized Markup Language&quot;,
+          &quot;Acronym&quot;: &quot;SGML&quot;,
+          &quot;Abbrev&quot;: &quot;ISO 8879:1986&quot;,
+          &quot;GlossDef&quot;: {
+                        &quot;para&quot;: &quot;A meta-markup language, used to create markup languages such as DocBook.&quot;,
+            &quot;GlossSeeAlso&quot;: [&quot;GML&quot;, &quot;XML&quot;]
+                    },
+          &quot;GlossSee&quot;: &quot;markup&quot;
+                }
+            }
+        }
+    }
+}</code></pre>
+<pre><code class="JSON">[
+  {
+    &quot;title&quot;: &quot;apples&quot;,
+    &quot;count&quot;: [12000, 20000],
+    &quot;description&quot;: {&quot;text&quot;: &quot;...&quot;, &quot;sensitive&quot;: false}
+  },
+  {
+    &quot;title&quot;: &quot;oranges&quot;,
+    &quot;count&quot;: [17500, null],
+    &quot;description&quot;: {&quot;text&quot;: &quot;...&quot;, &quot;sensitive&quot;: false}
+  }
+]</code></pre>
+<p>NOT DEFINED</p>
+<pre><code class="elixir">[
+  {
+    &quot;title&quot;: &quot;apples&quot;,
+    &quot;count&quot;: [12000, 20000],
+    &quot;description&quot;: {&quot;text&quot;: &quot;...&quot;, &quot;sensitive&quot;: false}
+  },
+  {
+    &quot;title&quot;: &quot;oranges&quot;,
+    &quot;count&quot;: [17500, null],
+    &quot;description&quot;: {&quot;text&quot;: &quot;...&quot;, &quot;sensitive&quot;: false}
+  }
+]</code></pre>
+<p>LANGUAGE NOT SUPPORTED</p>
+<pre><code class="nosupportedlanguage">[
+  {
+    &quot;title&quot;: &quot;apples&quot;,
+    &quot;count&quot;: [12000, 20000],
+    &quot;description&quot;: {&quot;text&quot;: &quot;...&quot;, &quot;sensitive&quot;: false}
+  },
+  {
+    &quot;title&quot;: &quot;oranges&quot;,
+    &quot;count&quot;: [17500, null],
+    &quot;description&quot;: {&quot;text&quot;: &quot;...&quot;, &quot;sensitive&quot;: false}
+  }
+]</code></pre>
+<p>HTTP</p>
+<pre><code class="http">GET /tutorials/other/top-20-mysql-best-practices/ HTTP/1.1
+HTTP/1.x 200 OK
+Transfer-Encoding: chunked
+Date: Sat, 28 Nov 2009 04:36:25 GMT
+Server: LiteSpeed
+Connection: close
+X-Powered-By: W3 Total Cache/0.8
+Pragma: public
+Expires: Sat, 28 Nov 2009 05:36:25 GMT
+Etag: &quot;pub1259380237;gz&quot;
+Cache-Control: max-age=3600, public
+Content-Type: text/html; charset=UTF-8
+Last-Modified: Sat, 28 Nov 2009 03:50:37 GMT
+X-Pingback: http://net.tutsplus.com/xmlrpc.php
+Content-Encoding: gzip
+Vary: Accept-Encoding, Cookie, User-Agent
+Host: net.tutsplus.com
+User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.1.5) Gecko/20091102 Firefox/3.5.5 (.NET CLR 3.5.30729)
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-us,en;q=0.5
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+Keep-Alive: 300
+Connection: keep-alive
+Cookie: PHPSESSID=r2t5uvjq435r4q7ib3vtdjq120
+Pragma: no-cache
+Cache-Control: no-cache
+Content-Type: application/json; charset=utf-8
+Content-Length: 19
+
+{&quot;status&quot;: &quot;ok&quot;, &quot;extended&quot;: true}
+ 
+&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Strict//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd&quot;&gt;
+&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
+&lt;head&gt;
+&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot; /&gt;
+&lt;title&gt;Top 20+ MySQL Best Practices - Nettuts+&lt;/title&gt;
+&lt;!-- ... rest of the html ... --&gt;</code></pre>
+<p>CoffeeScript</p>
+<pre><code class="coffeescript">grade = (student, period=(if b? then 7 else 6), messages={&quot;A&quot;: &quot;Excellent&quot;}) -&gt;
+  if student.excellentWork
+    &quot;A+&quot;
+  else if student.okayStuff
+    if student.triedHard then &quot;B&quot; else &quot;B-&quot;
+  else
+    &quot;C&quot;
+
+square = (x) -&gt; x * x
+
+two = -&gt; 2
+
+math =
+  root:   Math.sqrt
+  square: square
+  cube:   (x) -&gt; x * square x
+
+race = (winner, runners...) -&gt;
+  print winner, runners
+
+class Animal extends Being
+  constructor: (@name) -&gt;
+
+  move: (meters) -&gt;
+    alert @name + &quot; moved #{meters}m.&quot;
+
+hi = `function() {
+  return [document.title, &quot;Hello JavaScript&quot;].join(&quot;: &quot;);
+}`
+
+heredoc = &quot;&quot;&quot;
+CoffeeScript subst test #{ 010 + 0xf / 0b10 + &quot;nested string #{ /\n/ }&quot;}
+&quot;&quot;&quot;
+
+###
+CoffeeScript Compiler v1.2.0
+Released under the MIT License
+###
+
+OPERATOR = /// ^ (
+?: [-=]&gt;             # function
+) ///</code></pre>
+<pre><code class="coffeescript">class GiftModel
+    constructor: (gifts) -&gt;
+        @gifts = ko.observableArray gifts
+
+        @addGift = =&gt;
+            @gifts.push
+                name: &quot;&quot;
+                price: &quot;&quot;
+
+        @removeGift = (gift) =&gt;
+            @gifts.remove gift
+
+        @save = (form) =&gt;
+            alert &quot;Could now transmit to server: #{ko.utils.stringifyJson @gifts}&quot;
+
+$ -&gt;</code></pre>
+<p>Diff</p>
+<pre><code class="diff">Index: languages/ini.js
+===================================================================
+--- languages/ini.js    (revision 199)
++++ languages/ini.js    (revision 200)
+@@ -1,8 +1,7 @@
+ hljs.LANGUAGES.ini =
+ {
+   case_insensitive: true,
+-  defaultMode:
+-  {
++  defaultMode: {
+     contains: ['comment', 'title', 'setting'],
+     illegal: '[^\\s]'
+   },
+
+*** /path/to/original timestamp
+--- /path/to/new      timestamp
+***************
+*** 1,3 ****
+--- 1,9 ----
++ This is an important
++ notice! It should
++ therefore be located at
++ the beginning of this
++ document!
+
+! compress the size of the
+! changes.
+
+  It is important to spell</code></pre>
+<pre><code class="diff">*** lao Sat Jan 26 23:30:39 1991
+--- tzu Sat Jan 26 23:30:50 1991
+***************
+*** 1,7 ****
+- The Way that can be told of is not the eternal Way;
+- The name that can be named is not the eternal name.
+  The Nameless is the origin of Heaven and Earth;
+! The Named is the mother of all things.
+  Therefore let there always be non-being,
+    so we may see their subtlety,
+  And let there always be being,
+--- 1,6 ----
+
+11a
+They both may be called deep and profound.
+Deeper and more profound,
+The door of all subtleties!
+.
+4c
+The named is the mother of all things.
+
+.
+1,2d
+
+@@ -1 +1,15 @@
+-!function(e){&quot;undefined&quot;!=typeof exports?e(exports):(window.hljs=e({}),&quot;function&quot;==typeof define&amp;&amp;define.amd&amp;&amp;define([],function(){return window.hljs}))}(function(e){function n(e){return e.replace(/&amp;/gm,&quot;&amp;&quot;).replace(/&lt;/gm,&quot;&lt;&quot;).replace(/&gt;/gm,&quot;&gt;&quot;)}function t(e){return e.nodeName.toLowerCase()}function r(e,n){var t=e&amp;&amp;e.exec(n);return t&amp;&amp;0==t.index}function a(e){var n=(e.className+&quot; &quot;+(e.parentNode?e.parentNode.className:&quot;&quot;)).split(/\s+/);return n=n.map(function(e){return e.replace(/^lang(uage)?-/,&quot;&quot;)}),n.filter(function(e){return N(e)||/no(-?)highlight/.test(e)})[0]}function o(e,n){var t={};for(var r in e)t[r]=e[r];if(n)for(var r in n)t[r]=n[r];return t}function i(e){var n=[];return function r(e,a){for(var o=e.firstChild;o;o=o.nextSibling)3==o.nodeType?a+=o.nodeValue.length:1==o.nodeType&amp;&amp;(n.push({event:&quot;start&quot;,offset:a,node:o}),a=r(o,a),t(o).match(/br|hr|img|input/)||n.push({event:&quot;stop&quot;,offset:a,node:o}));return a}(e,0),n}function c(e,r,a){function o(){return e.length&amp;&amp;r.length?e[0].offset!=r[0].offset?e[0].offset&lt;r[0].offset?e:r:&quot;start&quot;==r[0].event?e:r:e.length?e:r}function i(e){function r(e){return&quot; &quot;+e.nodeName+'=&quot;'+n(e.value)+'&quot;'}l+=&quot;&lt;&quot;+t(e)+Array.prototype.map.call(e.attributes,r).join(&quot;&quot;)+&quot;&gt;&quot;}function c(e){l+=&quot;&lt;/&quot;+t(e)+&quot;&gt;&quot;}function u(e){(&quot;start&quot;==e.event?i:c)(e.node)}for(var s=0,l=&quot;&quot;,f=[];e.length||r.length;){var g=o();if(l+=n(a.substr(s,g[0].offset-s)),s=g[0].offset,g==e){f.reverse().forEach(c);do u(g.splice(0,1)[0]),g=o();while(g==e&amp;&amp;g.length&amp;&amp;g[0].offset==s);f.reverse().forEach(i)}else&quot;start&quot;==g[0].event?f.push(g[0].node):f.pop(),u(g.splice(0,1)[0])}return l+n(a.substr(s))}function u(e){function n(e){return e&amp;&amp;e.source||e}function t(t,r){return RegExp(n(t),&quot;m&quot;+(e.cI?&quot;i&quot;:&quot;&quot;)+(r?&quot;g&quot;:&quot;&quot;))}function r(a,i){if(!a.compiled){if(a.compiled=!0,a.k=a.k||a.bK,a.k){var c={},u=function(n,t){e.cI&amp;&amp;(t=t.toLowerCase()),t.split(&quot; &quot;).forEach(function(e){var t=e.split(&quot;|&quot;);c[t[0]]=[n,t[1]?Number(t[1]):1]})};&quot;string&quot;==typeof a.k?u(&quot;keyword&quot;,a.k):Object.keys(a.k).forEach(function(e){u(e,a.k[e])}),a.k=c}a.lR=t(a.l||/\b[A-Za-z0-9_]+\b/,!0),i&amp;&amp;(a.bK&amp;&amp;(a.b=&quot;\\b(&quot;+a.bK.split(&quot; &quot;).join(&quot;|&quot;)+&quot;)\\b&quot;),a.b||(a.b=/\B|\b/),a.bR=t(a.b),a.e||a.eW||(a.e=/\B|\b/),a.e&amp;&amp;(a.eR=t(a.e)),a.tE=n(a.e)||&quot;&quot;,a.eW&amp;&amp;i.tE&amp;&amp;(a.tE+=(a.e?&quot;|&quot;:&quot;&quot;)+i.tE)),a.i&amp;&amp;(a.iR=t(a.i)),void 0===a.r&amp;&amp;(a.r=1),a.c||(a.c=[]);var s=[];a.c.forEach(function(e){e.v?e.v.forEach(function(n){s.push(o(e,n))}):s.push(&quot;self&quot;==e?a:e)}),a.c=s,a.c.forEach(function(e){r(e,a)}),a.starts&amp;&amp;r(a.starts,i);var l=a.c.map(function(e){return e.bK?&quot;\\.?(&quot;+e.b+&quot;)\\.?&quot;:e.b}).concat([a.tE,a.i]).map(n).filter(Boolean);a.t=l.length?t(l.join(&quot;|&quot;),!0):{exec:function(){return null}}}}r(e)}function s(e,t,a,o){function i(e,n){for(var t=0;t&lt;n.c.length;t++)if(r(n.c[t].bR,e))return n.c[t]}function c(e,n){return r(e.eR,n)?e:e.eW?c(e.parent,n):void 0}function f(e,n){return!a&amp;&amp;r(n.iR,e)}function g(e,n){var t=x.cI?n[0].toLowerCase():n[0];return e.k.hasOwnProperty(t)&amp;&amp;e.k[t]}function p(e,n,t,r){var a=r?&quot;&quot;:E.classPrefix,o='&lt;span class=&quot;'+a,i=t?&quot;&quot;:&quot;&lt;/span&gt;&quot;;return o+=e+'&quot;&gt;',o+n+i}function d(){if(!w.k)return n(y);var e=&quot;&quot;,t=0;w.lR.lastIndex=0;for(var r=w.lR.exec(y);r;){e+=n(y.substr(t,r.index-t));var a=g(w,r);a?(B+=a[1],e+=p(a[0],n(r[0]))):e+=n(r[0]),t=w.lR.lastIndex,r=w.lR.exec(y)}return e+n(y.substr(t))}function h(){if(w.sL&amp;&amp;!R[w.sL])return n(y);var e=w.sL?s(w.sL,y,!0,L[w.sL]):l(y);return w.r&gt;0&amp;&amp;(B+=e.r),&quot;continuous&quot;==w.subLanguageMode&amp;&amp;(L[w.sL]=e.top),p(e.language,e.value,!1,!0)}function v(){return void 0!==w.sL?h():d()}function b(e,t){var r=e.cN?p(e.cN,&quot;&quot;,!0):&quot;&quot;;e.rB?(M+=r,y=&quot;&quot;):e.eB?(M+=n(t)+r,y=&quot;&quot;):(M+=r,y=t),w=Object.create(e,{parent:{value:w}})}function m(e,t){if(y+=e,void 0===t)return M+=v(),0;var r=i(t,w);if(r)return M+=v(),b(r,t),r.rB?0:t.length;var a=c(w,t);if(a){var o=w;o.rE||o.eE||(y+=t),M+=v();do w.cN&amp;&amp;(M+=&quot;&lt;/span&gt;&quot;),B+=w.r,w=w.parent;while(w!=a.parent);return o.eE&amp;&amp;(M+=n(t)),y=&quot;&quot;,a.starts&amp;&amp;b(a.starts,&quot;&quot;),o.rE?0:t.length}if(f(t,w))throw new Error('Illegal lexeme &quot;'+t+'&quot; for mode &quot;'+(w.cN||&quot;&lt;unnamed&gt;&quot;)+'&quot;');return y+=t,t.length||1}var x=N(e);if(!x)throw new Error('Unknown language: &quot;'+e+'&quot;');u(x);for(var w=o||x,L={},M=&quot;&quot;,k=w;k!=x;k=k.parent)k.cN&amp;&amp;(M=p(k.cN,&quot;&quot;,!0)+M);var y=&quot;&quot;,B=0;try{for(var C,j,I=0;;){if(w.t.lastIndex=I,C=w.t.exec(t),!C)break;j=m(t.substr(I,C.index-I),C[0]),I=C.index+j}m(t.substr(I));for(var k=w;k.parent;k=k.parent)k.cN&amp;&amp;(M+=&quot;&lt;/span&gt;&quot;);return{r:B,value:M,language:e,top:w}}catch(A){if(-1!=A.message.indexOf(&quot;Illegal&quot;))return{r:0,value:n(t)};throw A}}function l(e,t){t=t||E.languages||Object.keys(R);var r={r:0,value:n(e)},a=r;return t.forEach(function(n){if(N(n)){var t=s(n,e,!1);t.language=n,t.r&gt;a.r&amp;&amp;(a=t),t.r&gt;r.r&amp;&amp;(a=r,r=t)}}),a.language&amp;&amp;(r.second_best=a),r}function f(e){return E.tabReplace&amp;&amp;(e=e.replace(/^((&lt;[^&gt;]+&gt;|\t)+)/gm,function(e,n){return n.replace(/\t/g,E.tabReplace)})),E.useBR&amp;&amp;(e=e.replace(/\n/g,&quot;&lt;br&gt;&quot;)),e}function g(e,n,t){var r=n?x[n]:t,a=[e.trim()];return e.match(/(\s|^)hljs(\s|$)/)||a.push(&quot;hljs&quot;),r&amp;&amp;a.push(r),a.join(&quot; &quot;).trim()}function p(e){var n=a(e);if(!/no(-?)highlight/.test(n)){var t;E.useBR?(t=document.createElementNS(&quot;http://www.w3.org/1999/xhtml&quot;,&quot;div&quot;),t.innerHTML=e.innerHTML.replace(/\n/g,&quot;&quot;).replace(/&lt;br[ \/]*&gt;/g,&quot;\n&quot;)):t=e;var r=t.textContent,o=n?s(n,r,!0):l(r),u=i(t);if(u.length){var p=document.createElementNS(&quot;http://www.w3.org/1999/xhtml&quot;,&quot;div&quot;);p.innerHTML=o.value,o.value=c(u,i(p),r)}o.value=f(o.value),e.innerHTML=o.value,e.className=g(e.className,n,o.language),e.result={language:o.language,re:o.r},o.second_best&amp;&amp;(e.second_best={language:o.second_best.language,re:o.second_best.r})}}function d(e){E=o(E,e)}function h(){if(!h.called){h.called=!0;var e=document.querySelectorAll(&quot;pre code&quot;);Array.prototype.forEach.call(e,p)}}function v(){addEventListener(&quot;DOMContentLoaded&quot;,h,!1),addEventListener(&quot;load&quot;,h,!1)}function b(n,t){var r=R[n]=t(e);r.aliases&amp;&amp;r.aliases.forEach(function(e){x[e]=n})}function m(){return Object.keys(R)}function N(e){return R[e]||R[x[e]]}var E={classPrefix:&quot;hljs-&quot;,tabReplace:null,useBR:!1,languages:void 0},R={},x={};return e.highlight=s,e.highlightAuto=l,e.fixMarkup=f,e.highlightBlock=p,e.configure=d,e.initHighlighting=h,e.initHighlightingOnLoad=v,e.registerLanguage=b,e.listLanguages=m,e.getLanguage=N,e.inherit=o,e.IR=&quot;[a-zA-Z][a-zA-Z0-9_]*&quot;,e.UIR=&quot;[a-zA-Z_][a-zA-Z0-9_]*&quot;,e.NR=&quot;\\b\\d+(\\.\\d+)?&quot;,e.CNR=&quot;(\\b0[xX][a-fA-F0-9]+|(\\b\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?)&quot;,e.BNR=&quot;\\b(0b[01]+)&quot;,e.RSR=&quot;!|!=|!==|%|%=|&amp;|&amp;&amp;|&amp;=|\\*|\\*=|\\+|\\+=|,|-|-=|/=|/|:|;|&lt;&lt;|&lt;&lt;=|&lt;=|&lt;|===|==|=|&gt;&gt;&gt;=|&gt;&gt;=|&gt;=|&gt;&gt;&gt;|&gt;&gt;|&gt;|\\?|\\[|\\{|\\(|\\^|\\^=|\\||\\|=|\\|\\||~&quot;,e.BE={b:&quot;\\\\[\\s\\S]&quot;,r:0},e.ASM={cN:&quot;string&quot;,b:&quot;'&quot;,e:&quot;'&quot;,i:&quot;\\n&quot;,c:[e.BE]},e.QSM={cN:&quot;string&quot;,b:'&quot;',e:'&quot;',i:&quot;\\n&quot;,c:[e.BE]},e.PWM={b:/\b(a|an|the|are|I|I'm|isn't|don't|doesn't|won't|but|just|should|pretty|simply|enough|gonna|going|wtf|so|such)\b/},e.CLCM={cN:&quot;comment&quot;,b:&quot;//&quot;,e:&quot;$&quot;,c:[e.PWM]},e.CBCM={cN:&quot;comment&quot;,b:&quot;/\\*&quot;,e:&quot;\\*/&quot;,c:[e.PWM]},e.HCM={cN:&quot;comment&quot;,b:&quot;#&quot;,e:&quot;$&quot;,c:[e.PWM]},e.NM={cN:&quot;number&quot;,b:e.NR,r:0},e.CNM={cN:&quot;number&quot;,b:e.CNR,r:0},e.BNM={cN:&quot;number&quot;,b:e.BNR,r:0},e.CSSNM={cN:&quot;number&quot;,b:e.NR+&quot;(%|em|ex|ch|rem|vw|vh|vmin|vmax|cm|mm|in|pt|pc|px|deg|grad|rad|turn|s|ms|Hz|kHz|dpi|dpcm|dppx)?&quot;,r:0},e.RM={cN:&quot;regexp&quot;,b:/\//,e:/\/[gimuy]*/,i:/\n/,c:[e.BE,{b:/\[/,e:/\]/,r:0,c:[e.BE]}]},e.TM={cN:&quot;title&quot;,b:e.IR,r:0},e.UTM={cN:&quot;title&quot;,b:e.UIR,r:0},e});hljs.registerLanguage(&quot;xml&quot;,function(){var t=&quot;[A-Za-z0-9\\._:-]+&quot;,e={b:/&lt;\?(php)?(?!\w)/,e:/\?&gt;/,sL:&quot;php&quot;,subLanguageMode:&quot;continuous&quot;},c={eW:!0,i:/&lt;/,r:0,c:[e,{cN:&quot;attribute&quot;,b:t,r:0},{b:&quot;=&quot;,r:0,c:[{cN:&quot;value&quot;,c:[e],v:[{b:/&quot;/,e:/&quot;/},{b:/'/,e:/'/},{b:/[^\s\/&gt;]+/}]}]}]};return{aliases:[&quot;html&quot;,&quot;xhtml&quot;,&quot;rss&quot;,&quot;atom&quot;,&quot;xsl&quot;,&quot;plist&quot;],cI:!0,c:[{cN:&quot;doctype&quot;,b:&quot;&lt;!DOCTYPE&quot;,e:&quot;&gt;&quot;,r:10,c:[{b:&quot;\\[&quot;,e:&quot;\\]&quot;}]},{cN:&quot;comment&quot;,b:&quot;&lt;!--&quot;,e:&quot;--&gt;&quot;,r:10},{cN:&quot;cdata&quot;,b:&quot;&lt;\\!\\[CDATA\\[&quot;,e:&quot;\\]\\]&gt;&quot;,r:10},{cN:&quot;tag&quot;,b:&quot;&lt;style(?=\\s|&gt;|$)&quot;,e:&quot;&gt;&quot;,k:{title:&quot;style&quot;},c:[c],starts:{e:&quot;&lt;/style&gt;&quot;,rE:!0,sL:&quot;css&quot;}},{cN:&quot;tag&quot;,b:&quot;&lt;script(?=\\s|&gt;|$)&quot;,e:&quot;&gt;&quot;,k:{title:&quot;script&quot;},c:[c],starts:{e:&quot;&lt;/script&gt;&quot;,rE:!0,sL:&quot;javascript&quot;}},e,{cN:&quot;pi&quot;,b:/&lt;\?\w+/,e:/\?&gt;/,r:10},{cN:&quot;tag&quot;,b:&quot;&lt;/?&quot;,e:&quot;/?&gt;&quot;,c:[{cN:&quot;title&quot;,b:/[^ \/&gt;&lt;\n\t]+/,r:0},c]}]}});hljs.registerLanguage(&quot;elixir&quot;,function(e){var r=&quot;[a-zA-Z_][a-zA-Z0-9_]*(\\!|\\?)?&quot;,b=&quot;[a-zA-Z_]\\w*[!?=]?|[-+~]\\@|&lt;&lt;|&gt;&gt;|=~|===?|&lt;=&gt;|[&lt;&gt;]=?|\\*\\*|[-/+%^&amp;*~`|]|\\[\\]=?&quot;,n=&quot;and false then defined module in return redo retry end for true self when next until do begin unless nil break not case cond alias while ensure or include use alias fn quote&quot;,c={cN:&quot;subst&quot;,b:&quot;#\\{&quot;,e:&quot;}&quot;,l:r,k:n},a={cN:&quot;string&quot;,c:[e.BE,c],v:[{b:/'/,e:/'/},{b:/&quot;/,e:/&quot;/}]},s={eW:!0,rE:!0,l:r,k:n,r:0},i={cN:&quot;function&quot;,bK:&quot;def defmacro&quot;,e:/\bdo\b/,c:[e.inherit(e.TM,{b:b,starts:s})]},l=e.inherit(i,{cN:&quot;class&quot;,bK:&quot;defmodule defrecord&quot;,e:/\bdo\b|$|;/}),t=[a,e.HCM,l,i,{cN:&quot;constant&quot;,b:&quot;(\\b[A-Z_]\\w*(.)?)+&quot;,r:0},{cN:&quot;symbol&quot;,b:&quot;:&quot;,c:[a,{b:b}],r:0},{cN:&quot;symbol&quot;,b:r+&quot;:&quot;,r:0},{cN:&quot;number&quot;,b:&quot;(\\b0[0-7_]+)|(\\b0x[0-9a-fA-F_]+)|(\\b[1-9][0-9_]*(\\.[0-9_]+)?)|[0_]\\b&quot;,r:0},{cN:&quot;variable&quot;,b:&quot;(\\$\\W)|((\\$|\\@\\@?)(\\w+))&quot;},{b:&quot;-&gt;&quot;},{b:&quot;(&quot;+e.RSR+&quot;)\\s*&quot;,c:[e.HCM,{cN:&quot;regexp&quot;,i:&quot;\\n&quot;,c:[e.BE,c],v:[{b:&quot;/&quot;,e:&quot;/[a-z]*&quot;},{b:&quot;%r\\[&quot;,e:&quot;\\][a-z]*&quot;}]}],r:0}];return c.c=t,s.c=t,{l:r,k:n,c:t}});hljs.registerLanguage(&quot;erlang&quot;,function(e){var r=&quot;[a-z'][a-zA-Z0-9_']*&quot;,c=&quot;(&quot;+r+&quot;:&quot;+r+&quot;|&quot;+r+&quot;)&quot;,a={keyword:&quot;after and andalso|10 band begin bnot bor bsl bzr bxor case catch cond div end fun if let not of orelse|10 query receive rem try when xor&quot;,literal:&quot;false true&quot;},n={cN:&quot;comment&quot;,b:&quot;%&quot;,e:&quot;$&quot;},b={cN:&quot;number&quot;,b:&quot;\\b(\\d+#[a-fA-F0-9]+|\\d+(\\.\\d+)?([eE][-+]?\\d+)?)&quot;,r:0},i={b:&quot;fun\\s+&quot;+r+&quot;/\\d+&quot;},o={b:c+&quot;\\(&quot;,e:&quot;\\)&quot;,rB:!0,r:0,c:[{cN:&quot;function_name&quot;,b:c,r:0},{b:&quot;\\(&quot;,e:&quot;\\)&quot;,eW:!0,rE:!0,r:0}]},d={cN:&quot;tuple&quot;,b:&quot;{&quot;,e:&quot;}&quot;,r:0},t={cN:&quot;variable&quot;,b:&quot;\\b_([A-Z][A-Za-z0-9_]*)?&quot;,r:0},l={cN:&quot;variable&quot;,b:&quot;[A-Z][a-zA-Z0-9_]*&quot;,r:0},f={b:&quot;#&quot;+e.UIR,r:0,rB:!0,c:[{cN:&quot;record_name&quot;,b:&quot;#&quot;+e.UIR,r:0},{b:&quot;{&quot;,e:&quot;}&quot;,r:0}]},s={bK:&quot;fun receive if try case&quot;,e:&quot;end&quot;,k:a};s.c=[n,i,e.inherit(e.ASM,{cN:&quot;&quot;}),s,o,e.QSM,b,d,t,l,f];var u=[n,i,s,o,e.QSM,b,d,t,l,f];o.c[1].c=u,d.c=u,f.c[1].c=u;var v={cN:&quot;params&quot;,b:&quot;\\(&quot;,e:&quot;\\)&quot;,c:u};return{aliases:[&quot;erl&quot;],k:a,i:&quot;(&lt;/|\\*=|\\+=|-=|/\\*|\\*/|\\(\\*|\\*\\))&quot;,c:[{cN:&quot;function&quot;,b:&quot;^&quot;+r+&quot;\\s*\\(&quot;,e:&quot;-&gt;&quot;,rB:!0,i:&quot;\\(|#|//|/\\*|\\\\|:|;&quot;,c:[v,e.inherit(e.TM,{b:r})],starts:{e:&quot;;|\\.&quot;,k:a,c:u}},n,{cN:&quot;pp&quot;,b:&quot;^-&quot;,e:&quot;\\.&quot;,r:0,eE:!0,rB:!0,l:&quot;-&quot;+e.IR,k:&quot;-module -record -undef -export -ifdef -ifndef -author -copyright -doc -vsn -import -include -include_lib -compile -define -else -endif -file -behaviour -behavior -spec&quot;,c:[v]},b,e.QSM,f,t,l,d,{b:/\.$/}]}});
++/*!
++ * highlight.js v8.4
++ * https://highlightjs.org/ 
+
+$ git status
+# On branch master
+# Changes to be committed:
+#   (use &quot;git reset HEAD ...&quot; to unstage)
+#
+#       modified:   README
+#
+
+diff --git a/README b/README
+index bccdfbd..b0ed415 100644
+--- a/README
++++ b/README
+@@ -1 +1,2 @@
+ This is the README file.
+ +One more line.</code></pre>
+<p>CSS</p>
+<pre><code class="css">avatar-change:hover{background-color:#eee}::-webkit-input-placeholder{color:#a8a8a8}.topbar{font-size:13px}.topbar .topbar-icon,.topbar .date-group-toggle,.topbar .icon-help&gt;.triangle{background-color:transparent;background-repeat:no-repeat;background-image:url('../img/share-sprite-new.png?v=15a298c15269');background-image:url('../img/share-sprite-new.svg?')
+
+body {font-family:Arial, Helvetica, sans-serif;}
+
+a {text-decoration:none;}
+.center {text-align:center;}
+
+header, footer, h1, h2, h3 {font-family:QuicksandBook, Arial, Helvetica, sans-serif; font-weight:normal;}
+#standfirst, .list-heading {font-family:Arial, Helvetica, sans-serif; font-weight:normal;}
+code, pre {font-family:&quot;Courier New&quot;, Courier, monospace;}
+code {font-weight:bold;}
+
+html, body {font-size:100%;}
+h1 {font-size:240%; text-transform:uppercase;}
+h2 {font-size:110%;}
+.extras h2 {font-size:180%;}
+h4 {font-size:100%; font-weight:normal;}
+p, ul {font-size:80%; line-height:1.4em;}
+footer a, #wiley-logo, .tool .chapter-ref, .newsletter, pre, .extra-content td {font-size:75%;}</code></pre>
+<p>HTML</p>
+<pre><code class="html">&lt;pre&gt;&lt;code class=&quot;elixir hljs&quot;&gt;&lt;span class=&quot;hljs-comment&quot;&gt;# Compute in the agent/server&lt;/span&gt;
+&lt;span class=&quot;hljs-function&quot;&gt;&lt;span class=&quot;hljs-keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;hljs-title&quot;&gt;get_something&lt;/span&gt;(agent) &lt;/span&gt;&lt;span class=&quot;hljs-keyword&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;hljs-constant&quot;&gt;Agent.&lt;/span&gt;get(agent, &lt;span class=&quot;hljs-keyword&quot;&gt;fn&lt;/span&gt; state -&gt; do_something_expensive(state) &lt;span class=&quot;hljs-keyword&quot;&gt;end&lt;/span&gt;)
+&lt;span class=&quot;hljs-keyword&quot;&gt;end&lt;/span&gt;
+
+&lt;span class=&quot;hljs-comment&quot;&gt;# Compute in the agent/client&lt;/span&gt;
+&lt;span class=&quot;hljs-function&quot;&gt;&lt;span class=&quot;hljs-keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;hljs-title&quot;&gt;get_something&lt;/span&gt;(agent) &lt;/span&gt;&lt;span class=&quot;hljs-keyword&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;hljs-constant&quot;&gt;Agent.&lt;/span&gt;get(agent, &amp;(&amp;&lt;span class=&quot;hljs-number&quot;&gt;1&lt;/span&gt;)) |&gt; do_something_expensive()
+&lt;span class=&quot;hljs-keyword&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;</code></pre>
+<p>XML</p>
+<pre><code class="xml">&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;xsl:stylesheet version=&quot;1.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;&gt;
+&lt;xsl:template match=&quot;/&quot;&gt;
+&lt;html&gt;
+&lt;body&gt;
+&lt;table border=&quot;2&quot; bgcolor=&quot;yellow&quot;&gt;
+&lt;tr&gt;
+&lt;th&gt;Title&lt;/th&gt;
+&lt;th&gt;Artist&lt;/th&gt;
+&lt;th&gt;Dynamic Content&lt;/th&gt;
+&lt;/tr&gt;
+&lt;xsl:for-each select=&quot;CATALOG/CD&quot;&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;xsl:value-of select=&quot;TITLE&quot;/&gt;&lt;/td&gt;
+&lt;td&gt;&lt;xsl:value-of select=&quot;ARTIST&quot;/&gt;&lt;/td&gt;
+&lt;td&gt;&lt;xsl:value-of select=&quot;ORACLE&quot;/&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/xsl:for-each&gt;
+&lt;/table&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+&lt;/xsl:template&gt;
+&lt;/xsl:stylesheet&gt;
+
+&lt;!DOCTYPE TVSCHEDULE [ 
+&lt;!ELEMENT TVSCHEDULE (CHANNEL+)&gt;
+&lt;!ELEMENT CHANNEL (BANNER, DAY+)&gt;
+&lt;!ELEMENT BANNER (#PCDATA)&gt;
+&lt;!ELEMENT DAY ((DATE, HOLIDAY) | (DATE, PROGRAMSLOT+))+&gt;
+&lt;!ELEMENT HOLIDAY (#PCDATA)&gt;
+&lt;!ELEMENT DATE (#PCDATA)&gt;
+&lt;!ELEMENT PROGRAMSLOT (TIME, TITLE, DESCRIPTION?)&gt;
+&lt;!ELEMENT TIME (#PCDATA)&gt;
+&lt;!ELEMENT TITLE (#PCDATA)&gt; 
+&lt;!ELEMENT DESCRIPTION (#PCDATA)&gt;
+
+&lt;!ATTLIST TVSCHEDULE  NAME CDATA #REQUIRED&gt;
+&lt;!ATTLIST CHANNEL CHAN CDATA #REQUIRED&gt;
+&lt;!ATTLIST PROGRAMSLOT VTR CDATA #IMPLIED&gt;
+&lt;!ATTLIST TITLE RATING CDATA #IMPLIED&gt;
+&lt;!ATTLIST TITLE LANGUAGE CDATA #IMPLIED&gt;
+]&gt;</code></pre>
+<pre><code class="nohighlight">#This should not be higligthed at all
+@doc &quot;Checks if the task has already executed&quot;
+def executed?(task, project) do
+  item = {task, project}
+  Agent.get(__MODULE__, fn set -&gt;
+    item in set
+  end)
+end</code></pre>
+<p>For example, in the Mix tool that ships with Elixir, we need
+to keep a set of all tasks executed by a given project. Since
+this set is shared, we can implement it with an Agent:</p>
+<pre><code class="elixir">defmodule Mix.TasksServer do
+  def start_link do
+    Agent.start_link(fn -&gt; HashSet.new end, name: __MODULE__)
+  end
+
+  @doc &quot;Checks if the task has already executed&quot;
+  def executed?(task, project) do
+    item = {task, project}
+    Agent.get(__MODULE__, fn set -&gt;
+      item in set
+    end)
+  end
+
+  @doc &quot;Marks a task as executed&quot;
+  def put_task(task, project) do
+    item = {task, project}
+    Agent.update(__MODULE__, &amp;Set.put(&amp;1, item))
+  end
+end</code></pre>
+<p>Note that agents still provide a segregation between the
+client and server APIs, as seen in GenServers. In particular,
+all code inside the function passed to the agent is executed
+by the agent. This distinction is important because you may
+want to avoid expensive operations inside the agent, as it will
+effectively block the agent until the request is fulfilled.</p>
+<p>Consider these two examples:</p>
+<pre><code class="elixir"># Compute in the agent/server
+def get_something(agent) do
+  Agent.get(agent, fn state -&gt; do_something_expensive(state) end)
+end
+
+# Compute in the agent/client
+def get_something(agent) do
+  Agent.get(agent, &amp;(&amp;1)) |&gt; do_something_expensive()
+end</code></pre>
+<p>The first one blocks the agent while the second one copies
+all the state to the client and executes the operation in the client.
+The trade-off here is exactly if the data is small enough to be
+sent to the client cheaply or large enough to require processing on
+the server (or at least some initial processing).</p>
+<h2>Name Registration</h2>
+<p>An Agent is bound to the same name registration rules as GenServers.
+Read more about it in the <a href="GenServer.html"><code class="inline">GenServer</code></a> docs.</p>
+<h2>A word on distributed agents</h2>
+<p>It is important to consider the limitations of distributed agents. Agents
+provides two APIs, one that works with anonymous functions and another
+that expects explicit module, function and arguments.</p>
+<p>In a distributed setup with multiple nodes, the API that accepts anonymous
+functions only works if the caller (client) and the agent have the same
+version of the caller module.</p>
+<p>Keep in mind this issue also shows up when performing “rolling upgrades”
+with agents. By rolling upgrades we mean the following situation: you wish
+to deploy a new version of your software by <em>shutting down</em> some of your
+nodes and replacing them with nodes running a new version of the software.
+In this setup, part of your environment will have one version of a given
+module and the other part another version (the newer one) of the same module.</p>
+<p>The best solution is to simply use the explicit module, function and arguments
+APIs when working with distributed agents.</p>
+<h2>Hot code swapping</h2>
+<p>An agent can have its code hot swapped live by simply passing a module,
+function and args tuple to the update instruction. For example, imagine
+you have an agent named <code class="inline">:sample</code> and you want to convert its inner state
+from some dict structure to a map. It can be done with the following
+instruction:</p>
+<pre><code class="elixir">{:update, :sample, {:advanced, {Enum, :into, [%{}]}}}</code></pre>
+<p>The agent’s state will be added to the given list as the first argument.</p>
+
+        </section>
+      
+
+      
+        <a href="https://github.com/elixir-lang/elixir/blob/4afdc761e3bd461e7a51b0a77e49c278331a8117/lib/elixir/lib/foobar.ex#L28" class="view_source">Source</a>
+      
+
+      
+        <h2 id="summary">Summary<span class="detail_header_links"><a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a></span></h2>
+        <table class="summary">
+          <tr>
+  <td class="summary_signature"><a href="#cast/2">cast(agent, fun)</a></td>
+  
+    <td class="summary_synopsis"><p>Performs a cast (fire and forget) operation on the agent state</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#cast/4">cast(agent, module, fun, args)</a></td>
+  
+    <td class="summary_synopsis"><p>Performs a cast (fire and forget) operation on the agent state</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#get/3">get(agent, fun, timeout \\ 5000)</a></td>
+  
+    <td class="summary_synopsis"><p>Gets an agent value via the given function</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#get/5">get(agent, module, fun, args, timeout \\ 5000)</a></td>
+  
+    <td class="summary_synopsis"><p>Gets an agent value via the given function</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#get_and_update/3">get_and_update(agent, fun, timeout \\ 5000)</a></td>
+  
+    <td class="summary_synopsis"><p>Gets and updates the agent state in one operation</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#get_and_update/5">get_and_update(agent, module, fun, args, timeout \\ 5000)</a></td>
+  
+    <td class="summary_synopsis"><p>Gets and updates the agent state in one operation</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#start/2">start(fun, options \\ [])</a></td>
+  
+    <td class="summary_synopsis"><p>Starts an agent process without links (outside of a supervision tree)</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#start/4">start(module, fun, args, options \\ [])</a></td>
+  
+    <td class="summary_synopsis"><p>Starts an agent with the given module function and arguments</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#start_link/2">start_link(fun, options \\ [])</a></td>
+  
+    <td class="summary_synopsis"><p>Starts an agent linked to the current process with the given function</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#start_link/4">start_link(module, fun, args, options \\ [])</a></td>
+  
+    <td class="summary_synopsis"><p>Starts an agent linked to the current process with the given module
+function and arguments</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#stop/2">stop(agent, timeout \\ 5000)</a></td>
+  
+    <td class="summary_synopsis"><p>Stops the agent</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#update/3">update(agent, fun, timeout \\ 5000)</a></td>
+  
+    <td class="summary_synopsis"><p>Updates the agent state</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#update/5">update(agent, module, fun, args, timeout \\ 5000)</a></td>
+  
+    <td class="summary_synopsis"><p>Updates the agent state</p>
+</td>
+  
+</tr>
+
+        </table>
+      
+
+      
+        <section id="types_details" class="details_list">
+          <h2>Types <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a></h2>
+          <div class="type_detail">
+  <p class="typespec" id="t:on_start/0">
+    <a href="#t:on_start/0">on_start</a> :: {:ok, pid} | {:error, {:already_started, pid} | term}
+  </p>
+  
+      <div class="typespec_doc"><p>Return values of <code class="inline">start*</code> functions</p>
+</div>
+  
+</div>
+<div class="type_detail">
+  <p class="typespec" id="t:name/0">
+    <a href="#t:name/0">name</a> :: atom | {:global, term} | {:via, module, term}
+  </p>
+  
+      <div class="typespec_doc"><p>The agent name</p>
+</div>
+  
+</div>
+<div class="type_detail">
+  <p class="typespec" id="t:agent/0">
+    <a href="#t:agent/0">agent</a> :: pid | {atom, node} | <a href="#t:name/0">name</a>
+  </p>
+  
+      <div class="typespec_doc"><p>The agent reference</p>
+</div>
+  
+</div>
+<div class="type_detail">
+  <p class="typespec" id="t:state/0">
+    <a href="#t:state/0">state</a> :: term
+  </p>
+  
+      <div class="typespec_doc"><p>The agent state</p>
+</div>
+  
+</div>
+
+        </section>
+      
+
+      
+        <section id="functions_details" class="details_list">
+          <h2>Functions</h2>
+          <section class="detail">
+  <div class="detail_header" id="cast/2">
+    <span class="signature"><strong>cast(agent, fun)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#cast/2" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>cast(<a href="#t:agent/0">agent</a>, (<a href="#t:state/0">state</a> -> <a href="#t:state/0">state</a>)) :: :ok</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Performs a cast (fire and forget) operation on the agent state.</p>
+<p>The function <code class="inline">fun</code> is sent to the <code class="inline">agent</code> which invokes the function
+passing the agent state. The function must return the new state.</p>
+<p>Note that <code class="inline">cast</code> returns <code class="inline">:ok</code> immediately, regardless of whether the
+destination node or agent exists.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/4afdc761e3bd461e7a51b0a77e49c278331a8117/lib/elixir/lib/foobar.ex#L1140" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="cast/4">
+    <span class="signature"><strong>cast(agent, module, fun, args)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#cast/4" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>cast(<a href="#t:agent/0">agent</a>, module, atom, [term]) :: :ok</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Performs a cast (fire and forget) operation on the agent state.</p>
+<p>Same as <a href="#cast/2"><code class="inline">cast/2</code></a> but a module, function and args are expected
+instead of an anonymous function. The state is added as first
+argument to the given list of args.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/4afdc761e3bd461e7a51b0a77e49c278331a8117/lib/elixir/lib/foobar.ex#L1152" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="get/3">
+    <span class="signature"><strong>get(agent, fun, timeout \\ 5000)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#get/3" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>get(<a href="#t:agent/0">agent</a>, (<a href="#t:state/0">state</a> -> a), timeout) :: a when a: var</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Gets an agent value via the given function.</p>
+<p>The function <code class="inline">fun</code> is sent to the <code class="inline">agent</code> which invokes the function
+passing the agent state. The result of the function invocation is
+returned.</p>
+<p>A timeout can also be specified (it has a default value of 5000).</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/4afdc761e3bd461e7a51b0a77e49c278331a8117/lib/elixir/lib/foobar.ex#L1061" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="get/5">
+    <span class="signature"><strong>get(agent, module, fun, args, timeout \\ 5000)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#get/5" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>get(<a href="#t:agent/0">agent</a>, module, atom, [term], timeout) :: any</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Gets an agent value via the given function.</p>
+<p>Same as <a href="#get/3"><code class="inline">get/3</code></a> but a module, function and args are expected
+instead of an anonymous function. The state is added as first
+argument to the given list of args.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/4afdc761e3bd461e7a51b0a77e49c278331a8117/lib/elixir/lib/foobar.ex#L1073" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="get_and_update/3">
+    <span class="signature"><strong>get_and_update(agent, fun, timeout \\ 5000)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#get_and_update/3" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>get_and_update(<a href="#t:agent/0">agent</a>, (<a href="#t:state/0">state</a> -> {a, <a href="#t:state/0">state</a>}), timeout) :: a when a: var</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Gets and updates the agent state in one operation.</p>
+<p>The function <code class="inline">fun</code> is sent to the <code class="inline">agent</code> which invokes the function
+passing the agent state. The function must return a tuple with two
+elements, the first being the value to return (i.e. the <code class="inline">get</code> value)
+and the second one is the new state.</p>
+<p>A timeout can also be specified (it has a default value of 5000).</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/4afdc761e3bd461e7a51b0a77e49c278331a8117/lib/elixir/lib/foobar.ex#L1088" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="get_and_update/5">
+    <span class="signature"><strong>get_and_update(agent, module, fun, args, timeout \\ 5000)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#get_and_update/5" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>get_and_update(<a href="#t:agent/0">agent</a>, module, atom, [term], timeout) :: any</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Gets and updates the agent state in one operation.</p>
+<p>Same as <a href="#get_and_update/3"><code class="inline">get_and_update/3</code></a> but a module, function and args are expected
+instead of an anonymous function. The state is added as first
+argument to the given list of args.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/4afdc761e3bd461e7a51b0a77e49c278331a8117/lib/elixir/lib/foobar.ex#L1100" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="start/2">
+    <span class="signature"><strong>start(fun, options \\ [])</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#start/2" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>start((() -> term), <a href="GenServer.html#t:options/0">GenServer.options</a>) :: <a href="#t:on_start/0">on_start</a></li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Starts an agent process without links (outside of a supervision tree).</p>
+<p>See <a href="#start_link/2"><code class="inline">start_link/2</code></a> for more information.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/4afdc761e3bd461e7a51b0a77e49c278331a8117/lib/elixir/lib/foobar.ex#L1036" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="start/4">
+    <span class="signature"><strong>start(module, fun, args, options \\ [])</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#start/4" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>start(module, atom, [any], <a href="GenServer.html#t:options/0">GenServer.options</a>) :: <a href="#t:on_start/0">on_start</a></li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Starts an agent with the given module function and arguments.</p>
+<p>Similar to <a href="#start/2"><code class="inline">start/2</code></a> but a module, function and args are expected
+instead of an anonymous function.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/4afdc761e3bd461e7a51b0a77e49c278331a8117/lib/elixir/lib/foobar.ex#L1047" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="start_link/2">
+    <span class="signature"><strong>start_link(fun, options \\ [])</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#start_link/2" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>start_link((() -> term), <a href="GenServer.html#t:options/0">GenServer.options</a>) :: <a href="#t:on_start/0">on_start</a></li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Starts an agent linked to the current process with the given function.</p>
+<p>This is often used to start the agent as part of a supervision tree.</p>
+<p>Once the agent is spawned, the given function is invoked and its return
+value is used as the agent state. Note that <code class="inline">start_link</code> does not return
+until the given function has returned.</p>
+<h2>Options</h2>
+<p>The <code class="inline">:name</code> option is used for registration as described in the module
+documentation.</p>
+<p>If the <code class="inline">:timeout</code> option is present, the agent is allowed to spend at most
+the given number of milliseconds on initialization or it will be terminated
+and the start function will return <code class="inline">{:error, :timeout}</code>.</p>
+<p>If the <code class="inline">:debug</code> option is present, the corresponding function in the
+<a href="http://www.erlang.org/doc/man/sys.html"><code class="inline">:sys</code> module</a> will be invoked.</p>
+<p>If the <code class="inline">:spawn_opt</code> option is present, its value will be passed as options
+to the underlying process as in <a href="Process.html#spawn/4"><code class="inline">Process.spawn/4</code></a>.</p>
+<h2>Return values</h2>
+<p>If the server is successfully created and initialized, the function returns
+<code class="inline">{:ok, pid}</code>, where <code class="inline">pid</code> is the pid of the server. If there already exists
+an agent with the specified name, the function returns
+<code class="inline">{:error, {:already_started, pid}}</code> with the pid of that process.</p>
+<p>If the given function callback fails with <code class="inline">reason</code>, the function returns
+<code class="inline">{:error, reason}</code>.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/4afdc761e3bd461e7a51b0a77e49c278331a8117/lib/elixir/lib/foobar.ex#L1014" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="start_link/4">
+    <span class="signature"><strong>start_link(module, fun, args, options \\ [])</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#start_link/4" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>start_link(module, atom, [any], <a href="GenServer.html#t:options/0">GenServer.options</a>) :: <a href="#t:on_start/0">on_start</a></li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Starts an agent linked to the current process with the given module
+function and arguments.</p>
+<p>Same as <a href="#start_link/2"><code class="inline">start_link/2</code></a> but a module, function and args are expected
+instead of an anonymous function.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/4afdc761e3bd461e7a51b0a77e49c278331a8117/lib/elixir/lib/foobar.ex#L1026" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="stop/2">
+    <span class="signature"><strong>stop(agent, timeout \\ 5000)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#stop/2" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>stop(<a href="#t:agent/0">agent</a>, timeout) :: :ok</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Stops the agent.</p>
+<p>Returns <code class="inline">:ok</code> if the agent is stopped within the given <code class="inline">timeout</code>.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/4afdc761e3bd461e7a51b0a77e49c278331a8117/lib/elixir/lib/foobar.ex#L1162" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="update/3">
+    <span class="signature"><strong>update(agent, fun, timeout \\ 5000)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#update/3" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>update(<a href="#t:agent/0">agent</a>, (<a href="#t:state/0">state</a> -> <a href="#t:state/0">state</a>), timeout) :: :ok</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Updates the agent state.</p>
+<p>The function <code class="inline">fun</code> is sent to the <code class="inline">agent</code> which invokes the function
+passing the agent state. The function must return the new state.</p>
+<p>A timeout can also be specified (it has a default value of 5000).
+This function always returns <code class="inline">:ok</code>.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/4afdc761e3bd461e7a51b0a77e49c278331a8117/lib/elixir/lib/foobar.ex#L1114" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="update/5">
+    <span class="signature"><strong>update(agent, module, fun, args, timeout \\ 5000)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#update/5" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>update(<a href="#t:agent/0">agent</a>, module, atom, [term], timeout) :: :ok</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Updates the agent state.</p>
+<p>Same as <a href="#update/3"><code class="inline">update/3</code></a> but a module, function and args are expected
+instead of an anonymous function. The state is added as first
+argument to the given list of args.</p>
+
+  </section>
+  
+    <a href="https://github.com/elixir-lang/elixir/blob/4afdc761e3bd461e7a51b0a77e49c278331a8117/lib/elixir/lib/foobar.ex#L1126" class="view_source">Source</a>
+  
+</section>
+
+        </section>
+      
+
+      
+
+      
+    </section>
+  </body>
+</html>
